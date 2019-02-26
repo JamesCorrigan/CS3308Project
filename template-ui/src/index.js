@@ -7,7 +7,6 @@ import store, { history } from './store'
 import App from './containers/app'
 import './styles/index.css'
 
-const target = document.querySelector('#root')
 
 ReactDOM.render(
   <Provider store={store}>
