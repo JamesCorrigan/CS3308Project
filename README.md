@@ -17,6 +17,8 @@ Docs:
   Redux:
     https://redux.js.org/introduction/getting-started
     //More
+    Redux and Websocket:
+      https://medium.com/@ianovenden/redux-websocket-integration-c1a0d22d3189
   React-Router:
     https://reacttraining.com/react-router/web/guides/quick-start
     //More
