@@ -4,6 +4,7 @@ import thunk from 'redux-thunk'
 import createHistory from 'history/createBrowserHistory'
 import rootReducer from './modules'
 
+//Create History for UI
 export const history = createHistory()
 
 const initialState = {}

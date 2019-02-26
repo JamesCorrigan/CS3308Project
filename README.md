@@ -10,3 +10,15 @@ Docs:
     https://www.reddit.com/dev/api/
 
     https://developer.twitter.com/en/docs/twitter-for-websites/overview
+
+  React:
+    https://reactjs.org/docs/
+    //More
+  Redux:
+    https://redux.js.org/introduction/getting-started
+    //More
+  React-Router:
+    https://reacttraining.com/react-router/web/guides/quick-start
+    //More
+  NPM:
+    https://docs.npmjs.com/
