@@ -47,9 +47,9 @@ class Home extends Component {
 
 const mapStateToProps = state => {
   return {
-    count: state.count,
-    isIncrementing: state.isIncrementing,
-    isDecrementing: state.isDecrementing
+    count: state.countReducer.count,
+    isIncrementing: state.countReducer.isIncrementing,
+    isDecrementing: state.countReducer.isDecrementing
   }
 }
 
