@@ -11,20 +11,26 @@ export const request = () => dispatch => {
   } catch (e) {
     console.error(e)
   }
-  */
 }
+*/
 
-export const request(obj) {
+export function request(obj) {
   return {
-    type: ACTION_CALL
+    type: actionType.ACTION_CALL,
     obj
   };
 };
 
-export const recieve(json) {
+export function recieve(json) {
   return {
-    type: CALL_RECIEVED,
+    type: actionType.CALL_RECIEVED,
     data: json.data,
     time: Date.now()
   }
+}
+
+export function fetchMembers() {
+  fetch('/users').then(res => res.json()).then(members => {
+    console.log(members);
+  })
 }

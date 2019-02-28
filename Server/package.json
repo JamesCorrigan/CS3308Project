@@ -1,15 +1,17 @@
 {
-  "name": "server",
-  "version": "1.0.0",
-  "description": "Demo login DB server",
-  "main": "login-db.js",
+  "name": "application-name",
+  "version": "0.0.1",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js"
   },
-  "author": "James Corrigan",
-  "license": "ISC",
   "dependencies": {
-    "express": "^4.16.4",
-    "mysql": "^2.16.0"
+    "express": "~4.0.0",
+    "static-favicon": "~1.0.0",
+    "morgan": "~1.0.0",
+    "cookie-parser": "~1.0.1",
+    "body-parser": "~1.0.0",
+    "debug": "~0.7.4",
+    "jade": "~1.3.0"
   }
 }

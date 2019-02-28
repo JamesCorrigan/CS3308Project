@@ -25,6 +25,7 @@
     "redux-thunk": "2.3.0",
     "serve": "10.1.2"
   },
+  "proxy": "http://localhost:4000",
   "browserslist": [
     ">0.2%",
     "not dead",
