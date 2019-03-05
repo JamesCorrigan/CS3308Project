@@ -3,14 +3,8 @@ Group Project for CSCI 3308
 
 Docs:
 
-  API:
-
-    https://developers.facebook.com/docs/graph-api/
-
-    https://www.reddit.com/dev/api/
-
-    https://developer.twitter.com/en/docs/twitter-for-websites/overview
-
+  Backend:
+    https://blog.logrocket.com/setting-up-a-restful-api-with-node-js-and-postgresql-d96d6fc892d8
   React:
     https://reactjs.org/docs/
     //More

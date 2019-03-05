@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as countActions from '../../redux/actions/countActions.js';
 import * as albumActions from '../../redux/actions/albumActions.js';
+import LoginForm from '../basic/LoginForm.js';
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -18,6 +19,7 @@ class Home extends Component {
     return (
       <div>
         <h1>Home</h1>
+        <LoginForm />
         <p>Count: {this.props.count}</p>
 
         <p>
