@@ -7,13 +7,13 @@ export function fetchMembers() {
 }
 
 /*Login handler function*/
-function loginHandler(username, password) {
+function loginHandler(email, password) {
   const requestOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ username, password })
+    body: JSON.stringify({ email, password })
   };
-  return fetch('/users/authenticate', requestOptions)
+  return fetch('/login', requestOptions)
     .then(responseHandler)
     .then(user => {
         localStorage.setItem('user', JSON.stringify(user));
@@ -22,21 +22,37 @@ function loginHandler(username, password) {
 }
 
 /*Login wrapper function*/
-function request(user) { return { type: actionType.LOGIN_REQUEST, user } }
-function success(user) { return { type: actionType.LOGIN_SUCCESS, user } }
-function failure(error) { return { type: actionType.LOGIN_FAILED, error } }
 
-export function login(username, password) {
-  console.log(username, password);
+
+export function login(email, password) {
+  console.log(email, password);
   return dispatch => {
-    dispatch(request({ username }))
-    loginHandler(username, password).then(user => {
-      dispatch(success(user))
+    dispatch({ type: actionType.LOGIN_REQUEST, email });
+    loginHandler(email, password).then(user => {
+      dispatch({ type: actionType.LOGIN_SUCCESS, user })
     }, error => {
-      dispatch(failure(error))
+      dispatch({ type: actionType.LOGIN_FAILED, error })
     });
   }
 
+}
+
+function registerHandler(obj) {
+  const requestOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(obj)
+  };
+  return fetch('/register', requestOptions);
+}
+
+export function register(first_name, last_name, email, password) {
+  console.log('registering:');
+
+  return dispatch => {
+    dispatch({type: actionType.REGISTER_REQUEST});
+    registerHandler(first_name, last_name, email, password)
+  }
 }
 
 
@@ -51,22 +67,10 @@ function responseHandler(response) {
                 //logout();
                 //location.reload(true);
             }
-
             const error = (data && data.message) || response.statusText;
             return Promise.reject(error);
         }
 
         return data;
     });
-}
-
-export function createUser(username, password) {
-  return dispatch => {
-    dispatch(request({ username }))
-    loginHandler(username, password).then(user => {
-      dispatch(success(user))
-    }, error => {
-      dispatch(failure(error))
-    });
-  }
 }

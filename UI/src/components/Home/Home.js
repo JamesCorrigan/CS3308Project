@@ -8,39 +8,34 @@ import * as homeActions from '../../redux/actions/homeActions.js';
 import * as loginActions from '../../redux/actions/loginActions.js';
 
 import LoginForm from '../basic/LoginForm.js';
+import RegisterForm from '../basic/RegisterForm.js';
+
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = {members: null}
+    this.state = {
+      loggedIn: false,
+      showRegister: false,
+    }
+    this.handleChange = this.handleChange.bind(this);
   };
-
+  handleChange = e => {
+    e.preventDefault();
+    this.setState(prevState => {return {showRegister: !prevState.showRegister}});
+  }
   componentDidMount() {
     fetch('/users').then(res=>res.json()).then(members => this.setState({members}))
   }
 
   render() {
+    const linkText = this.state.showRegister ? "Login" : "Register New User";
     return (
       <div>
         <h1>Home</h1>
-        <LoginForm
-          login={this.props.loginActions.login}
-          createUser={this.props.loginActions.createUser}
-        />
-        <p>Count: {this.props.count}</p>
-
-        <p>
-          <button onClick={this.props.countActions.increment}>Increment</button>
-          <button onClick={this.props.countActions.incrementAsync} disabled={this.props.isIncrementing}>
-            Increment Async
-          </button>
-        </p>
-
-        <p>
-          <button onClick={this.props.countActions.decrement}>Decrement</button>
-          <button onClick={this.props.countActions.decrementAsync} disabled={this.props.isDecrementing}>
-            Decrement Async
-          </button>
-        </p>
+        <h3 onClick={this.handleChange}>{linkText}</h3>
+        {this.state.showRegister ?
+          <RegisterForm register={this.props.loginActions.register} />
+        : <LoginForm login={this.props.loginActions.login} /> }
       </div>
     );
   };

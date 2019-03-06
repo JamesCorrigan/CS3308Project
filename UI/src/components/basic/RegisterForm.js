@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 
-export default class LoginForm extends Component {
+export default class RegisterForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      first_name: '',
+      last_name: '',
       email: '',
       password: ''
     };
@@ -18,17 +20,30 @@ export default class LoginForm extends Component {
   handleSubmit(e) {
     e.preventDefault();
     this.setState({ submitted: true });
-    const { email, password } = this.state;
-    if (email && password) {
-        this.props.login(email, password);
+    const rObj = {
+      first_name: this.state.first_name,
+      last_name: this.state.last_name,
+      email: this.state.email,
+      password: this.state.password
+    }
+    if (rObj.first_name && rObj.last_name && rObj.email && rObj.password) {
+        this.props.register(rObj);
     }
   }
   render() {
     //BASIC LOGIN FORM:
-    const { email, password, submitted } = this.state;
+    const { first_name, last_name, email, password, submitted } = this.state;
     return (
-      <div className='login-form'>
+      <div className='register-form'>
         <form onSubmit={this.handleSubmit}>
+          <label>
+            First Name:
+            <input type='text' name='first_name' value={first_name} onChange={this.handleChange}/>
+          </label>
+          <label>
+            Last Name:
+            <input type='text' name='last_name' value={last_name} onChange={this.handleChange}/>
+          </label>
           <label>
             email:
             <input type='text' name='email' value={email} onChange={this.handleChange}/>

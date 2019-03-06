@@ -10,17 +10,19 @@ app.use(
   })
 );
 
+var router = express.Router();
+
 app.get('/', (req, res) => {
   res.json({ info: 'api info'});
 });
 
 app.get('/users', db.getUsers);
 app.get('/users/:id', db.getUserById);
-app.post('/users', db.createUser);
 app.put('/users/:id', db.updateUser);
 app.delete('/users/:id', db.deleteUser);
-app.get('/users/authenticate', db.login);
-
+app.post('/register', db.register);
+app.post('/login', db.login);
+app.use('/api', router)
 
 app.listen(port, () => {
   console.log(`App running on port ${port}`);
