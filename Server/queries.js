@@ -93,30 +93,34 @@ const register = (req,res) => {
 
 const login = (req, res) => {
   //load username / password
-  let params = req.body;
-  const email = params.email;
-  const password = params.password;
-  pool.query('SELECT * FROM users WHERE email = ?', [email], (err, results, fields) => {
-    if (err) {
-      console.log("error", err);
+  const tempmail = req.body.email;
+  const password = req.body.password;
+  pool.query('SELECT * FROM users WHERE email = ($1)', [tempmail], (error, results, fields) => {
+    console.log(error);
+    if (error !== undefined) {
+      console.log("error is::", error);
       res.send({
         "code": 400,
         "failed": "error"
       });
     } else {
-      if (results.length > 0) {
-        if (results[0].password == password) {
+      console.log(results.rows[0]);
+      if (results.rows.length > 0) {
+        if (results.rows[0].password == password) {
+          console.log('logged in');
           res.send({
             "code": 200,
             "success": "login successful"
           });
         } else {
+          console.log('wrong password');
           res.send({
             "code": 204,
             "success": "Wrong Password"
           });
         }
       } else {
+        console.log('user does not exist');
         res.send({
           "code": 204,
           "success": "User Does not exist"
