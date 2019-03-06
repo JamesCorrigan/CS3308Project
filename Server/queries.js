@@ -63,10 +63,19 @@ const deleteUser = (req, res) => {
   })
 }
 
+const login = (req, res) => {
+  //load username / password
+  let params = req.body;
+  console.log(params);
+
+  //pull user with same name from db, then check password
+}
+
 module.exports = {
   getUsers,
   getUserById,
   createUser,
   updateUser,
-  deleteUser
+  deleteUser,
+  login
 }

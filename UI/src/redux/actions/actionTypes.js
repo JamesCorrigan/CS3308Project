@@ -8,3 +8,7 @@ export const DECREMENT = 'DECREMENT';
 export const ACTION_CALL = 'ACTION_CALL';
 export const CALL_RECIEVED = 'CALL_RECIEVED';
 export const CALL_FAILED = 'CALL_FAILED';
+
+export const LOGIN_REQUEST = 'LOGIN_REQUEST';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_FAILED = 'LOGIN_FAILED';

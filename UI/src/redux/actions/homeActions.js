@@ -1,19 +1,5 @@
 import * as actionType from './actionTypes';
 
-/*
-FOR WEBSOCKET:
-export const request = () => dispatch => {
-  try {
-
-    window.webSocket.sendCommand('action.call', {}, response => {
-      //response
-    });
-  } catch (e) {
-    console.error(e)
-  }
-}
-*/
-
 export function request(obj) {
   return {
     type: actionType.ACTION_CALL,

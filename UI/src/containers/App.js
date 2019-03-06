@@ -14,15 +14,16 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.callUsers().then(res => this.setState({data: res}))
-    .catch(err => console.log(JSON.stringify(err)));
-    console.log(this.state)
+    //this.callUsers().then(res => )
+    //this.callUsers().then(res => this.setState({data: res}))
+    //.catch(err => console.log(JSON.stringify(err)));
+    //console.log(this.state)
   }
   //demo server call
   callBackendAPI = async () => {
-    const response = await fetch('/');
-    const body = await response.json();
-     if (response.status !== 200) {
+    const res = await fetch('/');
+    const body = await res.json();
+     if (res.status !== 200) {
        throw Error(body.message)
      }
      return body;
@@ -30,7 +31,9 @@ class App extends Component {
 
   callUsers = async () => {
     const response = await fetch('/users');
+    console.log('response', response);
     const body = await response.json();
+    console.log('body', body);
      if (response.status !== 200) {
        throw Error(body.message)
      }
