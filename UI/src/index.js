@@ -9,7 +9,8 @@ import store, { history } from './store';
 import App from './containers/App.js';
 import './styles/index.css';
 
-
+//ROOT OF THE REACT PROJECT.
+//CHILD COMPONENT IS /containers/App.js
 ReactDOM.render(
   <Provider store={store}>
       <BrowserRouter>

@@ -8,29 +8,27 @@ import * as homeActions from '../redux/actions/homeActions.js';
 import * as loginActions from '../redux/actions/loginActions.js';
 
 import Footer from '../components/Footer/Footer';
+//Selector has deteailed links to pages
 import Selector from '../components/Home/Selector';
 
 /*Home*/
 class Home extends Component {
   constructor(props) {
+    //initialize props and state
     super(props);
     this.state = {}
     this.handleChange = this.handleChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
   };
   handleChange = e => {
+    //show login or register form
     e.preventDefault();
     this.setState(prevState => {return {showRegister: !prevState.showRegister}});
-  }
-
-  handleClick = e => {
-    e.preventDefault();
-    this.setState(prevState => {return {showModal: !prevState.showModal}});
   }
 
   render() {
     const body = this.props.loggedIn ? (
       <main role="main">
+      {/*if logged in, render main page*/}
         <div class="module mid">
           <h2>Family Time</h2>
           <h3>Home Page</h3>
@@ -49,6 +47,7 @@ class Home extends Component {
       </main>
     ) : (
       <main role="main">
+      {/*Else, render page asking for login*/}
         <div class="module mid">
           <h2>Family Time</h2>
           <h3>Log in to use features</h3>
@@ -66,6 +65,8 @@ class Home extends Component {
   };
 };
 
+
+//REDUX LINKS, DO NOT EDIT
 const mapStateToProps = state => {
   return {
     homeReducer: state.homeReducer,
