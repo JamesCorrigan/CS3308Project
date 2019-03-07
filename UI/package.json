@@ -11,7 +11,7 @@
     "precommit": "pretty-quick --staged"
   },
   "devDependencies": {
-    "react-scripts": "^2.1.5"
+    "react-scripts": "^2.1.8"
   },
   "dependencies": {
     "bootstrap": "^4.3.1",
