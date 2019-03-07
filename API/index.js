@@ -30,10 +30,15 @@ app.put('/users/:id', db.updateUser);
 
 //DELETE a user (old)
 app.delete('/users/:id', db.deleteUser);
+
+//POST to register a user
 app.post('/register', db.register);
+
+//POST TO
 app.post('/login', db.login);
 app.use('/api', router);
 
+//Listen on chosen port
 app.listen(port, () => {
   console.log(`App running on port ${port}`);
 });
