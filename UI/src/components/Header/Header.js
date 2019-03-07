@@ -23,7 +23,7 @@ export default class Header extends Component {
       <ul className="navbar-nav mr-auto">
             </ul>
             <div className="form-inline mt-2 mt-md-0">
-              <button className="btn btn-outline-success my-2 my-sm-0" onClick={this.handleShow}>Login</button>
+              <button className="btn btn-outline-success my-2 my-sm-0" onClick={this.props.handleShow}>Login</button>
             </div>
         </nav>
       </header>

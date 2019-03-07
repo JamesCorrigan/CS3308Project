@@ -1,20 +1,24 @@
 import React, {Component, Button} from 'react';
 import { Route, Link } from 'react-router-dom';
-import Home from '../components/Home/Home.js';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as albumActions from '../redux/actions/albumActions.js';
+import * as homeActions from '../redux/actions/homeActions.js';
+import * as loginActions from '../redux/actions/loginActions.js';
+
+import Home from './Home';
 import Vacations from '../components/Vacations/Vacations.js';
 import Header from '../components/Header/Header.js';
 import PhotoAlbum from '../components/PhotoAlbum/PhotoAlbum.js';
 import MealPlan from '../components/MealPlan/MealPlan.js';
 import LoginModal from '../components/basic/Modal.js';
-import LoginForm from '../components/basic/LoginForm.js';
-import RegisterForm from '../components/basic/RegisterForm.js';
 
 class App extends Component {
   constructor(props) {
     super(props);
+    let show = !this.props.loggedIn ? true : false;
     this.state = {
       data: null,
-      loggedIn: false,
       showModal: false
     }
     this.handleShow = this.handleShow.bind(this);
@@ -31,36 +35,12 @@ class App extends Component {
     this.setState({showModal: true});
   }
   render() {
-    const loginModal = (
-      <LoginModal
-        handleClose={this.handleClose}
-      >
-      </LoginModal>
-    );
-
-    const header = (
-      <header>
-        <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-          <a className="navbar-brand" href="familySite.html">FamilyTime</a>
-          <Link to="/" className='header-link'>Home</Link>
-          <Link to="/photoalbum" className='header-link'>Album</Link>
-          <Link to="/vacations" className='header-link'>Vacations</Link>
-          <Link to="/mealplan" className='header-link'>Meals</Link>
-          <ul className="navbar-nav mr-auto">
-            </ul>
-            <div className="form-inline mt-2 mt-md-0">
-              <button className="btn btn-outline-success my-2 my-sm-0" onClick={this.handleShow}>
-                Login
-              </button>
-            </div>
-        </nav>
-      </header>
-    );
 
     return (
       <div>
-        {header}
-        {this.state.showModal ? loginModal : null}
+        <Header handleShow={this.handleShow} />
+        {this.state.showModal ?
+          <LoginModal handleClose={this.handleClose} /> : null}
         <main>
           <Route exact path="/" component={Home} />
           <Route exact path="/vacations" component={Vacations} />
@@ -72,4 +52,24 @@ class App extends Component {
   }
 }
 
-export default App
+const mapStateToProps = state => {
+  return {
+    homeReducer: state.homeReducer,
+    loginReducer: state.loginReducer,
+    loggedIn: state.loginReducer.loggedIn,
+    user: state.loginReducer.user
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    albumActions: bindActionCreators(albumActions, dispatch),
+    homeActions: bindActionCreators(homeActions, dispatch),
+    loginActions: bindActionCreators(loginActions, dispatch)
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App)
