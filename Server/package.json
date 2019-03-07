@@ -1,15 +1,14 @@
 {
-  "name": "server",
+  "name": "node-api-server",
   "version": "1.0.0",
-  "description": "Demo login DB server",
-  "main": "login-db.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "James Corrigan",
-  "license": "ISC",
+  "description": "server test",
+  "main": "index.js",
+  "license": "MIT",
   "dependencies": {
     "express": "^4.16.4",
-    "mysql": "^2.16.0"
+    "pg": "^7.8.1"
+  },
+  "scripts": {
+    "start": "node index.js"
   }
 }

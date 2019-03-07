@@ -12,12 +12,12 @@
 /* Padding below the footer and lighter body text */
 
 body {
-  background:
+  background: 
   linear-gradient(
       rgba(0, 0, 0, 0.6),
       rgba(0, 0, 0, 0.6)
     ),
-  url(familyHome.jpg) no-repeat center center fixed;
+  url(familyHome.jpg) no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -54,15 +54,8 @@ body {
 .botpage{
 	margin-top: 500px;
 	background-color: white;
-
+	
 }
-
-.header-link {
-  margin-right: 10px;
-  color: #28a745;
-
-}
-
 .img-fluid{
 	max-width: 100%;
 	height: auto;
@@ -80,61 +73,8 @@ body {
   margin-left: .75rem;
 }
 .row{
-
+	
 }
 footer{
 	padding-bottom: 50px;
-}
-
-button:disabled {
-  opacity: 0.5;
-}
-
-.login-form {
-  display: inline-flex;
-  align-items: flex-end;
-}
-
-.register-form {
-  display: block;
-  width: 50%;
-}
-
-input[type=text] {
-  width: 100%;
-  margin: 8px 0;
-  box-sizing: border-box;
-}
-
-input[type=password] {
-  width: 100%;
-  margin: 8px 0;
-  box-sizing: border-box;
-}
-
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width:100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-}
-
-.modal-main {
-  position:fixed;
-  background: white;
-  width: 80%;
-  height: auto;
-  top:50%;
-  left:50%;
-  transform: translate(-50%,-50%);
-}
-
-.display-block {
-  display: block;
-}
-
-.display-none {
-  display: none;
 }
