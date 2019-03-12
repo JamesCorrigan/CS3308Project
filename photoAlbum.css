@@ -1,0 +1,27 @@
+#name{
+	color: black;
+	
+	text-align: center;
+}
+#album{
+}
+table{
+	height: auto;
+	width: 80%;
+	background: white;
+	margin-left: 10%;
+	margin-right: 10%;
+}
+td{
+	padding-top: 10%;
+	padding-bottom: 10%;
+	width: 20%;
+	position: relative;
+	border: 2px solid black;
+}
+td:hover{
+	height: 50%;
+	width: ;
+	position: relative;
+	align-items: center;
+}
