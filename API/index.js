@@ -32,7 +32,7 @@ app.put('/users/:id', db.updateUser);
 app.delete('/users/:id', db.deleteUser);
 
 //POST to register a user
-app.post('/registerUser', db.register);
+app.post('/register', db.registerUser);
 
 //POST TO login
 app.post('/login', db.login);

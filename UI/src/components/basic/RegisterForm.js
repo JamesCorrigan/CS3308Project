@@ -98,7 +98,6 @@ export default class RegisterForm extends Component {
           </label>
           <input type='submit' value='submit' />
         </form>
-        {JSON.stringify(this.state)}
       </div>
     );
   }

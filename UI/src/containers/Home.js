@@ -17,17 +17,11 @@ class Home extends Component {
     //initialize props and state
     super(props);
     this.state = {}
-    this.handleChange = this.handleChange.bind(this);
   };
-  handleChange = e => {
-    //show login or register form
-    e.preventDefault();
-    this.setState(prevState => {return {showRegister: !prevState.showRegister}});
-  }
 
   render() {
     const body = this.props.loggedIn ? (
-      <main role="main">
+      <div role="main">
       {/*if logged in, render main page*/}
         <div className="module mid">
           <h2>Family Time</h2>
@@ -44,7 +38,7 @@ class Home extends Component {
           </div>
           <Footer />
         </div>
-      </main>
+      </div>
     ) : (
       <main role="main">
       {/*Else, render page asking for login*/}

@@ -15,7 +15,8 @@ import Vacations from '../components/Vacations/Vacations.js';
 import Header from '../components/Header/Header.js';
 import PhotoAlbum from '../components/PhotoAlbum/PhotoAlbum.js';
 import MealPlan from '../components/MealPlan/MealPlan.js';
-import LoginModal from '../components/basic/Modal.js';
+import RegisterModal from '../components/basic/RegisterModal.js';
+import LoginModal from '../components/basic/LoginModal';
 
 //Classes extending React.Component have state, props, etc.
 class App extends Component {
@@ -26,25 +27,41 @@ class App extends Component {
     //initialize this.state
     this.state = {
       data: null,
-      showModal: false
+      showRegModal: false,
+      showLogModal: false
     }
     //any event handlers need to be bound to (this)
     //clicks, submit, etc all are event handlers
-    this.handleShow = this.handleShow.bind(this);
-    this.handleClose = this.handleClose.bind(this);
+    this.handleShowRegister = this.handleShowRegister.bind(this);
+    this.handleShowLogin = this.handleShowLogin.bind(this);
+    this.handleCloseLogin = this.handleCloseLogin.bind(this);
+    this.handleCloseRegister = this.handleCloseRegister.bind(this);
   }
   //close modal event handler
-  handleClose = e => {
+  handleCloseLogin = e => {
     //prevent event from triggering until call
     e.preventDefault();
-    this.setState({showModal: false});
+    this.setState({ showLogModal: false });
+  }
+
+  handleCloseRegister = e => {
+    //prevent event from triggering until call
+    e.preventDefault();
+    this.setState({ showRegModal: false });
   }
   //open modal event handler
-  handleShow = e => {
+  handleShowRegister = e => {
     //prevent event from triggering until call
     e.preventDefault();
-    this.setState({showModal: true});
+    this.setState({showRegModal: true});
   }
+
+  handleShowLogin = e => {
+    //prevent event from triggering until call
+    e.preventDefault();
+    this.setState({showLogModal: true});
+  }
+
   render() {
     //render JSX elements here
     //conditional shortcut: {this.state.bool ? a : b}
@@ -52,9 +69,16 @@ class App extends Component {
     return (
       <div>
         {/*Pass modal functions to header component for button*/}
-        <Header handleShow={this.handleShow} />
-        {this.state.showModal ?
-          <LoginModal handleClose={this.handleClose} /> : null}
+        <Header
+          handleShowRegister={this.handleShowRegister}
+          handleShowLogin = {this.handleShowLogin}
+        />
+        {this.state.showRegModal ?
+          <RegisterModal handleClose={this.handleCloseRegister} />
+          : null}
+        {this.state.showLogModal ?
+          <LoginModal handleClose={this.handleCloseLogin} />
+          : null}
         <main>
           {/*Route pages for link clicks, default=home*/}
           <Route exact path="/" component={Home} />

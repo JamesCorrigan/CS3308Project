@@ -11,7 +11,7 @@ class Album extends Component {
   }
   render() {
     return (
-      <div>
+      <div className='album-wrapper'>
         <h1>Album</h1>
         <br/>
         <button onClick={this.props.albumActions.fetchMembers}>
