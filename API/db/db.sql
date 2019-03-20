@@ -5,7 +5,6 @@ CREATE TABLE users (
   email VARCHAR(355) UNIQUE NOT NULL,
   password VARCHAR(355) NOT NULL,
   created DATE NOT NULL,
-  modified DATE NOT NULL,
   family integer NOT NULL,
   parent boolean NOT NULL
 );

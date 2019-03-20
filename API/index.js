@@ -32,10 +32,15 @@ app.put('/users/:id', db.updateUser);
 app.delete('/users/:id', db.deleteUser);
 
 //POST to register a user
-app.post('/register', db.register);
+app.post('/registerUser', db.register);
 
-//POST TO
+//POST TO login
 app.post('/login', db.login);
+
+//POST TO CREATE FAMILY
+app.post('/createFamily', db.createFamily);
+
+//LINK API
 app.use('/api', router);
 
 //Listen on chosen port

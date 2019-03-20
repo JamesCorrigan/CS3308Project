@@ -55,18 +55,22 @@ const deleteUser = (req, res) => {
   })
 }
 
-const register = (req,res) => {
+const registerUser = (req,res) => {
+  //REGISTER A USER AND JOIN TO A FAMILY
   let now = new Date();
   let userData = {
     first_name: req.body.first_name,
     last_name: req.body.last_name,
     email: req.body.email,
     password: req.body.password,
-    created: now,
-    modified: now,
+    family: req.body.family,
+    parent: req.body.parent,
+    created: now
   }
 
-  pool.query('INSERT INTO users (first_name, last_name, email, password, created, modified) VALUES ($1,$2,$3,$4,$5,$6)', [userData.first_name, userData.last_name, userData.email, userData.password, userData.created, userData.modified], (err, results, fields) => {
+  pool.query('INSERT INTO users (first_name, last_name, email, password, created, family, parent) VALUES ($1,$2,$3,$4,$5,$6, $7)',
+    [userData.first_name, userData.last_name, userData.email, userData.password, Date.now(), userData.family, userData.parent],
+    (err, results, fields) => {
     if (err) {
       console.log("error", err);
       res.send({
@@ -85,9 +89,9 @@ const register = (req,res) => {
 
 const login = (req, res) => {
   //load username / password
-  const tempmail = req.body.email;
+  const email = req.body.email;
   const password = req.body.password;
-  pool.query('SELECT * FROM users WHERE email = ($1)', [tempmail], (error, results, fields) => {
+  pool.query('SELECT * FROM users WHERE email = ($1)', [email], (error, results, fields) => {
     console.log(error);
     if (error !== undefined) {
       console.log("error is::", error);
@@ -128,6 +132,6 @@ module.exports = {
   getUserById,
   updateUser,
   deleteUser,
-  login,
-  register
+  registerUser,
+  login
 }
