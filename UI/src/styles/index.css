@@ -140,4 +140,16 @@ input[type=password] {
 }
 
 .footer {
+  height: 200px;
+}
+.btn-outline-success{
+  margin-left: 10px;
+}
+.module{
+  text-align: center;
+}
+@media (max-width: 480px) {
+  h3 {
+    padding-top: 60px;
+  }
 }

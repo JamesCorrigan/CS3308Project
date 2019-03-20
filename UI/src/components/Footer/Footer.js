@@ -19,7 +19,7 @@ export default class Footer extends Component {
     return (
       <footer className="footer container">
         <p className="float-right" onClick={this.handleClick}><a href="">Back to top</a></p>
-        <p>Group Member Names?</p>
+        <p>Site by Niko, James, Henry, Kara, Ahoto and Joe</p>
       </footer>
     );
   }
