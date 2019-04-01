@@ -63,6 +63,7 @@ class App extends Component {
   }
 
   render() {
+
     //render JSX elements here
     //conditional shortcut: {this.state.bool ? a : b}
     //returns a if true, b if false
@@ -72,11 +73,12 @@ class App extends Component {
         <Header
           handleShowRegister={this.handleShowRegister}
           handleShowLogin = {this.handleShowLogin}
+          loggedIn = {this.props.loggedIn}
         />
-        {this.state.showRegModal ?
+        {(this.state.showRegModal && !this.props.loggedIn) ?
           <RegisterModal handleClose={this.handleCloseRegister} />
           : null}
-        {this.state.showLogModal ?
+        {(this.state.showLogModal && !this.props.loggedIn) ?
           <LoginModal handleClose={this.handleCloseLogin} />
           : null}
         <main>

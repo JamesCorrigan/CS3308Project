@@ -7,6 +7,12 @@ export default class Header extends Component {
     this.state = {}
   }
   render() {
+    const loginButtons = this.props.loggedIn ? null : (
+      <div className='header-buttons-wrapper'>
+        <button className="headerButton" onClick={this.props.handleShowLogin}>Login</button>
+        <button className="headerButton" onClick={this.props.handleShowRegister}>Sign Up</button>
+      </div>
+    );
     return (
       <header className='header-wrapper'>
         <div className="header-nav">
@@ -18,10 +24,7 @@ export default class Header extends Component {
                 <Link to="/vacations" className='header-link' style={{textDecoration: 'none'}}>Vacations</Link>
                 <Link to="/mealplan" className='header-link' style={{textDecoration: 'none'}}>Meals</Link>
               </ul>
-            <div className='header-buttons-wrapper'>
-              <button className="headerButton" onClick={this.props.handleShowLogin}>Login</button>
-              <button className="headerButton" onClick={this.props.handleShowRegister}>Sign Up</button>
-            </div>
+              {loginButtons}
             </div>
         </div>
       </header>

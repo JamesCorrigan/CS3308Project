@@ -6,8 +6,6 @@ import * as countActions from '../../redux/actions/countActions.js';
 import * as albumActions from '../../redux/actions/albumActions.js';
 import * as homeActions from '../../redux/actions/homeActions.js';
 import * as loginActions from '../../redux/actions/loginActions.js';
-import LoginForm from './LoginForm.js';
-import RegisterForm from './RegisterForm.js';
 
 class Modal extends Component {
   constructor(props) {
@@ -17,6 +15,12 @@ class Modal extends Component {
         email: '',
         password: ''
       },
+      first_name: '',
+      last_name: '',
+      email: '',
+      password: '',
+      parent: false,
+      family: '',
       rData: {
         first_name: '',
         last_name: '',
@@ -105,6 +109,15 @@ class Modal extends Component {
               type='text'
               name='last_name'
               value={last_name}
+              onChange={this.handleRegChange}
+             />
+          </label>
+          <label>
+            Family:
+            <input
+              type='text'
+              name='family'
+              value={family}
               onChange={this.handleRegChange}
              />
           </label>
