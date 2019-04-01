@@ -63,7 +63,16 @@ class App extends Component {
   }
 
   render() {
-
+    const routes = this.props.loggedIn ? (
+      <div>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/vacations" component={Vacations} />
+        <Route exact path="/photoalbum" component={PhotoAlbum} />
+        <Route exact path="/mealplan" component={MealPlan} />
+      </div>
+    ) : (
+      <Route exact path="/" component={Home} />
+    );
     //render JSX elements here
     //conditional shortcut: {this.state.bool ? a : b}
     //returns a if true, b if false
@@ -82,11 +91,8 @@ class App extends Component {
           <LoginModal handleClose={this.handleCloseLogin} />
           : null}
         <main>
+          {routes}
           {/*Route pages for link clicks, default=home*/}
-          <Route exact path="/" component={Home} />
-          <Route exact path="/vacations" component={Vacations} />
-          <Route exact path="/photoalbum" component={PhotoAlbum} />
-          <Route exact path="/mealplan" component={MealPlan} />
         </main>
       </div>
     );

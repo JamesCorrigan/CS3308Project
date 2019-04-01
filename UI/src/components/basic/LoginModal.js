@@ -1,13 +1,9 @@
 import React, {Component} from 'react';
-import { Route, Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as countActions from '../../redux/actions/countActions.js';
 import * as albumActions from '../../redux/actions/albumActions.js';
 import * as homeActions from '../../redux/actions/homeActions.js';
 import * as loginActions from '../../redux/actions/loginActions.js';
-import LoginForm from './LoginForm.js';
-import RegisterForm from './RegisterForm.js';
 
 class Modal extends Component {
   constructor(props) {

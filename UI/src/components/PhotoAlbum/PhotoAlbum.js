@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as countActions from '../../redux/actions/countActions.js';
 import * as albumActions from '../../redux/actions/albumActions.js';
 import * as loginActions from '../../redux/actions/loginActions.js';
 class Album extends Component {
@@ -24,15 +23,12 @@ class Album extends Component {
 
 const mapStateToProps = state => {
   return {
-    count: state.countReducer.count,
-    isIncrementing: state.countReducer.isIncrementing,
-    isDecrementing: state.countReducer.isDecrementing
+    albumReducer: state.albumReducer
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    countActions: bindActionCreators(countActions, dispatch),
     albumActions: bindActionCreators(albumActions, dispatch),
     loginActions: bindActionCreators(loginActions, dispatch)
   };

@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import { Route, Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as countActions from '../../redux/actions/countActions.js';
 import * as albumActions from '../../redux/actions/albumActions.js';
 import * as homeActions from '../../redux/actions/homeActions.js';
 import * as loginActions from '../../redux/actions/loginActions.js';
@@ -90,7 +89,7 @@ class Modal extends Component {
   }
 
   showRegisterForm() {
-    const { first_name, last_name, email, password, parent, family, submitted } = this.state.rData;
+    const { first_name, last_name, email, password, parent, submitted } = this.state.rData;
     return (
       <div className='register-form'>
         <form onSubmit={this.handleRegSubmit}>
@@ -109,15 +108,6 @@ class Modal extends Component {
               type='text'
               name='last_name'
               value={last_name}
-              onChange={this.handleRegChange}
-             />
-          </label>
-          <label>
-            Family:
-            <input
-              type='text'
-              name='family'
-              value={family}
               onChange={this.handleRegChange}
              />
           </label>
@@ -216,7 +206,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    albumActions: bindActionCreators(albumActions, dispatch),
     homeActions: bindActionCreators(homeActions, dispatch),
     loginActions: bindActionCreators(loginActions, dispatch)
   };
