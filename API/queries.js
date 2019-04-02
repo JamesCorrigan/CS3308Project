@@ -1,4 +1,4 @@
-const Pool = require('pg').Pool
+const Pool = require('pg').Pool;
 //connect to db
 const pool = new Pool({
   user: 'james',
@@ -6,10 +6,21 @@ const pool = new Pool({
   database: 'api',
   password: 'password',
   port: 5432,
-})
+});
 
+/*
+const client = await pool.connect();
+const result = await client.query({
+  rowMode: 'array',
+  text: 'SELECT 1 as one, 2 as two;'
+});
+console.log(result.fields[0].name) // one
+console.log(result.fields[1].name) // two
+console.log(result.rows) // [1, 2]
+await client.end()
+*/
 //query for all users
-const getUsers = (req, res) => {
+function getUsers(req, res) {
   pool.query('SELECT * FROM users ORDER BY id ASC', (error, results) => {
     if (error) {
       throw error;
@@ -19,7 +30,7 @@ const getUsers = (req, res) => {
 }
 
 //query for one user
-const getUserById = (req, res) => {
+function getUserById(req, res){
   const id = parseInt(req.params.id);
 
   pool.query('SELECT * FROM users WHERE id = $1', [id], (error, results) => {
@@ -30,7 +41,7 @@ const getUserById = (req, res) => {
   })
 }
 
-const updateUser = (req, res) => {
+function updateUser(req, res) {
   const id = parseInt(req.params.id)
   const { name, email } = req.body
   pool.query(
@@ -44,7 +55,7 @@ const updateUser = (req, res) => {
   })
 }
 
-const deleteUser = (req, res) => {
+function deleteUser(req, res) {
   const id = parseInt(req.params.id)
 
   pool.query('DELETE FROM users WHERE id = $1', [id], (error, results) => {
@@ -55,7 +66,7 @@ const deleteUser = (req, res) => {
   })
 }
 
-const registerUser = (req, res) => {
+function registerUser(req, res) {
   //REGISTER A USER AND JOIN TO A FAMILY
   let now = new Date();
   let first_name = req.body.first_name;
@@ -65,7 +76,6 @@ const registerUser = (req, res) => {
   let family = req.body.family;
   let parent = req.body.parent;
   let created = now;
-
   pool.query(
     'INSERT INTO users (first_name, last_name, email, password, created, family, parent) VALUES ($1,$2,$3,$4,$5,$6,$7)',
     [first_name, last_name, email, password, Date.now(), family, parent],
@@ -78,7 +88,6 @@ const registerUser = (req, res) => {
       });
     } else {
       //AFTER USER IS REGISTERED, NEED TO PREFORM ACTIONS ON FAMILY TABLE
-      console.log("solution", results);
       res.send({
         "code": 200,
         "success": "registered user"
@@ -87,19 +96,50 @@ const registerUser = (req, res) => {
   });
 }
 
-const addMemberToFamily = (req, res) => {
+function addMemberToFamily(req, res) {
   const family = req.body.family;
 
 }
-const createFamily = (req, res) => {
-  //CREATE IMAGES FOLDER FOR FAMILY, USERS, etc.
-  let now = new Date();
-  let last_name = req.body.last_name;
-  let images = {};
-  let members = req.body.members;
-  let calendar = {};
+
+function createFamilyHelper(obj) {
+  const now = new Date();
+  const first_name = obj.first_name;
+  const last_name = obj.last_name;
+  const email = obj.email;
+  const password = obj.password;
+  const family = obj.family;
+  const parent = obj.parent;
+  let created = false;
   pool.query(
-    'INSERT INTO families (last_name, images, members, calendar) VALUES ($1,$2,$3,$4)',
+    'INSERT INTO users (first_name, last_name, email, password, created, family, parent) VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING *',
+    [first_name, last_name, email, password, now, family, parent],
+    (err, results, fields) => {
+      console.log("family helper", results);
+    if (err) {
+      console.log("error", err);
+      created = false;
+    } else {
+      //AFTER USER IS REGISTERED, NEED TO PREFORM ACTIONS ON FAMILY TABLE
+      created = true;
+    }
+  });
+  return created;
+}
+
+async function createFamily(req, res) {
+  //CREATE IMAGES FOLDER FOR FAMILY, USERS, etc.
+  const now = new Date();
+  const last_name = req.body.last_name;
+  const first_name = req.body.first_name;
+  const email = req.body.email;
+  const password = req.body.password;
+  const parent = req.body.parent;
+  let images = {};
+  const members = req.body.parent ? {parents: [first_name], children: []} : {parents: [], children: [first_name]};
+  let calendar = {};
+  console.log(req.body);
+  const result = await pool.query(
+    'INSERT INTO families (last_name, images, members, calendar) VALUES ($1,$2,$3,$4) RETURNING *',
     [last_name, images, members, calendar],
     (err, results) => {
       if (err) {
@@ -109,12 +149,29 @@ const createFamily = (req, res) => {
           "failed": "error"
         });
       } else {
-        //IF FAMILY CREATED, LOG in as user who created. 
-        console.log("solution", results);
-        res.send({
-          "code": 200,
-          "success": "created family"
-        });
+        console.log("new family:", results.rows[0]);
+        const family = results.rows[0].id;
+        const obj = {
+          first_name,
+          last_name,
+          email,
+          password,
+          family,
+          parent
+        }
+        const madeUser = createFamilyHelper(obj);
+        if (madeUser) {
+          res.send({
+            "code": 200,
+            "success": "created family"
+          });
+        } else {
+          res.send({
+            "code": 204,
+            "failed": "user creation error"
+          });
+        }
+        //IF FAMILY CREATED, LOG in as user who created.
       }
     }
   )
@@ -122,12 +179,11 @@ const createFamily = (req, res) => {
 
 
 
-const login = (req, res) => {
+function login(req, res) {
   //load username / password
   const email = req.body.email;
   const password = req.body.password;
   pool.query('SELECT * FROM users WHERE email = ($1)', [email], (error, results, fields) => {
-    console.log(error);
     if (error !== undefined) {
       console.log("error is::", error);
       res.send({
@@ -135,7 +191,6 @@ const login = (req, res) => {
         "failed": "error"
       });
     } else {
-      console.log(results.rows[0]);
       if (results.rows.length > 0) {
         if (results.rows[0].password == password) {
           console.log('logged in');
@@ -144,14 +199,12 @@ const login = (req, res) => {
             "success": "login successful"
           });
         } else {
-          console.log('wrong password');
           res.send({
             "code": 204,
             "success": "Wrong Password"
           });
         }
       } else {
-        console.log('user does not exist');
         res.send({
           "code": 204,
           "success": "User Does not exist"

@@ -38,24 +38,37 @@ export function login(email, password) {
       dispatch({ type: actionType.LOGIN_FAILED, error })
     });
   }
-
 }
 
-function registerHandler(obj) {
+function familyHandler(obj) {
   const requestOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(obj)
   };
-  return fetch('/register', requestOptions);
+  return fetch('/createFamily', requestOptions)
+    .then(responseHandler)
+    .then(data => {
+      //what to do with data?
+      console.log(data);
+      return data;
+    })
 }
 
-export function registerUser(first_name, last_name, email, password) {
-  console.log('registering:');
-
+export function createFamily(obj) {
+  console.log('Creating family:', obj.last_name);
   return dispatch => {
-    dispatch({type: actionType.REGISTER_REQUEST});
-    registerHandler(first_name, last_name, email, password)
+    dispatch({type: actionType.REQUEST_CREATE_FAMILY});
+    familyHandler(obj)
+    .then(response => {
+      if (response.code == 200) {
+        dispatch({ type: actionType.CREATE_FAMILY_SUCCESS, response })
+      } else if (response.code == 204) {
+        dispatch({ type: actionType.CREATE_FAMILY_FAILED, response })
+      }
+    }, error => {
+      dispatch({ type: actionType.CREATE_FAMILY_FAILED, error })
+    });
   }
 }
 

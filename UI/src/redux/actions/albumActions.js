@@ -14,27 +14,17 @@ export const request = () => dispatch => {
 }
 */
 
-export function request(obj) {
+export function requestAllImages(obj) {
   return {
-    type: actionType.ACTION_CALL,
+    type: actionType.REQUEST_GET_IMAGES,
     obj
   };
 };
 
-export function recieve(json) {
+export function recieveImages(obj) {
   return {
-    type: actionType.CALL_RECIEVED,
-    data: json.data,
+    type: actionType.GET_IMAGES_SUCCESS,
+    data: obj.data,
     time: Date.now()
   }
-}
-
-export function fetchMembers() {
-  fetch('/users').then(res => res.json()).then(members => {
-    console.log(members);
-    return {
-      type: actionType.CALL_RECIEVED,
-      data: members
-    }
-  })
 }

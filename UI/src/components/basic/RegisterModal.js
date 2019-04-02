@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+  import React, {Component} from 'react';
 import { Route, Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -10,32 +10,25 @@ class Modal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      lData: {
+      rData: {
         email: '',
         password: ''
       },
-      first_name: '',
-      last_name: '',
-      email: '',
-      password: '',
-      parent: false,
-      family: '',
-      rData: {
+      cData: {
         first_name: '',
         last_name: '',
         email: '',
         password: '',
         parent: false,
-        family: '',
       },
       submitted: false,
       showCreateForm: false
     };
-    this.handleOpenClose = this.handleOpenClose.bind(this);
+    this.handleSwitchForm = this.handleSwitchForm.bind(this);
+    this.handleCreateChange = this.handleCreateChange.bind(this);
+    this.handleCreateCheck = this.handleCreateCheck.bind(this);
+    this.handleCreateSubmit = this.handleCreateSubmit.bind(this);
     this.handleRegChange = this.handleRegChange.bind(this);
-    this.handleRegSubmit = this.handleRegSubmit.bind(this);
-    this.handleRegCheck = this.handleRegCheck.bind(this);
-    this.handleLoginChange = this.handleLoginChange.bind(this);
     //handle outside clicks
     this.setWrapperRef = this.setWrapperRef.bind(this);
     this.handleClickOutside = this.handleClickOutside.bind(this);
@@ -59,47 +52,50 @@ class Modal extends Component {
     }
   }
 
-  handleOpenClose = e => {
+  handleSwitchForm = e => {
     e.preventDefault();
     this.setState(prevState => {return {showCreateForm: !prevState.showCreateForm}});
   }
 
-  handleRegChange(e) {
+  handleCreateChange(e) {
     const { name, value } = e.target;
-    this.setState({rData: { [name]: value }})
+    const data = this.state.cData;
+    this.setState({cData: {...data, [name]: value }})
   }
 
-  handleRegCheck(e) {
+  handleCreateCheck(e) {
     const value = e.target.checked;
     const name = e.target.name;
-    this.setState({rData: { [name]: value }})
+    const data = this.state.cData;
+    this.setState({cData: { ...data, [name]: value }})
   }
 
-  handleRegSubmit(e) {
+  handleCreateSubmit(e) {
     e.preventDefault();
     //this.setState({ submitted: true });
-    const rObj = this.state.rData;
-    console.log(rObj);
-    if (rObj.first_name && rObj.last_name
-        && rObj.email && rObj.password
-        && rObj.parent && rObj.family) {
+    const cObj = this.state.cData;
+    console.log(this.state.cData);
+    if (cObj.first_name && cObj.last_name
+        && cObj.email && cObj.password) {
+        console.log(cObj);
+
         //only call with all data present
-        this.props.loginActions.registerUser(rObj);
+        this.props.loginActions.createFamily(cObj);
     }
   }
 
-  showRegisterForm() {
-    const { first_name, last_name, email, password, parent, submitted } = this.state.rData;
+  createFamily() {
+    const { first_name, last_name, email, password, parent, submitted } = this.state.cData;
     return (
       <div className='register-form'>
-        <form onSubmit={this.handleRegSubmit}>
+        <form onSubmit={this.handleCreateSubmit}>
           <label>
             First Name:
             <input
               type='text'
               name='first_name'
               value={first_name}
-              onChange={this.handleRegChange}
+              onChange={this.handleCreateChange}
             />
           </label>
           <label>
@@ -108,16 +104,16 @@ class Modal extends Component {
               type='text'
               name='last_name'
               value={last_name}
-              onChange={this.handleRegChange}
+              onChange={this.handleCreateChange}
              />
           </label>
           <label>
-            Parent:
+            Parent?:
             <input
               type='checkbox'
               name='parent'
               checked={parent}
-              onChange={this.handleRegCheck}
+              onChange={this.handleCreateCheck}
             />
           </label>
           <label>
@@ -126,17 +122,17 @@ class Modal extends Component {
               type='text'
               name='email'
               value={email}
-              onChange={this.handleRegChange}
+              onChange={this.handleCreateChange}
              />
            </label>
           <br/>
           <label>
             Password:
             <input
-              type='text'
+              type='password'
               name='password'
               value={password}
-              onChange={this.handleRegChange}
+              onChange={this.handleCreateChange}
              />
           </label>
           <input type='submit' value='submit' />
@@ -145,33 +141,33 @@ class Modal extends Component {
     );
   }
 
-  handleLoginChange(e) {
+  handleRegChange(e) {
     const { name, value } = e.target;
-    this.setState({lData: { [name]: value }});
+    this.setState({rData: { [name]: value }});
   }
 
-  handleLoginSubmit(e) {
+  handleRegSubmit(e) {
     e.preventDefault();
     this.setState({ submitted: true });
-    const { email, password } = this.state.lData;
+    const { email, password } = this.state.rData;
     if (email && password) {
         this.props.loginActions.login(email, password);
     }
   }
 
-  showCreateForm() {
-    const { first_name, last_name, email, password, submitted } = this.state.lData;
+  registerUser() {
+    const { first_name, last_name, email, password, submitted } = this.state.rData;
     return (
       <div className='login-form'>
-        <form onSubmit={this.handleLoginSubmit}>
+        <form onSubmit={this.handleRegSubmit}>
           <label>
             email:
-            <input type='text' name='email' value={email} onChange={this.handleLoginChange}/>
+            <input type='text' name='email' value={email} onChange={this.handleRegChange}/>
           </label>
           <br/>
           <label>
             Password:
-            <input type='password' name='password' value={password} onChange={this.handleLoginChange}/>
+            <input type='password' name='password' value={password} onChange={this.handleRegChange}/>
           </label>
           <input type='submit' value='submit' />
         </form>
@@ -180,15 +176,15 @@ class Modal extends Component {
   }
 
   render() {
-    const linkText = this.state.showCreateForm ? "Create Family" : "Register New User";
-    const headText = this.state.showCreateForm ? "Register User" : "Create New Family";
+    const linkText = this.state.showCreateForm ? "Create User and Family" : "Register User to Family";
+    const headText = this.state.showCreateForm ? "Register User to family" : "Create New User and Family";
     return (
       <div className='.modal' ref={this.setWrapperRef}>
         <section className="modal-main">
           <div>
             <h1>{headText}</h1>
-            <h4 onClick={this.handleOpenClose}><a>{linkText}</a></h4>
-            {this.state.showCreateForm ? this.showCreateForm() : this.showRegisterForm()}
+            <h4 onClick={this.handleSwitchForm}><a>{linkText}</a></h4>
+            {this.state.showCreateForm ? this.registerUser() : this.createFamily()}
           </div>
           <button onClick={this.props.handleClose}>close</button>
         </section>

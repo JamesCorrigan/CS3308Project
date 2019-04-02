@@ -4,23 +4,19 @@ const initialState = {
   success: false,
   errors: []
 }
-export default (state = {
-  loading: false,
-  success: false,
-  errors: []
-}, action) => {
+export default (state = initialState, action) => {
   switch (action.type) {
-    case actionType.ACTION_CALL:
+    case actionType.REQUEST_GET_IMAGES:
       return {
         ...state,
         loading: true
       };
-    case actionType.CALL_RECIEVED:
+    case actionType.GET_IMAGES_SUCCESS:
       return {
         ...state,
         data: action.response
       };
-    case actionType.CALL_FAILED:
+    case actionType.GET_IMAGES_FAILURE:
       return {
         ...state,
         errors: [
