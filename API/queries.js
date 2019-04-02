@@ -1,7 +1,7 @@
 const Pool = require('pg').Pool
 //connect to db
 const pool = new Pool({
-  user: 'Joe',
+  user: 'james',
   host: 'localhost',
   database: 'api',
   password: 'password',
@@ -99,7 +99,7 @@ const createFamily = (req, res) => {
   let members = req.body.members;
   let calendar = {};
   pool.query(
-    'INSERT INTO families (last_name, images, members, calendar)',
+    'INSERT INTO families (last_name, images, members, calendar) VALUES ($1,$2,$3,$4)',
     [last_name, images, members, calendar],
     (err, results) => {
       if (err) {
@@ -109,7 +109,7 @@ const createFamily = (req, res) => {
           "failed": "error"
         });
       } else {
-        //IF FAMILY CREATED, what?
+        //IF FAMILY CREATED, LOG in as user who created. 
         console.log("solution", results);
         res.send({
           "code": 200,

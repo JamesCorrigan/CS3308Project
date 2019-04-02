@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Question 1</title>
+	<link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="login.css">
+	<script type="text/javascript" src="./login.js"></script>
+</head>
+
+<body>
+	<div class="jumbotron jumbotron-fluid">
+		<div class="container">
+			<h1>Login Page</h1>
+			<p>This part of the assignment is going to use the Regular Expressions, Javascript and document functions to
+				validate a login form</p>
+		</div>
+	</div>
+
+	<br /><br /><br /><br />
+	<!-- Button to click to show the modal-->
+	<div class="text-center">
+		<a href="#myModal" class="btn btn-info" data-toggle="modal" onclick="openModal()">Click to Open Sign Up
+			Modal</a>
+	</div>
+
+	<!-- Modal HTML -->
+	<div id="myModal" class="modal fade">
+		<div class="modal-dialog modal-login">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div class="avatar">
+						<img src="https://www.tutorialrepublic.com/examples/images/avatar.png" alt="Avatar">
+					</div>
+					<h4 class="modal-title">Sign Up page</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<input type="text" class="form-control" name="firstName" placeholder="First Name"
+							required="required">
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" name="lastName" placeholder="Last Name"
+							required="required">
+					</div>
+					<div class="form-group">
+						<input id="psw" type="password" class="form-control" name="password" placeholder="Password"
+							required="required">
+					</div>
+					<div class="form-group">
+						<input id="cpsw" type="password" class="form-control" name="confirm password"
+							placeholder="Confirm Password" required="required">
+					</div>
+					<div class="form-group">
+						<button id="my_submit_button" class="btn btn-primary btn-block login-btn" disabled
+							onClick="onClickFunction()">Sign Up</button>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<div id="message" style="display:block">
+						<h3>Password must contain the following:</h3>
+						<p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+						<p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+						<p id="number" class="invalid">A <b>number</b></p>
+						<p id="length" class="invalid">Minimum <b>8 characters</b></p>
+						<p id="match" class="invalid">Password and Confirm Password Match</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br /><br /><br />
+
+	<!-- Ignore the code below. All of this is just for the code description -->
+	<div class="container">
+		<h4> Resources needed for the below questions: </h4>
+		<div class="row">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th scope="col">Resource</th>
+						<th scope="col">Link</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th scope="row">Javascript Regular Expressions</th>
+						<td><a class="btn btn-primary"
+								href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions"
+								role="button">Link</a></td>
+					</tr>
+					<tr>
+						<th scope="row">ClassList property</th>
+						<td><a class="btn btn-primary" href="https://www.w3schools.com/jsref/prop_element_classlist.asp"
+								role="button">Link</a></td>
+					</tr>
+					<tr>
+						<th scope="row">Button disabled property</th>
+						<td><a class="btn btn-primary" href="https://www.w3schools.com/tags/att_button_disabled.asp"
+								role="button">Link</a></td>
+					</tr>
+					<tr>
+						<th scope="row">getElementById</th>
+						<td><a class="btn btn-primary"
+								href="https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementById"
+								role="button">Link</a></td>
+					</tr>
+					<tr>
+						<th scope="row">Conditional Operators</th>
+						<td><a class="btn btn-primary" href="https://www.w3schools.com/js/js_comparisons.asp"
+								role="button">Link</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<p>
+				<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#rule_1_collapse"
+					aria-expanded="false" aria-controls="rule_1_collapse">
+					Question 1.1 (4 points)
+				</button>
+			</p>
+			<div class="collapse" id="rule_1_collapse">
+				<p>
+					<strong>Overall Objective: </strong><br/>
+					Write regular expressions that we learnt for validating a password.
+				</p>				
+				<div class="card card-body">
+					<ul class="list-group">
+						<li class="list-group-item"> Write the regular expression for Javascript to match lowercase
+							characters. (1 point)</li>
+						<li class="list-group-item"> Write the regular expression for Javascript to match uppercase
+							characters. (1 point)</li>
+						<li class="list-group-item"> Write the regular expression for Javascript to match digits. (1 point)</li>
+						<li class="list-group-item"> Change the minLength variable such that the length of the password
+							is at least 8 characters. (1 point)</li>
+					</ul>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<p>
+				<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#rule_2_collapse"
+					aria-expanded="false" aria-controls="rule_2_collapse">
+					Question 1.2 (4 points)
+				</button>
+			</p>
+			<div class="collapse" id="rule_2_collapse">
+				<div class="card card-body">
+					You are going to work with on the CSS using the classLists feature in this question. <br /> <br />
+					<p>
+						<strong>Overall Objective: </strong><br/>						
+						The password needs to have a lowercase character, an uppercase character, a digit, should match the confirm password field and should be 8 charcters long at least.<br/>
+						If you notice after clicking the "Click to Open Signup Modal", right at the bottom there are 5 rows. For example: <a href="https://imgur.com/5qkA7YV"><img
+										src="https://i.imgur.com/5qkA7YV.png" title="source: imgur.com" /></a> <br/>
+						What you are going to be doing is playing with the bootstrap classes to change there from an red with a cross to green with a check mark when the condition is satisfied <br/>						 
+					</p>
+					<div class="card card-body">						
+						For an example, let's consider just the lowercase condition<br />
+						<ul class="list-group">
+							<li class="list-group-item">In the beginning, this is what you have: a red cross with “A
+								lowercase letter in red”: <a href="https://imgur.com/5qkA7YV"><img
+										src="https://i.imgur.com/5qkA7YV.png" title="source: imgur.com" /></a></li>
+							<li class="list-group-item">If a lower case is entered you need to make the following display: <a
+									href="https://imgur.com/Opzzdfl"><img src="https://i.imgur.com/Opzzdfl.png"
+										title="source: imgur.com" /></a></li>
+						</ul>
+					</div>					
+					<strong>There is one if-else block for each of the following:</strong><br />
+					<ul class="list-group">
+						<li class="list-group-item">If lowerCaseLetters regex matches or not.</li>
+						<li class="list-group-item">If upperCaseLetters regex matches or not</li>
+						<li class="list-group-item">If numbers regex matches or not.</li>
+						<li class="list-group-item">If the minimum length of the password is >= minLength or not.</li>
+					</ul>
+					<br />
+					First, use console.log to check the value of any classList, for example: <br />
+					<ul class="list-group">
+						<li class="list-group-item">console.log(letter.classList)</li>
+						<li class="list-group-item">You should an array be getting a single element, with a value
+							“invalid”</li>
+					</ul>
+				</div>
+				<br />
+				<div class="card card-body">
+					Let's dive deeper on how to achieve what needs to be done.
+					Let's consider just the lowercase condition again.<br />
+					<ul class="list-group">
+						<li class="list-group-item">In the beginning, this is what you have: a red cross with “A
+							lowercase letter in red”: <a href="https://imgur.com/5qkA7YV"><img
+									src="https://i.imgur.com/5qkA7YV.png" title="source: imgur.com" /></a></li>
+						<li class="list-group-item">If we enter the "if" condition, that would mean that we have a
+							lowercase character entered. So the above needs to change.</li>
+						<li class="list-group-item">To do this, all you need to do is <font color="red">remove</font> the invalid class, and <font color="red">add</font>
+							the correct class that would have the display look as follows: <a
+								href="https://imgur.com/Opzzdfl"><img src="https://i.imgur.com/Opzzdfl.png"
+									title="source: imgur.com" /></a></li>
+					</ul>
+					<ul class="list-group">
+						<li class="list-group-item"><b>This needs to be done everywhere we have the classList.add()
+								function and classList.remove() function.</b></li>
+						<li class="list-group-item">You can look up the names of the css classes from the login.css
+							file. </li>
+						<li class="list-group-item">The class that needs to go into these functions is defined in the
+							CSS file 'login.css'.
+							<font color="red">Do
+								not use classes from outside this file and do not add classes to this file.</font>
+						</li>
+					</ul>
+					Rubric:
+					<ul class="list-group">
+						<li class="list-group-item">"A Lowercase letter" changes from red to green after lower case is entered in the password field. If a lower case is removed and no other lower case characters remain it moves from green to red too. (1 point)</li>
+						<li class="list-group-item">"A capital(Uppercase) letter" changes from red to green after upper case is entered in the password field. If a upper case and no other uppper case characters remain it moves from green to red too.  (1 point)</li>
+						<li class="list-group-item">"A number" changes from red to green after digit is entered in the password field. If a digit is removed and no other digits remain it moves from green to red too. (1 point)</li>
+						<li class="list-group-item">"Minimum 8 characters" changes from red to green after password of length greater than 7 is entered. If characters are deleted and the length of the password is less than 8, it moves from green to red. (1 point)</li>
+						<li class="list-group-item">"Password and Confirm Password Match" changes from red to green after lower case is entered in the password field. If they dont match, it needs to move from green to red (1 point)</li>												
+					</ul>					
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<p>
+				<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#rule_3_collapse"
+					aria-expanded="false" aria-controls="rule_3_collapse">
+					Question 1.3 (2 points)
+				</button>
+			</p>
+			<div class="collapse" id="rule_3_collapse">
+				<div class="card card-body">
+					<p>
+						<strong>Overall Objective: </strong><br/>
+						Validate that the text in the password field and confirm password field are equal.
+					</p>					
+					<ul class="list-group">
+						<li class="list-group-item"> You need to validate that the text in the password field and confirm password field are equal.
+						</li>
+						<li class="list-group-item"> For one point, all that you have to do is look at the line “var
+							passEqualsConfPass = false;” and replace false, with the correct variable comparison to make
+							sure that. (1 point)
+						</li>
+						<li class="list-group-item"> For the second point, repeat what you did in Question 1.2 for the
+							if and else conditions for the match element. (1 point)
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<p>
+				<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#rule_4_collapse"
+					aria-expanded="false" aria-controls="rule_4_collapse">
+					Question 1.4 (5 points)
+				</button>
+			</p>
+			<div class="collapse" id="rule_4_collapse">
+				<p>
+					<strong>Overall Objective: </strong><br/>
+					Enable the Button when all the conditions for a valid password are satisfied.
+				</p>				
+				<div class="card card-body">
+					<ul class="list-group">
+						<li class="list-group-item"> What you will notice is that if any of the conditions for the password have a red cross, the button is disabled.</li>
+						<li class="list-group-item">What you need to do is in the enableButton() function, there is a
+							line that says “var condition = false”, replace the false with the right condition such that
+							if we have all green ticks, the button gets enabled and you can click it. (5 points)</li>
+						<li class="list-group-item"> Click the button to see a successful Modal</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End of -->
+</body>
+
+</html>

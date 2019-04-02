@@ -28,8 +28,12 @@ export function login(email, password) {
   console.log(email, password);
   return dispatch => {
     dispatch({ type: actionType.LOGIN_REQUEST, email });
-    loginHandler(email, password).then(user => {
-      dispatch({ type: actionType.LOGIN_SUCCESS, user })
+    loginHandler(email, password).then(response => {
+      if (response.code == 200) {
+        dispatch({ type: actionType.LOGIN_SUCCESS, response })
+      } else if (response.code == 204) {
+        dispatch({ type: actionType.LOGIN_FAILED, response })
+      }
     }, error => {
       dispatch({ type: actionType.LOGIN_FAILED, error })
     });
@@ -46,7 +50,7 @@ function registerHandler(obj) {
   return fetch('/register', requestOptions);
 }
 
-export function register(first_name, last_name, email, password) {
+export function registerUser(first_name, last_name, email, password) {
   console.log('registering:');
 
   return dispatch => {
