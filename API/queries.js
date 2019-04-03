@@ -115,7 +115,7 @@ function addMemberToFamily(req, res) {
     let added = false;
     const user = createFamilyHelper(obj);
     if (user){
-        pool.query{
+        pool.query(
             'SELECT * FROM families WHERE id = ($1)',
             [family],
             (err, results, fields) => {
@@ -125,31 +125,28 @@ function addMemberToFamily(req, res) {
                 }else{
                     if (parent){
                         const newMembers = {parents: [...members.parents, first_name], children: members.children};
-                        pool.query{
+                        pool.query(
                             'UPDATE families SET members = ($1)',
                             [newMembers],
                             (err, results, fields) => {
                                 if (err){
                                     console.log('err', error);
                                 }
-                            }
-                        });
+                            });
                     }else{
                         const newMembers = {parents: members.parents, children: [...members.children], first_name}
-                        pool.query{
+                        pool.query(
                             'UPDATE familes SET members = ($1)',
                             [newMembers],
                             (err, results, fields) => {
                                 if (err){
                                     console.log('err', error);
                                 }
-                            }
-                        });
+                            });
                     }
                 }
 
-            }
-        });
+            });
     }else{
 
     }
