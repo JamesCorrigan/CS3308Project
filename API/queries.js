@@ -176,16 +176,16 @@ function createFamilyHelper(obj) {
   const password = obj.password;
   const family = obj.family;
   const parent = obj.parent;
-  let created = false;
+  let created;
   pool.query(
     'INSERT INTO users (first_name, last_name, email, password, created, family, parent) VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING *',
     [first_name, last_name, email, password, now, family, parent],
     (err, results, fields) => {
-      console.log("family helper", results, 'err', err);
-    if (err !== undefined) {
+    if (!!err) {
       console.log("error", err);
       created = false;
     } else {
+      console.log('user created!');
       created = true;
       //AFTER USER IS REGISTERED, NEED TO PREFORM ACTIONS ON FAMILY TABLE
     }
@@ -209,7 +209,7 @@ async function createFamily(req, res) {
     'INSERT INTO families (last_name, images, members, calendar) VALUES ($1,$2,$3,$4) RETURNING *',
     [last_name, images, members, calendar],
     (err, results) => {
-      if (err) {
+      if (!!err) {
         console.log('error', err);
         res.send({
           "code": 400,
@@ -232,21 +232,33 @@ async function createFamily(req, res) {
           family,
           parent
         }
-        const madeUser = createFamilyHelper(obj);
-        console.log('did user create? ', madeUser);
-        if (madeUser === true) {
-          res.send({
-            "code": 200,
-            "success": "created family",
-            "data": results.rows[0]
-          });
-        } else {
-          res.send({
-            "code": 204,
-            "failed": "user creation error",
-            "data": results.rows[0]
-          });
-        }
+        let created = false;
+        pool.query(
+          'INSERT INTO users (first_name, last_name, email, password, created, family, parent) VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING *',
+          [first_name, last_name, email, password, now, family, parent],
+          (err, iResults, fields) => {
+          if (!!err) {
+            console.log("error", err);
+            created = false;
+            res.send({
+              "code": 204,
+              "failed": "user creation error",
+              "data": results.rows[0]
+            });
+            //delete family if user isnt made
+          } else {
+            console.log('user and family created!');
+            created = true;
+            res.send({
+              "code": 200,
+              "success": "created family",
+              "family": results.rows[0],
+              "user": iResults.rows[0]
+            });
+            //AFTER USER IS REGISTERED, NEED TO PREFORM ACTIONS ON FAMILY TABLE
+          }
+        });
+
         //IF FAMILY CREATED, LOG in as user who created.
       }
     }

@@ -45,7 +45,8 @@ export default (state = initialState, action) => {
         ...state,
         loggedIn: true,
         loggingIn: false,
-        family: action.response.data
+        family: action.response.family,
+        user: action.response.user
       };
     case actionType.CREATE_FAMILY_FAILED:
       return {
