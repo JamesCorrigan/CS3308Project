@@ -12,7 +12,8 @@
 /* Padding below the footer and lighter body text */
 
 body {
-  background-color: #89bdd3;
+  background: url("family.gif")no-repeat center center fixed; 
+  background-size: cover;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -200,6 +201,9 @@ body {
   left: 50%;
   font-size: 2rem;
   transform: translate(-50%, -50%);
+  background-color: #877f65;
+  padding: 20px;
+
 }
 .mid h3 {
   font-family: 'Roboto', sans-serif;
@@ -211,11 +215,17 @@ body {
   left: 50%;
   font-size: 1rem;
   transform: translate(-50%, -50%);
+  background-color: #877f65;
+  padding-left: 51px;
+  padding-right: 51px;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  margin-top: 20px;
 }
 
 
 .botpage{
-	margin-top: 500px;
+	margin-top: 600px;
 	background-color: white;
 
 }
