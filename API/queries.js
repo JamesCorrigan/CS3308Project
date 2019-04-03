@@ -41,6 +41,20 @@ function getUserById(req, res){
   })
 }
 
+function getUserByEmail(email){
+  pool.query('SELECT * FROM users WHERE email = $1 RETURNING *', [email], (error, results) => {
+    if (error) {
+      throw error;
+    } else {
+      const user = results.rows[0];
+      console.log(user);
+      return user;
+    }
+
+    res.status(200).json(results.rows)
+  })
+}
+
 function updateUser(req, res) {
   const id = parseInt(req.params.id)
   const { name, email } = req.body
