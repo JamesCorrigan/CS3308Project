@@ -111,8 +111,59 @@ function registerUser(req, res) {
 }
 
 function addMemberToFamily(req, res) {
-  const family = req.body.family;
+    const now = new Date();
+    const family = req.body.family;
+    const last_name = req.body.last_name;
+    const first_name = req.body.first_name;
+    const email = req.body.email;
+    const password = req.body.password;
+    const parent = req.body.parent;
+    const obj = {
+      first_name,
+      last_name,
+      email,
+      password,
+      family,
+      parent
+    }
+    let added = false;
+    const user = createFamilyHelper(obj);
+    if (user){
+        pool.query(
+            'SELECT * FROM families WHERE id = ($1)',
+            [family],
+            (err, results, fields) => {
+                const members = results.rows[0].members;
+                if (err){
+                    console.log("error", err);
+                }else{
+                    if (parent){
+                        const newMembers = {parents: [...members.parents, first_name], children: members.children};
+                        pool.query(
+                            'UPDATE families SET members = ($1)',
+                            [newMembers],
+                            (err, results, fields) => {
+                                if (err){
+                                    console.log('err', error);
+                                }
+                            });
+                    }else{
+                        const newMembers = {parents: members.parents, children: [...members.children], first_name}
+                        pool.query(
+                            'UPDATE familes SET members = ($1)',
+                            [newMembers],
+                            (err, results, fields) => {
+                                if (err){
+                                    console.log('err', error);
+                                }
+                            });
+                    }
+                }
 
+            });
+    }else{
+
+    }
 }
 
 function createFamilyHelper(obj) {

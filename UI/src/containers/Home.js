@@ -43,8 +43,8 @@ class Home extends Component {
       <main role="main">
       {/*Else, render page asking for login*/}
         <div className="module mid">
-          <h2>Family Time</h2>
-          <h3>Log in to use features</h3>
+          <h2><span>Family Time</span></h2>
+          <h3><span>Log in to use features</span></h3>
         </div>
         <div className="botpage">
           <div className="container marketing">
