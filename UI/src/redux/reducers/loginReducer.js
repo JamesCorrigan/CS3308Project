@@ -2,7 +2,8 @@ import * as actionType from '../actions/actionTypes';
 const initialState = {
   loggingIn: false,
   loggedIn: false,
-  user: null,
+  user: {},
+  family: {},
   errors: []
 }
 export default (state = initialState, action) => {
@@ -12,20 +13,45 @@ export default (state = initialState, action) => {
         ...state,
         loggingIn: true,
         loggedIn: false,
-        user: action.user
       };
     case actionType.LOGIN_SUCCESS:
       return {
         ...state,
         loggedIn: true,
         loggingin: false,
-        user: action.user
+        user: action.response.data
       };
     case actionType.LOGIN_FAILED:
       return {
         ...state,
         loggedIn: false,
         loggingIn: false,
+        errors: [
+          ...state.errors,
+          {
+            time: new Date(),
+            error: action.response
+          }
+        ]
+      };
+    case actionType.REQUEST_CREATE_FAMILY:
+      return {
+        ...state,
+        loggingIn: true,
+        loggedIn: false
+      };
+    case actionType.CREATE_FAMILY_SUCCESS:
+      return {
+        ...state,
+        loggedIn: true,
+        loggingIn: false,
+        family: action.response.data
+      };
+    case actionType.CREATE_FAMILY_FAILED:
+      return {
+        ...state,
+        loggingIn: false,
+        loggedIn: false,
         errors: [
           ...state.errors,
           {

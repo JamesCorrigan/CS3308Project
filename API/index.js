@@ -40,6 +40,7 @@ app.post('/login', db.login);
 //POST TO CREATE FAMILY
 app.post('/createFamily', db.createFamily);
 
+app.post('/addMember', db.addMemberToFamily);
 //LINK API
 app.use('/api', router);
 

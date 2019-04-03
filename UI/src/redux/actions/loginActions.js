@@ -16,6 +16,7 @@ function loginHandler(email, password) {
   return fetch('/login', requestOptions)
     .then(responseHandler)
     .then(user => {
+        console.log('login handler user: ', user);
         localStorage.setItem('user', JSON.stringify(user));
         return user;
     });
@@ -25,10 +26,10 @@ function loginHandler(email, password) {
 
 
 export function login(email, password) {
-  console.log(email, password);
   return dispatch => {
-    dispatch({ type: actionType.LOGIN_REQUEST, email });
+    dispatch({ type: actionType.LOGIN_REQUEST });
     loginHandler(email, password).then(response => {
+      console.log('login response ', response);
       if (response.code == 200) {
         dispatch({ type: actionType.LOGIN_SUCCESS, response })
       } else if (response.code == 204) {
@@ -50,7 +51,6 @@ function familyHandler(obj) {
     .then(responseHandler)
     .then(data => {
       //what to do with data?
-      console.log(data);
       return data;
     })
 }
@@ -68,6 +68,36 @@ export function createFamily(obj) {
       }
     }, error => {
       dispatch({ type: actionType.CREATE_FAMILY_FAILED, error })
+    });
+  }
+}
+
+function addHandler(obj) {
+  const requestOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(obj)
+  };
+  return fetch('/addMember', requestOptions)
+  .then(responseHandler)
+  .then(data => {
+    return data;
+  })
+}
+
+export function addMemberToFamily(obj) {
+  console.log('adding user: ', obj);
+  return dispatch => {
+    dispatch({type: actionType.REQUEST_ADD_MEMBER});
+    addHandler(obj)
+    .then(response => {
+      if (response.code == 200) {
+        dispatch({ type: actionType.ADD_MEMBER_SUCCESS, response })
+      } else if (response.code == 204) {
+        dispatch({ type: actionType.ADD_MEMBER_FAILED, response })
+      }
+    }, error => {
+      dispatch({ type: actionType.ADD_MEMBER_FAILED, error })
     });
   }
 }

@@ -11,6 +11,9 @@ class Modal extends Component {
     this.state = {
       email: '',
       password: '',
+      first_name: '',
+      last_name: '',
+      family: '',
       submitted: false,
       showRegister: false
     };
@@ -28,10 +31,10 @@ class Modal extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.setState({ submitted: true });
     const { email, password } = this.state;
     if (email && password) {
         this.props.loginActions.login(email, password);
+        this.setState({ submitted: true });
     }
   }
 
@@ -65,7 +68,7 @@ class Modal extends Component {
       <div className='.modal' ref={this.setWrapperRef}>
         <section className="modal-main">
           <div>
-            <h1>Login</h1>
+            <h1>Add User To Family</h1>
             <div className='login-form'>
               <form onSubmit={this.handleSubmit}>
                 <label>

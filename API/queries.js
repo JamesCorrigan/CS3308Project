@@ -48,10 +48,10 @@ function getUserByEmail(email){
     } else {
       const user = results.rows[0];
       console.log(user);
+      res.status(200).json(results.rows)
       return user;
     }
 
-    res.status(200).json(results.rows)
   })
 }
 
@@ -91,7 +91,7 @@ function registerUser(req, res) {
   let parent = req.body.parent;
   let created = now;
   pool.query(
-    'INSERT INTO users (first_name, last_name, email, password, created, family, parent) VALUES ($1,$2,$3,$4,$5,$6,$7)',
+    'INSERT INTO users (first_name, last_name, email, password, created, family, parent) VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING *',
     [first_name, last_name, email, password, Date.now(), family, parent],
     (err, results, fields) => {
     if (err) {
@@ -101,10 +101,12 @@ function registerUser(req, res) {
         "failed": "error"
       });
     } else {
+      const user = results.rows[0];
       //AFTER USER IS REGISTERED, NEED TO PREFORM ACTIONS ON FAMILY TABLE
       res.send({
         "code": 200,
-        "success": "registered user"
+        "success": "registered user",
+        data: user
       });
     }
   });
@@ -159,10 +161,10 @@ function addMemberToFamily(req, res) {
                             });
                     }
                 }
-
             });
-    }else{
-
+    } else {
+      //if add user fails:
+      console.log('failure');
     }
 }
 
@@ -179,13 +181,13 @@ function createFamilyHelper(obj) {
     'INSERT INTO users (first_name, last_name, email, password, created, family, parent) VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING *',
     [first_name, last_name, email, password, now, family, parent],
     (err, results, fields) => {
-      console.log("family helper", results);
-    if (err) {
+      console.log("family helper", results, 'err', err);
+    if (err !== undefined) {
       console.log("error", err);
       created = false;
     } else {
-      //AFTER USER IS REGISTERED, NEED TO PREFORM ACTIONS ON FAMILY TABLE
       created = true;
+      //AFTER USER IS REGISTERED, NEED TO PREFORM ACTIONS ON FAMILY TABLE
     }
   });
   return created;
@@ -214,7 +216,13 @@ async function createFamily(req, res) {
           "failed": "error"
         });
       } else {
-        console.log("new family:", results.rows[0]);
+        /*
+        res.send({
+          "code": 200,
+          "success": "created family",
+          "data": results.rows[0]
+        });
+        */
         const family = results.rows[0].id;
         const obj = {
           first_name,
@@ -225,15 +233,18 @@ async function createFamily(req, res) {
           parent
         }
         const madeUser = createFamilyHelper(obj);
-        if (madeUser) {
+        console.log('did user create? ', madeUser);
+        if (madeUser === true) {
           res.send({
             "code": 200,
-            "success": "created family"
+            "success": "created family",
+            "data": results.rows[0]
           });
         } else {
           res.send({
             "code": 204,
-            "failed": "user creation error"
+            "failed": "user creation error",
+            "data": results.rows[0]
           });
         }
         //IF FAMILY CREATED, LOG in as user who created.
@@ -261,12 +272,14 @@ function login(req, res) {
           console.log('logged in');
           res.send({
             "code": 200,
-            "success": "login successful"
+            "success": "login successful",
+            "data": results.rows[0]
           });
         } else {
           res.send({
             "code": 204,
-            "success": "Wrong Password"
+            "success": "Wrong Password",
+            "data": results.rows[0]
           });
         }
       } else {
@@ -287,5 +300,6 @@ module.exports = {
   deleteUser,
   registerUser,
   login,
-  createFamily
+  createFamily,
+  addMemberToFamily
 }

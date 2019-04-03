@@ -10,17 +10,17 @@ export default (state = {
   errors: []
 }, action) => {
   switch (action.type) {
-    case actionType.LOGIN_REQUEST:
+    case actionType.ACTION_CALL:
       return {
         ...state,
         loading: true
       };
-    case actionType.LOGIN_SUCCESS:
+    case actionType.CALL_RECIEVED:
       return {
         ...state,
         data: action.response
       };
-    case actionType.LOGIN_FAILED:
+    case actionType.CALL_FAILED:
       return {
         ...state,
         errors: [
