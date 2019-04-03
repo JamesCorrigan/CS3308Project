@@ -24,8 +24,8 @@ class Home extends Component {
       <div role="main">
       {/*if logged in, render main page*/}
         <div className="module mid">
-          <h2>Family Time</h2>
-          <h3>Home Page</h3>
+          <h2><span>Family Time</span></h2>
+          <h3><span>Home Page</span></h3>
         </div>
         <div className="botpage">
           <div className="container marketing">

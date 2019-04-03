@@ -64,24 +64,23 @@ class Modal extends Component {
     return (
       <div className='.modal' ref={this.setWrapperRef}>
         <section className="modal-main">
-          <div>
-            <h1>Login</h1>
+        <h1 className='login'>Login</h1>
+          <div className='login-container'>
             <div className='login-form'>
+            
               <form onSubmit={this.handleSubmit}>
                 <label>
-                  email:
-                  <input type='text' name='email' value={email} onChange={this.handleChange}/>
+                  <input type='text' name='email' placeholder='Email' value={email} onChange={this.handleChange}/>
                 </label>
                 <br/>
                 <label>
-                  Password:
-                  <input type='password' name='password' value={password} onChange={this.handleChange}/>
+                  <input type='password' name='password' placeholder='Password' value={password} onChange={this.handleChange}/>
                 </label>
                 <input type='submit' value='submit' />
               </form>
-            </div>
+             </div>
           </div>
-          <button onClick={this.props.handleClose}>close</button>
+        
         </section>
       </div>
     );
