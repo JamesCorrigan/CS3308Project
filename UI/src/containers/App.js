@@ -83,6 +83,7 @@ class App extends Component {
           handleShowRegister={this.handleShowRegister}
           handleShowLogin = {this.handleShowLogin}
           loggedIn = {this.props.loggedIn}
+          user = {this.props.user}
         />
         {(this.state.showRegModal && !this.props.loggedIn) ?
           <RegisterModal handleClose={this.handleCloseRegister} />
