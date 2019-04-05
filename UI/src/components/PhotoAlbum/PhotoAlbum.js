@@ -23,7 +23,8 @@ class Album extends Component {
 
 const mapStateToProps = state => {
   return {
-    albumReducer: state.albumReducer
+    albumReducer: state.albumReducer,
+    homeReducer: state.homeReducer
   };
 };
 

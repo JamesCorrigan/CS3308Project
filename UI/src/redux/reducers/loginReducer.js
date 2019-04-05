@@ -61,6 +61,32 @@ export default (state = initialState, action) => {
           }
         ]
       };
+    case actionType.REQUEST_ADD_MEMBER:
+      return {
+        ...state,
+        loggingIn: true,
+        loggedIn: false
+      }
+    case actionType.ADD_MEMBER_SUCCESS:
+      return {
+        ...state,
+        loggedIn: true,
+        loggingIn: false,
+        user: action.response.user
+      }
+    case actionType.ADD_MEMBER_FAILED:
+      return {
+        ...state,
+        loggedIn: false,
+        loggingIn: false,
+        errors: [
+          ...state.errors,
+          {
+            time: new Date(),
+            error: action.response
+          }
+        ]
+      }
     default:
       return {
         ...state

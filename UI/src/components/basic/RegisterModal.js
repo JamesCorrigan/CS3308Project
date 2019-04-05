@@ -1,4 +1,4 @@
-  import React, {Component} from 'react';
+import React, {Component} from 'react';
 import { Route, Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -11,15 +11,18 @@ class Modal extends Component {
     super(props);
     this.state = {
       rData: {
+        first_name: '',
+        last_name: '',
         email: '',
-        password: ''
+        password: '',
+        parent: false
       },
       cData: {
         first_name: '',
         last_name: '',
         email: '',
         password: '',
-        parent: false,
+        parent: false
       },
       submitted: false,
       showCreateForm: false
@@ -29,6 +32,9 @@ class Modal extends Component {
     this.handleCreateCheck = this.handleCreateCheck.bind(this);
     this.handleCreateSubmit = this.handleCreateSubmit.bind(this);
     this.handleRegChange = this.handleRegChange.bind(this);
+    this.handleRegSubmit = this.handleRegSubmit.bind(this);
+    this.handleRegCheck = this.handleRegCheck.bind(this);
+
     //handle outside clicks
     this.setWrapperRef = this.setWrapperRef.bind(this);
     this.handleClickOutside = this.handleClickOutside.bind(this);
@@ -143,23 +149,72 @@ class Modal extends Component {
 
   handleRegChange(e) {
     const { name, value } = e.target;
-    this.setState({rData: { [name]: value }});
+    const data = this.state.rData;
+    this.setState({rData: {...data, [name]: value }});
+  }
+
+  handleRegCheck(e) {
+    const value = e.target.checked;
+    const name = e.target.name;
+    const data = this.state.rData;
+    this.setState({rData: { ...data, [name]: value }})
   }
 
   handleRegSubmit(e) {
     e.preventDefault();
     this.setState({ submitted: true });
-    const { email, password } = this.state.rData;
-    if (email && password) {
-        this.props.loginActions.login(email, password);
+    const rData = this.state.rData;
+    console.log('submitting: ', rData);
+    if (rData.first_name && rData.last_name && rData.family && rData.email && rData.password) {
+        this.props.loginActions.addMemberToFamily(rData);
+        console.log('called');
     }
   }
 
   registerUser() {
-    const { first_name, last_name, email, password, submitted } = this.state.rData;
+    const { first_name, last_name, email, password, submitted, family, parent } = this.state.rData;
     return (
       <div className='login-form'>
         <form onSubmit={this.handleRegSubmit}>
+          <label>
+            First Name:
+            <input
+              type='text'
+              name='first_name'
+              value={first_name}
+              onChange={this.handleRegChange}
+            />
+          </label>
+          <label>
+            Last Name:
+            <input
+              type='text'
+              name='last_name'
+              value={last_name}
+              onChange={this.handleRegChange}
+             />
+          </label>
+          <label>
+            Family:
+            <input
+              type='text'
+              name='family'
+              value={family}
+              onChange={this.handleRegChange}
+             />
+          </label>
+          <br/>
+          <label>
+            Parent?:
+            <input
+              type='checkbox'
+              name='parent'
+              checked={parent}
+              onChange={this.handleRegCheck}
+            />
+          </label>
+          <br/>
+
           <label>
             email:
             <input type='text' name='email' value={email} onChange={this.handleRegChange}/>
