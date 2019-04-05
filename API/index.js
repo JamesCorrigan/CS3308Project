@@ -1,5 +1,12 @@
 const express = require('express');
+const path = require('path');
+const fs = require('fs');
 const bodyParser = require('body-parser');
+const multer = require("multer");
+const upload = multer({
+dest: "/path/to/temporary/directory/to/store/uploaded/files"
+//you might also want to set some limits: https://github.com/expressjs/multer#limits
+});
 const app = express();
 const port = 4000;
 //db = all database functions
@@ -41,6 +48,9 @@ app.post('/login', db.login);
 app.post('/createFamily', db.createFamily);
 
 app.post('/addMember', db.addMemberToFamily);
+
+app.post('/upload', upload.single("file"), db.addPhoto);
+
 //LINK API
 app.use('/api', router);
 

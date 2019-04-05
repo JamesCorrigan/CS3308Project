@@ -147,6 +147,12 @@ function addMemberToFamily(req, res) {
                             (err, results, fields) => {
                                 if (err){
                                     console.log('err', error);
+                                }else{
+                                    res.send({
+                                      "code": 200,
+                                      "success": "add member to family successful",
+                                      "data": obj
+                                    });
                                 }
                             });
                     }else{
@@ -157,6 +163,12 @@ function addMemberToFamily(req, res) {
                             (err, results, fields) => {
                                 if (err){
                                     console.log('err', error);
+                                }else{
+                                    res.send({
+                                      "code": 200,
+                                      "success": "add member to family successful",
+                                      "data": obj
+                                    });
                                 }
                             });
                     }
@@ -165,6 +177,7 @@ function addMemberToFamily(req, res) {
     } else {
       //if add user fails:
       console.log('failure');
+
     }
 }
 
@@ -305,6 +318,38 @@ function login(req, res) {
   //pull user with same name from db, then check password
 }
 
+function addPhoto(req, res) {
+    const tempPath = req.file.path;
+    const targetPathPng = path.join(__dirname, "./uploads/" + req.file.originalname + ".png");
+
+    if (path.extname(req.file.originalname).toLowerCase() === ".png") {
+      fs.rename(tempPath, targetPath, err => {
+        if (err) return handleError(err, res);
+
+        res
+          .status(200)
+          .contentType("text/plain")
+          .end("File uploaded!");
+      });
+    } else {
+      fs.unlink(tempPath, err => {
+        if (err) return handleError(err, res);
+
+        res
+          .status(403)
+          .contentType("text/plain")
+          .end("Only .png files are allowed!");
+      });
+    }
+}
+
+const handleError = (err, res) => {
+  res
+    .status(500)
+    .contentType("text/plain")
+    .end("Oops! Something went wrong!");
+};
+
 module.exports = {
   getUsers,
   getUserById,
@@ -313,5 +358,6 @@ module.exports = {
   registerUser,
   login,
   createFamily,
-  addMemberToFamily
+  addMemberToFamily,
+  addPhoto
 }
