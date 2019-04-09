@@ -22,6 +22,7 @@ class Album extends Component {
         <button onClick={this.props.albumActions.fetchMembers}>
           Clickabble button
         </button>
+        {imageGrid}
       </div>
     );
   }
