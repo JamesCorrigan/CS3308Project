@@ -96,47 +96,47 @@ class Modal extends Component {
       <div className='register-form'>
         <form onSubmit={this.handleCreateSubmit}>
           <label>
-            First Name:
             <input
               type='text'
               name='first_name'
+              placeholder='First Name'
               value={first_name}
               onChange={this.handleCreateChange}
             />
           </label>
           <label>
-            Last Name:
             <input
               type='text'
               name='last_name'
+              placeholder='Last Name'
               value={last_name}
               onChange={this.handleCreateChange}
              />
           </label>
-          <label>
-            Parent?:
+          <label className="check">Check if Parent
             <input
               type='checkbox'
               name='parent'
               checked={parent}
               onChange={this.handleCreateCheck}
             />
+            <span className="checkmark"></span>
           </label>
           <label>
-            email:
             <input
               type='text'
               name='email'
+              placeholder='Email'
               value={email}
               onChange={this.handleCreateChange}
              />
            </label>
           <br/>
           <label>
-            Password:
             <input
               type='password'
               name='password'
+              placeholder='Password'
               value={password}
               onChange={this.handleCreateChange}
              />
@@ -177,52 +177,50 @@ class Modal extends Component {
       <div className='login-form'>
         <form onSubmit={this.handleRegSubmit}>
           <label>
-            First Name:
             <input
               type='text'
               name='first_name'
+              placeholder='First Name'
               value={first_name}
               onChange={this.handleRegChange}
             />
           </label>
           <label>
-            Last Name:
             <input
               type='text'
               name='last_name'
+              placeholder='Last Name'
               value={last_name}
               onChange={this.handleRegChange}
              />
           </label>
           <label>
-            Family:
             <input
               type='text'
               name='family'
+              placeholder='Family'
               value={family}
               onChange={this.handleRegChange}
              />
           </label>
           <br/>
-          <label>
-            Parent?:
+          <label className="check">Check if Parent
             <input
               type='checkbox'
               name='parent'
               checked={parent}
-              onChange={this.handleRegCheck}
+              onChange={this.handleCreateCheck}
             />
+            <span className="checkmark"></span>
           </label>
           <br/>
 
           <label>
-            email:
-            <input type='text' name='email' value={email} onChange={this.handleRegChange}/>
+            <input type='text' name='email' placeholder='Email' value={email} onChange={this.handleRegChange}/>
           </label>
           <br/>
           <label>
-            Password:
-            <input type='password' name='password' value={password} onChange={this.handleRegChange}/>
+            <input type='password' name='password' placeholder='Password' value={password} onChange={this.handleRegChange}/>
           </label>
           <input type='submit' value='submit' />
         </form>
@@ -237,11 +235,12 @@ class Modal extends Component {
       <div className='.modal' ref={this.setWrapperRef}>
         <section className="modal-main">
           <div>
-            <h1>{headText}</h1>
-            <h4 onClick={this.handleSwitchForm}><a>{linkText}</a></h4>
+          <div className="makeUser">
+            <h1 className="headerWords1">{headText}</h1>
+            <h4 className="headerWords2" onClick={this.handleSwitchForm}><a>{linkText}</a></h4>
+            </div>
             {this.state.showCreateForm ? this.registerUser() : this.createFamily()}
           </div>
-          <button onClick={this.props.handleClose}>close</button>
         </section>
       </div>
     );
