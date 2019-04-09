@@ -9,6 +9,12 @@ class Album extends Component {
     this.state = {}
   }
   render() {
+    let imageGrid = this.props.images ? this.images.map((image, i) =>
+    <div key={i}>
+      <img src={image.url} alt='' />
+    </div>
+
+  ) : (null);
     return (
       <div className='album-wrapper'>
         <h1>Album</h1>
