@@ -20,7 +20,8 @@ body {
   background-size: cover;
   padding-top: 3rem;
   padding-bottom: 3rem;
-  color: #e3e3e3;
+  color: #7a7a7a;
+
 }
 
 .header-wrapper {
@@ -197,7 +198,7 @@ body {
   text-transform: uppercase;
   margin: 0;
   position: absolute;
-  top: 25%;
+  top: 75%;
   left: 50%;
   font-size: 2rem;
   transform: translate(-50%, -50%);
@@ -213,7 +214,7 @@ body {
   color: white;
   margin: 0;
   position: absolute;
-  top: 30%;
+  top: 80%;
   left: 50%;
   font-size: 1rem;
   transform: translate(-50%, -50%);
@@ -251,9 +252,7 @@ body {
   margin-right: .75rem;
   margin-left: .75rem;
 }
-.row{
 
-}
 footer{
 	padding-bottom: 50px;
 }
@@ -269,7 +268,7 @@ button:disabled {
 
 .register-form {
   display: block;
-  width: 50%;
+  width: 53%;
 }
 
 input[type=text] {
@@ -295,7 +294,7 @@ input[type=password] {
 
 .modal-main {
   position:fixed;
-  background: white;
+  background: #ebebeb;
   width: 80%;
   height: auto;
   top:50%;
@@ -381,6 +380,89 @@ input[type=password] {
   border-color: #05a;
 }
 
+.check {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.check input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 5px;
+  left: 0px;
+  height: 25px;
+  width: 25px;
+  background-color: #8a9388;
+}
+
+.check:hover input ~ .checkmark {
+  background-color: #5d665b;
+}
+
+.check input:checked ~ .checkmark {
+  background-color: #777f3b;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.check input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.check .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.register-form{
+	padding-left: 10px;
+	background-color: #ebebeb;
+	margin-bottom: 10px;
+}
+.makeUser{
+	text-align: center;
+	background-color: #777f3b;
+
+}
+.headerWords1{
+	font-size: 30px;
+	padding-top: 15px;
+	color: #ffffff;
+	font-weight: 400;
+}
+.headerWords2{
+	font-size: 30px;
+	padding-bottom: 15px;
+	color: #ffffff;
+	font-weight: 400;
+}
 @media (max-width: 555px) {
   h3 {
     font-style: 50px;
