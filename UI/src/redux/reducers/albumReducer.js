@@ -27,6 +27,27 @@ export default (state = initialState, action) => {
           }
         ]
       };
+      case actionType.REQUEST_UPLOAD_IMAGE:
+        return {
+          ...state,
+          loading: true
+        };
+      case actionType.UPLOAD_IMAGE_SUCCESS:
+        return {
+          ...state,
+          data: action.response
+        };
+      case actionType.UPLOAD_IMAGE_FAILURE:
+        return {
+          ...state,
+          errors: [
+            ...state.errors,
+            {
+              time: new Date(),
+              error: action.response
+            }
+          ]
+        };
     default:
       return {
         ...state

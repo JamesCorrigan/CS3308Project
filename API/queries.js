@@ -318,7 +318,7 @@ function login(req, res) {
   //pull user with same name from db, then check password
 }
 
-/*
+
 function addPhoto(req, res) {
     const tempPath = req.file.path;
     const targetPathPng = path.join(__dirname, "./uploads/" + req.file.originalname + ".png");
@@ -343,7 +343,7 @@ function addPhoto(req, res) {
       });
     }
 }
-*/
+
 
 const handleError = (err, res) => {
   res
