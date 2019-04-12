@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import axios from 'axios';
 
 import * as albumActions from '../../redux/actions/albumActions.js';
 import * as loginActions from '../../redux/actions/loginActions.js';
@@ -9,44 +8,28 @@ class Album extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      images: [],
-      newImage: null,
-      uploadStatus: false
+      imageURL: ''
     }
     this.handleUploadImage = this.handleUploadImage.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.onImageChange = this.onImageChange.bind(this);
   }
 
-  handleUploadImage(e) {
-    e.preventDefault();
+  handleUploadImage(ev) {
+    ev.preventDefault();
+    const familyID = this.props.family;
     const data = new FormData();
     data.append('file', this.uploadInput.files[0]);
     data.append('filename', this.fileName.value);
-    console.log('uploading from react', data);
-    this.props.albumActions.uploadImage(data);
-    /*
-    axios.post('http://localhost:4000/upload', data)
-    .then(response => {
-      console.log(response);
-      this.setState({ imageURL: `http://localhost:4000/${response.body.file}`, uploadStatus: true });
-    }).catch(error => {
-       console.log(error);
-     });
-     */
+    data.append('family', familyID)
+    fetch('http://localhost:4000/upload', {
+      method: 'POST',
+      body: data,
+      }).then((response) => {
+        response.json().then((body) => {
+          this.setState({ imageURL: `http://localhost:4000/${body.file}` });
+        });
+      }).catch(error => console.log(error));
   }
-  onImageChange(e) {
-    if (e.target.files && e.target.files[0]) {
-      this.setState({ newImage: e.target.files[0] });
-    }
-  }
-  onSubmit(e) {
-    e.preventDefault();
-    const image = {
 
-    }
-    this.props.albumActions.uploadImage(image);
-  }
   render() {
     let imageGrid = this.props.images ? this.props.images.map((image, i) =>
     <div key={i}>
@@ -54,23 +37,26 @@ class Album extends Component {
       {JSON.stringify(image)}
     </div>
   ) : (null);
+
+
     return (
       <div className='album-wrapper'>
         <h1>Album</h1>
         <div className="container">
-          <form onSubmit={this.handleUpload}>
-            <div className="form-group">
-              <input className="form-control"  ref={(ref) => { this.uploadInput = ref; }} type="file" />
+          <form onSubmit={this.handleUploadImage}>
+            <div>
+              <input ref={(ref) => { this.uploadInput = ref; }} type="file" />
             </div>
-
-            <div className="form-group">
-              <input className="form-control" ref={(ref) => { this.fileName = ref; }} type="text" placeholder="Optional name for the file" />
+            <div>
+              <input ref={(ref) => { this.fileName = ref; }} type="text" placeholder="Enter the desired name of file" />
             </div>
-
-            <button className="btn btn-success" type='submit'>Upload</button>
-
-            </form>
-          </div>
+            <br />
+            <div>
+              <button>Upload</button>
+            </div>
+            <img src={this.state.imageURL} alt="img" />
+          </form>
+        </div>
         <br/>
         <button onClick={this.props.albumActions.fetchMembers}>
           Clickabble button
@@ -84,7 +70,9 @@ class Album extends Component {
 const mapStateToProps = state => {
   return {
     albumReducer: state.albumReducer,
-    homeReducer: state.homeReducer
+    homeReducer: state.homeReducer,
+    user: state.loginReducer.user,
+    family: state.loginReducer.user.family
   };
 };
 

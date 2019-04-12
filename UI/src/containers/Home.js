@@ -66,7 +66,8 @@ const mapStateToProps = state => {
     homeReducer: state.homeReducer,
     loginReducer: state.loginReducer,
     loggedIn: state.loginReducer.loggedIn,
-    user: state.loginReducer.user
+    user: state.loginReducer.user,
+    family: state.loginReducer.user.family
   };
 };
 

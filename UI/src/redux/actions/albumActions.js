@@ -34,7 +34,8 @@ function uploadHandler(data) {
     headers: { 'Content-Type': 'multipart/form-data' },
     data
   };
-  return fetch('/api/images', requestOptions)
+  console.log('data:', data);
+  return fetch('/upload', requestOptions)
     .then(data => {
       console.log(data);
       //what to do with data?
@@ -43,14 +44,7 @@ function uploadHandler(data) {
 }
 
 export function uploadImage(data) {
-  axios.post('http://localhost:4000/upload', data)
-  .then(response => {
-    console.log(response);
-    this.setState({ imageURL: `http://localhost:4000/${response.body.file}`, uploadStatus: true });
-  }).catch(error => {
-     console.log(error);
-   });
-  /*
+  console.log(data);
   return dispatch => {
     dispatch({ type: actionType.REQUEST_UPLOAD_IMAGE });
     uploadHandler(data).then(response => {
@@ -64,5 +58,4 @@ export function uploadImage(data) {
       dispatch({ type: actionType.UPLOAD_IMAGE_FAILURE, error })
     });
   }
-  */
 }

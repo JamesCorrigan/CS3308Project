@@ -1,29 +1,46 @@
 const express = require('express');
 const path = require('path');
+
 const fs = require('fs');
 const bodyParser = require('body-parser');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
 const fileUpload = require('express-fileupload');
 const cors = require('cors');
-const multer = require("multer");
-const upload = multer({
-dest: "/path/to/temporary/directory/to/store/uploaded/files"
-//you might also want to set some limits: https://github.com/expressjs/multer#limits
-});
+
 const app = express();
 const port = 4000;
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
+
+app.use(logger('dev'));
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(fileUpload());
+app.use('/photos', express.static(__dirname + '/photos'));
 //db = all database functions
 const db = require('./queries');
-//required parser for JSON objects
-app.use(bodyParser.json());
-app.use(
-  bodyParser.urlencoded({
-    extended: true,
-  })
-);
-console.log(__dirname);
-var parser = multer({
-  dest: path.join(__dirname, './photos')
+
+app.post('/upload', (req, res, next) => {
+  console.log(req);
+  let imageFile = req.files.file;
+  let familyID = req.body.family;
+  const dir = __dirname + '/photos/' + familyID;
+
+  if (!fs.existsSync(dir)){
+      fs.mkdirSync(dir);
+  }
+  imageFile.mv(`${__dirname}/photos/${familyID}/${req.body.filename}.jpg`, function(err) {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    res.json({file: `photos/${familyID}/${req.body.filename}.jpg`});
+  });
+
 });
+
 
 //allows app to use url routes
 var router = express.Router();
@@ -55,18 +72,10 @@ app.post('/createFamily', db.createFamily);
 
 app.post('/addMember', db.addMemberToFamily);
 
-app.post('/upload2', upload.single("file"), db.addPhoto);
+//app.post('/upload2', upload.single("file"), db.addPhoto);
 
-app.post('/upload', (req, res, next) => {
-  console.log(req);
-  let imageFile = req.files.file;
-  imageFile.mv(`${__dirname}/public/${req.body.filename}.jpg`, function(err) {
-    if (err) {
-      return res.status(500).send(err);
-    }
-    res.json({file: `public/${req.body.filename}.jpg`});
-  });
-})
+
+/*
 app.post('/api/images', parser.single("image"), (req, res) => {
   console.log('called function');
   const image = {};
@@ -79,6 +88,8 @@ app.post('/api/images', parser.single("image"), (req, res) => {
   })
   .catch(err => console.log(err));
 })
+*/
+
 //LINK API
 app.use('/api', router);
 
