@@ -50,8 +50,7 @@ class Album extends Component {
   render() {
     let imageGrid = this.props.images ? this.props.images.map((image, i) =>
     <div key={i}>
-      <img src={image} alt='' />
-      {JSON.stringify(image)}
+      <img src={image} alt={`Photo ${i}`} key={i} />
     </div>
   ) : (null);
 
@@ -71,14 +70,15 @@ class Album extends Component {
             <div>
               <button>Upload</button>
             </div>
-            <img src={this.state.imageURL} alt="img" />
           </form>
         </div>
         <br/>
         <button onClick={this.handleClick}>
           {this.props.user.family}
         </button>
-        {imageGrid}
+        <div className="image-grid-container">
+          {imageGrid}
+        </div>
       </div>
     );
   }
@@ -89,7 +89,8 @@ const mapStateToProps = state => {
     albumReducer: state.albumReducer,
     homeReducer: state.homeReducer,
     user: state.loginReducer.user,
-    family: state.loginReducer.user.family
+    family: state.loginReducer.user.family,
+    images: state.albumReducer.images
   };
 };
 
