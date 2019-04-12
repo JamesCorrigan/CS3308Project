@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
+import PropTypes from 'prop-types';
 import * as albumActions from '../../redux/actions/albumActions.js';
 import * as loginActions from '../../redux/actions/loginActions.js';
 class Album extends Component {
@@ -11,6 +11,13 @@ class Album extends Component {
       imageURL: ''
     }
     this.handleUploadImage = this.handleUploadImage.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  componentDidMount() {
+    if (this.props.user) {
+      this.props.albumActions.getAllFamilyImages(this.props.user.family);
+    }
   }
 
   handleUploadImage(ev) {
@@ -23,11 +30,21 @@ class Album extends Component {
     fetch('http://localhost:4000/upload', {
       method: 'POST',
       body: data,
-      }).then((response) => {
+    }).then((response) => {
         response.json().then((body) => {
-          this.setState({ imageURL: `http://localhost:4000/${body.file}` });
+          let imageURL = `http://localhost:4000/${body.file}`;
+          //pass image url to database
+          //dispatch? would be easier
+          this.props.albumActions.addImageToDB(imageURL, familyID);
+          this.setState({ imageURL });
         });
       }).catch(error => console.log(error));
+    this.props.albumActions.getAllFamilyImages(this.props.user.family);
+  }
+
+  handleClick = (e) => {
+    e.preventDefault();
+    this.props.albumActions.getAllFamilyImages(this.props.user.family)
   }
 
   render() {
@@ -58,8 +75,8 @@ class Album extends Component {
           </form>
         </div>
         <br/>
-        <button onClick={this.props.albumActions.fetchMembers}>
-          Clickabble button
+        <button onClick={this.handleClick}>
+          {this.props.user.family}
         </button>
         {imageGrid}
       </div>

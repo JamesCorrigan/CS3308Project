@@ -1,5 +1,6 @@
 import * as actionType from './actionTypes';
 
+
 export function fetchMembers() {
   fetch('/users').then(res => res.json()).then(members => {
     console.log(members);
@@ -16,7 +17,6 @@ function loginHandler(email, password) {
   return fetch('/login', requestOptions)
     .then(responseHandler)
     .then(user => {
-        console.log('login handler user: ', user);
         localStorage.setItem('user', JSON.stringify(user));
         return user;
     });

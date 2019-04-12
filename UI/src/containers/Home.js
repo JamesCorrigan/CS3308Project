@@ -74,7 +74,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     homeActions: bindActionCreators(homeActions, dispatch),
-    loginActions: bindActionCreators(loginActions, dispatch)
+    loginActions: bindActionCreators(loginActions, dispatch),
+    albumActions: bindActionCreators(albumActions, dispatch)
   };
 };
 

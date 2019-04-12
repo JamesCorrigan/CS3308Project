@@ -55,6 +55,49 @@ function getUserByEmail(email){
   })
 }
 
+function getAllFamilyImages(req, res){
+  const familyID = parseInt(req.body.family);
+  console.log('family: ', familyID, );
+  pool.query('SELECT images FROM families WHERE id = $1', [familyID], (error, results) => {
+    const images = results.rows[0].images;
+    if (error) {
+      throw error;
+      res.status(204).json(results.rows)
+    } else {
+
+    }
+    if (images.length > 0) {
+      res.send({
+        "code": 200,
+        "success": "got photos",
+        data: images
+      });
+    } else {
+      res.send({
+        "code": 204,
+        data: images
+      })
+    }
+  })
+}
+
+
+function addImageToDB(req, res) {
+  const url = req.body.url;
+  const family = req.body.family;
+  console.log('url:', url, 'family: ', family);
+  pool.query('UPDATE families SET images = array_append(images, $1) WHERE id = $2',
+  [url, family], (error, results) => {
+    if (error) {
+      throw error;
+    }
+    res.send({
+      "code": 200,
+      "success": "Added URL to family DB"
+    });
+  })
+}
+
 function updateUser(req, res) {
   const id = parseInt(req.params.id)
   const { name, email } = req.body
@@ -237,14 +280,6 @@ async function createFamily(req, res) {
         });
         */
         const family = results.rows[0].id;
-        const obj = {
-          first_name,
-          last_name,
-          email,
-          password,
-          family,
-          parent
-        }
         let created = false;
         pool.query(
           'INSERT INTO users (first_name, last_name, email, password, created, family, parent) VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING *',
@@ -361,5 +396,7 @@ module.exports = {
   login,
   createFamily,
   addMemberToFamily,
-  addPhoto
+  addPhoto,
+  addImageToDB,
+  getAllFamilyImages
 }

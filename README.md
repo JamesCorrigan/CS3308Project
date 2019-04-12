@@ -1,5 +1,8 @@
 # CS3308Project
 Group Project for CSCI 3308
+TODO:
+
+
 
 POSTGRESQL DATABASE STRUCTURE:
   users:

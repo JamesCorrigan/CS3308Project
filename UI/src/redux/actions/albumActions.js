@@ -14,12 +14,65 @@ export const request = () => dispatch => {
 }
 */
 
-export function requestAllImages(obj) {
-  return {
-    type: actionType.REQUEST_GET_IMAGES,
-    obj
+function addImageHandler(url, family) {
+  const requestOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ url, family })
   };
-};
+  return fetch('/addImageToDB', requestOptions)
+    .then(responseHandler)
+    .then(data => {
+        console.log('add image data', data);
+        return data;
+    });
+}
+
+
+
+export function addImageToDB(url, family) {
+  return dispatch => {
+    dispatch({ type: actionType.REQUEST_ADD_URL });
+    addImageHandler(url, family).then(response => {
+      console.log('add response ', response);
+      if (response.code == 200) {
+        dispatch({ type: actionType.ADD_URL_SUCCESS, response })
+      } else if (response.code == 204) {
+        dispatch({ type: actionType.ADD_URL_FAILED, response })
+      }
+    }, error => {
+      dispatch({ type: actionType.ADD_URL_FAILED, error })
+    });
+  }
+}
+
+function getImageHandler(family) {
+  const requestOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ family })
+  };
+  return fetch('/getAllFamilyImages', requestOptions)
+    .then(responseHandler)
+    .then(data => {
+        return data;
+    });
+}
+
+export function getAllFamilyImages(familyID) {
+  return dispatch => {
+    dispatch({ type: actionType.REQUEST_GET_IMAGES });
+    getImageHandler(familyID).then(response => {
+      if (response.code == 200) {
+        dispatch({ type: actionType.GET_IMAGES_SUCCESS, response })
+      } else if (response.code == 204) {
+        dispatch({ type: actionType.GET_IMAGES_FAILURE, response })
+      }
+    }, error => {
+      dispatch({ type: actionType.GET_IMAGES_FAILURE, error })
+    });
+  }
+}
 
 export function recieveImages(obj) {
   return {
@@ -28,34 +81,19 @@ export function recieveImages(obj) {
     time: Date.now()
   }
 }
-function uploadHandler(data) {
-  const requestOptions = {
-    method: 'POST',
-    headers: { 'Content-Type': 'multipart/form-data' },
-    data
-  };
-  console.log('data:', data);
-  return fetch('/upload', requestOptions)
-    .then(data => {
-      console.log(data);
-      //what to do with data?
-      return data;
-    })
-}
 
-export function uploadImage(data) {
-  console.log(data);
-  return dispatch => {
-    dispatch({ type: actionType.REQUEST_UPLOAD_IMAGE });
-    uploadHandler(data).then(response => {
-      console.log(response);
-      if (response.code == 200) {
-        dispatch({ type: actionType.UPLOAD_IMAGE_SUCCESS, response })
-      } else if (response.code == 204) {
-        dispatch({ type: actionType.UPLOAD_IMAGE_FAILURE, response })
-      }
-    }, error => {
-      dispatch({ type: actionType.UPLOAD_IMAGE_FAILURE, error })
+
+function responseHandler(response) {
+    return response.text().then(text => {
+        const data = text && JSON.parse(text);
+        if (!response.ok) {
+            if (response.status === 401) {
+              //logout
+            }
+            const error = (data && data.message) || response.statusText;
+            return Promise.reject(error);
+        }
+
+        return data;
     });
-  }
 }

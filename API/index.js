@@ -55,6 +55,8 @@ app.get('/users', db.getUsers);
 //GET to get one user (old)
 app.get('/users/:id', db.getUserById);
 
+
+
 //PUT to get one user (old)
 app.put('/users/:id', db.updateUser);
 
@@ -72,23 +74,11 @@ app.post('/createFamily', db.createFamily);
 
 app.post('/addMember', db.addMemberToFamily);
 
-//app.post('/upload2', upload.single("file"), db.addPhoto);
+app.post('/addImageToDB', db.addImageToDB);
+
+app.post('/getAllFamilyImages', db.getAllFamilyImages);
 
 
-/*
-app.post('/api/images', parser.single("image"), (req, res) => {
-  console.log('called function');
-  const image = {};
-  image.url = req.file.url;
-  image.id = req.file.public_id;
-  console.log('uploading image:');
-  Image.create(image).then(newImage => {
-    console.log('uploaded image');
-    res.json(newImage);
-  })
-  .catch(err => console.log(err));
-})
-*/
 
 //LINK API
 app.use('/api', router);
