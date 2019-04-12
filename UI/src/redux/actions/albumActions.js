@@ -1,5 +1,5 @@
 import * as actionType from './actionTypes';
-
+import axios from 'axios';
 /*
 FOR WEBSOCKET:
 export const request = () => dispatch => {
@@ -28,23 +28,33 @@ export function recieveImages(obj) {
     time: Date.now()
   }
 }
-function uploadHandler(img) {
+function uploadHandler(data) {
   const requestOptions = {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: img
+    headers: { 'Content-Type': 'multipart/form-data' },
+    data
   };
-  return fetch('/upload', requestOptions)
+  return fetch('/api/images', requestOptions)
     .then(data => {
+      console.log(data);
       //what to do with data?
       return data;
     })
 }
 
-export function uploadImage(img) {
+export function uploadImage(data) {
+  axios.post('http://localhost:4000/upload', data)
+  .then(response => {
+    console.log(response);
+    this.setState({ imageURL: `http://localhost:4000/${response.body.file}`, uploadStatus: true });
+  }).catch(error => {
+     console.log(error);
+   });
+  /*
   return dispatch => {
     dispatch({ type: actionType.REQUEST_UPLOAD_IMAGE });
-    uploadHandler(img).then(response => {
+    uploadHandler(data).then(response => {
+      console.log(response);
       if (response.code == 200) {
         dispatch({ type: actionType.UPLOAD_IMAGE_SUCCESS, response })
       } else if (response.code == 204) {
@@ -54,4 +64,5 @@ export function uploadImage(img) {
       dispatch({ type: actionType.UPLOAD_IMAGE_FAILURE, error })
     });
   }
+  */
 }

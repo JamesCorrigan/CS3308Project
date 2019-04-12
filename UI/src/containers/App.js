@@ -4,6 +4,7 @@ import { Route, Link } from 'react-router-dom';
 //imports for redux library
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import axios from 'axios';
 //redux action imports
 import * as albumActions from '../redux/actions/albumActions.js';
 import * as homeActions from '../redux/actions/homeActions.js';

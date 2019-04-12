@@ -2,6 +2,8 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const bodyParser = require('body-parser');
+const fileUpload = require('express-fileupload');
+const cors = require('cors');
 const multer = require("multer");
 const upload = multer({
 dest: "/path/to/temporary/directory/to/store/uploaded/files"
@@ -18,6 +20,10 @@ app.use(
     extended: true,
   })
 );
+console.log(__dirname);
+var parser = multer({
+  dest: path.join(__dirname, './photos')
+});
 
 //allows app to use url routes
 var router = express.Router();
@@ -49,8 +55,30 @@ app.post('/createFamily', db.createFamily);
 
 app.post('/addMember', db.addMemberToFamily);
 
-app.post('/upload', upload.single("file"), db.addPhoto);
+app.post('/upload2', upload.single("file"), db.addPhoto);
 
+app.post('/upload', (req, res, next) => {
+  console.log(req);
+  let imageFile = req.files.file;
+  imageFile.mv(`${__dirname}/public/${req.body.filename}.jpg`, function(err) {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    res.json({file: `public/${req.body.filename}.jpg`});
+  });
+})
+app.post('/api/images', parser.single("image"), (req, res) => {
+  console.log('called function');
+  const image = {};
+  image.url = req.file.url;
+  image.id = req.file.public_id;
+  console.log('uploading image:');
+  Image.create(image).then(newImage => {
+    console.log('uploaded image');
+    res.json(newImage);
+  })
+  .catch(err => console.log(err));
+})
 //LINK API
 app.use('/api', router);
 

@@ -5,8 +5,11 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.16.4",
+    "express-fileupload": "^1.1.4",
     "multer": "^1.4.1",
+    "parser": "^0.1.4",
     "pg": "^7.8.1"
   },
   "scripts": {
