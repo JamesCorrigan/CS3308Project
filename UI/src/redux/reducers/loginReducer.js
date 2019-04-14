@@ -34,6 +34,14 @@ export default (state = initialState, action) => {
           }
         ]
       };
+    case actionType.LOG_OUT:
+      return {
+        ...state,
+        user: {},
+        family: {},
+        loggedIn: false,
+        loggingin: false
+      }
     case actionType.REQUEST_CREATE_FAMILY:
       return {
         ...state,

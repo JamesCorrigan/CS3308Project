@@ -11,8 +11,8 @@ import * as homeActions from '../redux/actions/homeActions.js';
 import * as loginActions from '../redux/actions/loginActions.js';
 
 //component imports
-import Home from './Home';
 import Vacations from '../components/Vacations/Vacations.js';
+import Footer from '../components/Footer/Footer';
 import Header from '../components/Header/Header.js';
 import PhotoAlbum from '../components/PhotoAlbum/PhotoAlbum.js';
 import MealPlan from '../components/MealPlan/MealPlan.js';
@@ -66,38 +66,41 @@ class App extends Component {
   render() {
     const routes = this.props.loggedIn ? (
       <div>
-        <Route exact path="/" component={Home} />
         <Route exact path="/vacations" component={Vacations} />
-        <Route exact path="/photoalbum" component={PhotoAlbum} />
+        <Route exact path="/" component={PhotoAlbum} />
         <Route exact path="/mealplan" component={MealPlan} />
       </div>
-    ) : (
-      <Route exact path="/" component={Home} />
-    );
+    ) : (null);
     //render JSX elements here
     //conditional shortcut: {this.state.bool ? a : b}
     //returns a if true, b if false
-    return (
-      <div>
-        {/*Pass modal functions to header component for button*/}
+    const app = this.props.loggedIn ? (
+      <div className='ui-page'>
+        {/*LOGGED IN*/}
         <Header
           handleShowRegister={this.handleShowRegister}
           handleShowLogin = {this.handleShowLogin}
-          loggedIn = {this.props.loggedIn}
+          loggedIn = {true}
           user = {this.props.user}
         />
-        {(this.state.showRegModal && !this.props.loggedIn) ?
-          <RegisterModal handleClose={this.handleCloseRegister} />
-          : null}
-        {(this.state.showLogModal && !this.props.loggedIn) ?
-          <LoginModal handleClose={this.handleCloseLogin} />
-          : null}
-        <main>
-          {routes}
-          {/*Route pages for link clicks, default=home*/}
-        </main>
+        {routes}
+        <Footer />
+      </div>
+    ) : (
+      <div className='login-page'>
+        {/*NOT LOGGED IN*/}
+        <Header
+          handleShowRegister={this.handleShowRegister}
+          handleShowLogin = {this.handleShowLogin}
+          loggedIn = {false}
+          user = {this.props.user}
+        />
+        {this.state.showRegModal ? <RegisterModal handleClose={this.handleCloseRegister} /> : null}
+        {this.state.showLogModal ? <LoginModal handleClose={this.handleCloseLogin} /> : null}
+        <Footer/>
       </div>
     );
+    return app;
   }
 }
 

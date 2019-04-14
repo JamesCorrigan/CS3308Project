@@ -1,6 +1,41 @@
 # CS3308Project
 Group Project for CSCI 3308
-TODO:
+
+DATABASE SETUP (WINDOWS):
+
+1. DOWNLOAD THIS:
+https://www.postgresql.org/download/windows/
+2. TYPE IN TERMINAL:
+psql postgres;
+3. IN POSTGRES:
+postgres=# CREATE ROLE james WITH LOGIN PASSWORD 'password';
+postgres=# \q
+4. IN TERMINAL:
+psql -d postgres -U james
+5. IN POSTGRES:
+postgres=> CREATE DATABASE api;
+postgres=> \c api
+6. CREATE TABLES IN API DATABASE:
+
+api=> CREATE TABLE users (
+  id serial PRIMARY KEY,
+  first_name VARCHAR(100) NOT NULL,
+  last_name VARCHAR(100) NOT NULL,
+  email VARCHAR(355) UNIQUE NOT NULL,
+  password VARCHAR(355) NOT NULL,
+  created DATE NOT NULL,
+  family integer NOT NULL,
+  parent boolean NOT NULL
+);
+
+api=> CREATE TABLE families (
+  id serial PRIMARY KEY,
+  last_name VARCHAR(100) NOT NULL,
+  images text[],
+  members jsonb,
+  calendar jsonb
+);
+
 
 
 

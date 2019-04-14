@@ -10,8 +10,7 @@ export default class Header extends Component {
     const headerOptions = this.props.loggedIn ? (
       <div className="nav-link-wrapper" id="navbarCollapse">
         <ul className="nav-links">
-          <Link to="/" className='header-link' style={{textDecoration: 'none'}}>Home</Link>
-          <Link to="/photoalbum" className='header-link' style={{textDecoration: 'none'}}>Album</Link>
+          <Link to="/" className='header-link' style={{textDecoration: 'none'}}>Album</Link>
           <Link to="/vacations" className='header-link' style={{textDecoration: 'none'}}>Vacations</Link>
           <Link to="/mealplan" className='header-link' style={{textDecoration: 'none'}}>Meals</Link>
         </ul>

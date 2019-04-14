@@ -12,7 +12,6 @@
 /* Padding below the footer and lighter body text */
 
 body {
-  background: url("family.gif")no-repeat center center fixed; 
   background-size: cover;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -21,9 +20,12 @@ body {
   padding-top: 3rem;
   padding-bottom: 3rem;
   color: #7a7a7a;
-
 }
 
+.login-page {
+  background: url("family.gif")no-repeat center center fixed;
+
+}
 .header-wrapper {
   box-sizing: border-box;
   color: rgb(227, 227, 227);

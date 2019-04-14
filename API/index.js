@@ -57,12 +57,6 @@ app.get('/users/:id', db.getUserById);
 
 
 
-//PUT to get one user (old)
-app.put('/users/:id', db.updateUser);
-
-//DELETE a user (old)
-app.delete('/users/:id', db.deleteUser);
-
 //POST to register a user
 app.post('/register', db.registerUser);
 

@@ -80,11 +80,8 @@ class Modal extends Component {
     e.preventDefault();
     //this.setState({ submitted: true });
     const cObj = this.state.cData;
-    console.log(this.state.cData);
     if (cObj.first_name && cObj.last_name
         && cObj.email && cObj.password) {
-        console.log(cObj);
-
         //only call with all data present
         this.props.loginActions.createFamily(cObj);
     }
@@ -164,10 +161,8 @@ class Modal extends Component {
     e.preventDefault();
     this.setState({ submitted: true });
     const rData = this.state.rData;
-    console.log('submitting: ', rData);
     if (rData.first_name && rData.last_name && rData.family && rData.email && rData.password) {
         this.props.loginActions.addMemberToFamily(rData);
-        console.log('called');
     }
   }
 

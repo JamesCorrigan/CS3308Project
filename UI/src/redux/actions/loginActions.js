@@ -41,6 +41,12 @@ export function login(email, password) {
   }
 }
 
+export function logout() {
+  return dispatch => {
+    dispatch({ type: actionType.LOG_OUT })
+  }
+}
+
 function familyHandler(obj) {
   const requestOptions = {
     method: 'POST',
@@ -103,21 +109,14 @@ export function addMemberToFamily(obj) {
 }
 
 
-/*logout wrapper function*/
-
-function responseHandler(response) {
-    return response.text().then(text => {
-        const data = text && JSON.parse(text);
-        if (!response.ok) {
-            if (response.status === 401) {
-                // auto logout if 401 response returned from api
-                //logout();
-                //location.reload(true);
-            }
-            const error = (data && data.message) || response.statusText;
+function responseHandler(res) {
+    return res.text().then(text => {
+        const data = JSON.parse(text);
+        if (!res.ok) {
+            const error = (data && data.message) || res.statusText;
             return Promise.reject(error);
+        } else {
+          return data;
         }
-
-        return data;
     });
 }

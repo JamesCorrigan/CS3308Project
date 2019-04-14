@@ -37,3 +37,5 @@ export const UPLOAD_IMAGE_FAILURE = 'UPLOAD_IMAGE_FAILURE';
 export const ACTION_CALL = 'ACTION_CALL';
 export const CALL_RECIEVED = 'CALL_RECIEVED';
 export const CALL_FAILED = 'CALL_FAILED';
+
+export const LOG_OUT = 'LOG_OUT';
