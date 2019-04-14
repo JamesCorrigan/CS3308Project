@@ -17,7 +17,6 @@ function loginHandler(email, password) {
   return fetch('/login', requestOptions)
     .then(responseHandler)
     .then(user => {
-        localStorage.setItem('user', JSON.stringify(user));
         return user;
     });
 }

@@ -73,9 +73,6 @@ class Album extends Component {
           </form>
         </div>
         <br/>
-        <button onClick={this.handleClick}>
-          {this.props.user.family}
-        </button>
         <div className="image-grid-container">
           {imageGrid}
         </div>
