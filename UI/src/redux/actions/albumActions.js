@@ -1,18 +1,5 @@
 import * as actionType from './actionTypes';
-import axios from 'axios';
-/*
-FOR WEBSOCKET:
-export const request = () => dispatch => {
-  try {
 
-    window.webSocket.sendCommand('action.call', {}, response => {
-      //response
-    });
-  } catch (e) {
-    console.error(e)
-  }
-}
-*/
 
 function addImageHandler(url, family) {
   const requestOptions = {
@@ -35,9 +22,9 @@ export function addImageToDB(url, family) {
     dispatch({ type: actionType.REQUEST_ADD_URL });
     addImageHandler(url, family).then(response => {
       console.log('add response ', response);
-      if (response.code == 200) {
+      if (response.code === 200) {
         dispatch({ type: actionType.ADD_URL_SUCCESS, response })
-      } else if (response.code == 204) {
+      } else if (response.code === 204) {
         dispatch({ type: actionType.ADD_URL_FAILED, response })
       }
     }, error => {
@@ -63,9 +50,9 @@ export function getAllFamilyImages(familyID) {
   return dispatch => {
     dispatch({ type: actionType.REQUEST_GET_IMAGES });
     getImageHandler(familyID).then(response => {
-      if (response.code == 200) {
+      if (response.code === 200) {
         dispatch({ type: actionType.GET_IMAGES_SUCCESS, response })
-      } else if (response.code == 204) {
+      } else if (response.code === 204) {
         dispatch({ type: actionType.GET_IMAGES_FAILURE, response })
       }
     }, error => {
