@@ -84,7 +84,6 @@ class App extends Component {
           user = {this.props.user}
         />
         {routes}
-        <Footer />
       </div>
     ) : (
       <div className='login-page'>
@@ -97,7 +96,6 @@ class App extends Component {
         />
         {this.state.showRegModal ? <RegisterModal handleClose={this.handleCloseRegister} /> : null}
         {this.state.showLogModal ? <LoginModal handleClose={this.handleCloseLogin} /> : null}
-        <Footer/>
       </div>
     );
     return app;
