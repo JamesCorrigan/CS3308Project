@@ -49,13 +49,17 @@ https://www.postgresql.org/download/windows/
 
 
 POSTGRESQL DATABASE STRUCTURE:
+
   users:
+
     id | first_name | last_name |     email      | password |  created   | family | parent
    ----+------------+-----------+----------------+----------+------------+--------+--------
      1 | bill       | smith     | bill@smith.com | password | 2019-03-19 |      1 | t
      3 | mary       | smith     | mary@smith.com | password | 2019-03-19 |      1 | t
      2 | joe        | smith     | joe@smith.com  | password | 2019-03-19 |      1 | f
+
   families:
+
   id | last_name |                 images                 |                      members                       | calendar
 ----+-----------+----------------------------------------+----------------------------------------------------+----------
    1 | smith     | {/images/1/img.jpg,/images/1/img2.jpg} | {"parents": ["bill", "mary"], "children": ["joe"]} | {}
