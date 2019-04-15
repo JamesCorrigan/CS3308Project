@@ -26,7 +26,7 @@ export default class Header extends Component {
     return (
       <header className='header-wrapper'>
         <div className="header-nav">
-          <Link className="nav-homeLink" to='/'>FamilyTime</Link>
+          <Link className="nav-homeLink" to='/' style={{textDecoration: 'none'}}>FamilyTime</Link>
           {headerOptions}
         </div>
       </header>

@@ -26,6 +26,11 @@ body {
   background: url("family.gif")no-repeat center center fixed;
 
 }
+.calenderHeader{
+  text-align: center;
+  padding: 20px;
+  padding-bottom: 20px;
+}
 .header-wrapper {
   box-sizing: border-box;
   color: rgb(227, 227, 227);
@@ -474,4 +479,8 @@ input[type=password] {
     height: 170px;
     top: 35%;
   }
+}
+@media (max-width: 620px) {
+/*for calender buttons to be smaller*/
+
 }
