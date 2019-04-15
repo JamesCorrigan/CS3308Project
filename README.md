@@ -1,23 +1,23 @@
 # CS3308Project
 Group Project for CSCI 3308
 
-DATABASE SETUP (WINDOWS):
+DATABASE SETUP (TERMINAL):
 
 1. DOWNLOAD THIS:
-https://www.postgresql.org/download/windows/
+-https://www.postgresql.org/download/windows/
 2. TYPE IN TERMINAL:
-psql postgres;
+-psql postgres;
 3. IN POSTGRES:
-postgres=# CREATE ROLE james WITH LOGIN PASSWORD 'password';
+-postgres=# CREATE ROLE james WITH LOGIN PASSWORD 'password';
 postgres=# \q
 4. IN TERMINAL:
-psql -d postgres -U james
+-psql -d postgres -U james
 5. IN POSTGRES:
-postgres=> CREATE DATABASE api;
-postgres=> \c api
+-postgres=> CREATE DATABASE api;
+-postgres=> \c api
 6. CREATE TABLES IN API DATABASE:
 
-api=> CREATE TABLE users (
+-api=> CREATE TABLE users (
   id serial PRIMARY KEY,
   first_name VARCHAR(100) NOT NULL,
   last_name VARCHAR(100) NOT NULL,
@@ -28,13 +28,22 @@ api=> CREATE TABLE users (
   parent boolean NOT NULL
 );
 
-api=> CREATE TABLE families (
+-api=> CREATE TABLE families (
   id serial PRIMARY KEY,
   last_name VARCHAR(100) NOT NULL,
   images text[],
   members jsonb,
   calendar jsonb
 );
+
+
+WINDOWS INSTALL
+https://www.postgresql.org/download/windows/
+
+1. START PGADMIN
+2. CLICK 'SERVERS' DROPDOWN ON THE LEFT, THEN CLICK POSTGRESQL 11
+3. RIGHT CLICK 'LOGIN/GROUP ROLES' AND CLICK 'CREATE'
+4. IN 'GENERAL', SET 'NAME' TO 'james';
 
 
 
@@ -53,18 +62,18 @@ POSTGRESQL DATABASE STRUCTURE:
 
 
 Docs:
-  Backend:
-    https://blog.logrocket.com/setting-up-a-restful-api-with-node-js-and-postgresql-d96d6fc892d8
-  React:
-    https://reactjs.org/docs/
-    //More
-  Redux:
-    https://redux.js.org/introduction/getting-started
-    //More
-    Redux and Websocket:
-      https://medium.com/@ianovenden/redux-websocket-integration-c1a0d22d3189
-  React-Router:
-    https://reacttraining.com/react-router/web/guides/quick-start
-    //More
-  NPM:
-    https://docs.npmjs.com/
+  -Backend:
+    -https://blog.logrocket.com/setting-up-a-restful-api-with-node-js-and-postgresql-d96d6fc892d8
+  -React:
+    -https://reactjs.org/docs/
+    -//More
+  -Redux:
+    -https://redux.js.org/introduction/getting-started
+    -//More
+    -Redux and Websocket:
+      -https://medium.com/@ianovenden/redux-websocket-integration-c1a0d22d3189
+  -React-Router:
+    -https://reacttraining.com/react-router/web/guides/quick-start
+    -//More
+  -NPM:
+    -https://docs.npmjs.com/
