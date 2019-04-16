@@ -95,6 +95,7 @@ class App extends Component {
           loggedIn = {false}
           user = {this.props.user}
         />
+        <Route exact path="/" component={Home} />
         {this.state.showRegModal ? <RegisterModal handleClose={this.handleCloseRegister} /> : null}
         {this.state.showLogModal ? <LoginModal handleClose={this.handleCloseLogin} /> : null}
       </div>
