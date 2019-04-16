@@ -22,6 +22,8 @@ class Home extends Component {
     const body = this.props.loggedIn ? (
       <div role="main">
       {/*if logged in, render main page*/}
+      <div className="backgroundGif">
+      </div>
         <div className="module mid">
           <h2><span>Family Time</span></h2>
           <h3><span>Home Page</span></h3>
@@ -40,6 +42,8 @@ class Home extends Component {
     ) : (
       <main role="main">
       {/*Else, render page asking for login*/}
+      <div className="backgroundGif">
+      </div>
         <div className="module mid">
           <h2><span>Family Time</span></h2>
           <h3><span>Log in to use features</span></h3>

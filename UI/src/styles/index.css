@@ -22,8 +22,9 @@ body {
   color: #7a7a7a;
 }
 
-.login-page {
-  background: url("family.gif")no-repeat center center fixed;
+.backgroundGif {
+  background: url("family.gif")no-repeat center;
+  height: 600px;
 
 }
 
@@ -238,7 +239,7 @@ body {
 
 
 .botpage{
-	margin-top: 600px;
+	
 	background-color: white;
 
 }
