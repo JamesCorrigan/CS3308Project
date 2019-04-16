@@ -379,6 +379,21 @@ function addPhoto(req, res) {
     }
 }
 
+function getCalendar(req, res){
+  const id = parseInt(req.params.id);
+
+  pool.query('SELECT calendar FROM families WHERE id = $1', [id], (error, results) => {
+    if (error) {
+      throw error
+    }
+    res.send({
+      "code": 200,
+      "success": "got calendar",
+      "data": results.rows[0]
+    })
+  })
+}
+
 
 const handleError = (err, res) => {
   res
@@ -398,5 +413,6 @@ module.exports = {
   addMemberToFamily,
   addPhoto,
   addImageToDB,
-  getAllFamilyImages
+  getAllFamilyImages,
+  getCalendar
 }

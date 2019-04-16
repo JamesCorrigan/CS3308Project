@@ -18,6 +18,7 @@ import PhotoAlbum from '../components/PhotoAlbum/PhotoAlbum.js';
 import MealPlan from '../components/MealPlan/MealPlan.js';
 import RegisterModal from '../components/basic/RegisterModal.js';
 import LoginModal from '../components/basic/LoginModal';
+import Home from './Home';
 
 //Classes extending React.Component have state, props, etc.
 class App extends Component {
@@ -66,9 +67,9 @@ class App extends Component {
   render() {
     const routes = this.props.loggedIn ? (
       <div>
+        <Route exact path="/" component={Home} />
         <Route exact path="/vacations" component={Vacations} />
-        <Route exact path="/" component={PhotoAlbum} />
-        <Route exact path="/mealplan" component={MealPlan} />
+        <Route exact path="/album" component={PhotoAlbum} />
       </div>
     ) : (null);
     //render JSX elements here

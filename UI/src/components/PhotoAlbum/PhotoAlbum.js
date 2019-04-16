@@ -49,7 +49,7 @@ class Album extends Component {
 
   render() {
     let imageGrid = this.props.images ? this.props.images.map((image, i) =>
-    <div key={i}>
+    <div key={i} className='image-grid-item'>
       <img src={image} alt={`Photo ${i}`} key={i} />
     </div>
   ) : (null);

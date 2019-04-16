@@ -55,7 +55,7 @@ app.get('/users', db.getUsers);
 //GET to get one user (old)
 app.get('/users/:id', db.getUserById);
 
-
+app.get('/getCalendar/:id', db.getCalendar)
 
 //POST to register a user
 app.post('/register', db.registerUser);

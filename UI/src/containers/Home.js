@@ -7,7 +7,6 @@ import * as albumActions from '../redux/actions/albumActions.js';
 import * as homeActions from '../redux/actions/homeActions.js';
 import * as loginActions from '../redux/actions/loginActions.js';
 
-import Footer from '../components/Footer/Footer';
 //Selector has deteailed links to pages
 import Selector from '../components/Home/Selector';
 
@@ -36,7 +35,6 @@ class Home extends Component {
             </div>
             <hr className="featurette-divider" />
           </div>
-          <Footer />
         </div>
       </div>
     ) : (
@@ -50,7 +48,6 @@ class Home extends Component {
           <div className="container marketing">
             <hr className="featurette-divider" />
           </div>
-          <Footer />
         </div>
       </main>
     );

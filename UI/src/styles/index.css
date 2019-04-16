@@ -26,6 +26,11 @@ body {
   background: url("family.gif")no-repeat center center fixed;
 
 }
+
+.image-grid-item {
+  
+}
+
 .header-wrapper {
   box-sizing: border-box;
   color: rgb(227, 227, 227);

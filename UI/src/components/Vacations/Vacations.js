@@ -2,10 +2,16 @@ import React, {Component} from 'react';
 import Calendar from "react-big-calendar";
 import moment from 'moment';
 import "react-big-calendar/lib/css/react-big-calendar.css";
-
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+//redux action imports
+import * as albumActions from '../../redux/actions/albumActions.js';
+import * as homeActions from '../../redux/actions/homeActions.js';
+import * as loginActions from '../../redux/actions/loginActions.js';
+import * as vacationActions from '../../redux/actions/vacationActions.js';
 const localizer = Calendar.momentLocalizer(moment);
 
-export default class Vacations extends Component {
+class Vacations extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -27,18 +33,19 @@ export default class Vacations extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  componentDidMount() {
+    const family = this.props.user ? this.props.user.family : null
+    this.props.vacationActions.getCalendar(family)
+  }
+
   handleSelect = ({ start, end }) => {
-    console.log(start, end);
     const title = window.prompt('New Event name');
+    const newEvent = {start, end, title};
     if (title)
       this.setState({
         events: [
           ...this.state.events,
-          {
-            start,
-            end,
-            title,
-          },
+          newEvent,
         ],
       })
     }
@@ -51,11 +58,10 @@ export default class Vacations extends Component {
       <div>
         <h1>Vacations</h1>
         <Calendar
+          selectable
           localizer={localizer}
           defaultDate={new Date()}
           defaultView="month"
-          view="month"
-          
           events={this.state.events}
           style={{ height: "100vh" }}
           onSelectEvent={event => alert(event.title)}
@@ -66,3 +72,28 @@ export default class Vacations extends Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    homeReducer: state.homeReducer,
+    loginReducer: state.loginReducer,
+    loggedIn: state.loginReducer.loggedIn,
+    user: state.loginReducer.user
+  };
+};
+
+//Link redux actions (functions) to props
+//DO NOT EDIT
+const mapDispatchToProps = dispatch => {
+  return {
+    albumActions: bindActionCreators(albumActions, dispatch),
+    homeActions: bindActionCreators(homeActions, dispatch),
+    loginActions: bindActionCreators(loginActions, dispatch),
+    vacationActions: bindActionCreators(vacationActions, dispatch)
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Vacations)
