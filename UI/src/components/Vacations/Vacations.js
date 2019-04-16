@@ -56,7 +56,7 @@ class Vacations extends Component {
   render() {
     return (
       <div>
-        <h1>Vacations</h1>
+        <h1 className= "calenderHeader">Vacations</h1>
         <Calendar
           selectable
           localizer={localizer}
