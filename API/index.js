@@ -72,6 +72,8 @@ app.post('/addImageToDB', db.addImageToDB);
 
 app.post('/getAllFamilyImages', db.getAllFamilyImages);
 
+app.post('/addCalendar', db.addCalendar);
+
 
 
 //LINK API

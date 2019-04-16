@@ -1,10 +1,10 @@
 const Pool = require('pg').Pool;
 //connect to db
 const pool = new Pool({
-  user: 'james',
+  user: 'josefmay',
   host: 'localhost',
   database: 'api',
-  password: 'password',
+  password: 'pwd',
   port: 5432,
 });
 
@@ -353,32 +353,6 @@ function login(req, res) {
   //pull user with same name from db, then check password
 }
 
-
-function addPhoto(req, res) {
-    const tempPath = req.file.path;
-    const targetPathPng = path.join(__dirname, "./uploads/" + req.file.originalname + ".png");
-
-    if (path.extname(req.file.originalname).toLowerCase() === ".png") {
-      fs.rename(tempPath, targetPath, err => {
-        if (err) return handleError(err, res);
-
-        res
-          .status(200)
-          .contentType("text/plain")
-          .end("File uploaded!");
-      });
-    } else {
-      fs.unlink(tempPath, err => {
-        if (err) return handleError(err, res);
-
-        res
-          .status(403)
-          .contentType("text/plain")
-          .end("Only .png files are allowed!");
-      });
-    }
-}
-
 function getCalendar(req, res){
   const id = parseInt(req.params.id);
 
@@ -395,12 +369,22 @@ function getCalendar(req, res){
 }
 
 
-const handleError = (err, res) => {
-  res
-    .status(500)
-    .contentType("text/plain")
-    .end("Oops! Something went wrong!");
-};
+function addCalendar(req, res){
+    const family = req.body.family;
+    const newEvent = req.body.event;
+    pool.query(
+        'UPDATE familes SET calendar = array_append(calendar, $1 ) WHERE id = $2;',
+        [newEvent, family],
+        (error, results, fields) => {
+            if (err){
+                throw error
+            }
+            res.send({
+                "code": 200,
+                "success": "added event"
+            })
+        })
+}
 
 module.exports = {
   getUsers,
@@ -411,7 +395,6 @@ module.exports = {
   login,
   createFamily,
   addMemberToFamily,
-  addPhoto,
   addImageToDB,
   getAllFamilyImages,
   getCalendar
