@@ -13,7 +13,6 @@ function getHandler(family) {
     .then(responseHandler)
     .then(data => {
         console.log(data);
-
         return data;
     });
 }
@@ -54,6 +53,22 @@ export function getCalendar(family) {
   }
 }
 */
+
+
+function addHandler(family, event) {
+  const requestOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ family, event })
+  };
+  return fetch('/addCalendar', requestOptions)
+    .then(responseHandler)
+    .then(data => {
+        console.log(data);
+        return data;
+    });
+}
+
 
 
 function responseHandler(res) {
