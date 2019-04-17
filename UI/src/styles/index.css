@@ -33,6 +33,10 @@ body {
   padding: 20px;
   padding-bottom: 20px;
 }
+.log{
+  padding-left: 40px;
+  padding-right: 40px;
+}
 .header-wrapper {
   box-sizing: border-box;
   color: rgb(227, 227, 227);
@@ -110,7 +114,9 @@ body {
   text-decoration-style: solid;
   white-space: nowrap;
 }
-
+.nav-homeLink:hover{
+  color: #777f3b;
+}
 .nav-link-wrapper {
   align-items: center;
   box-sizing: border-box;
@@ -147,7 +153,7 @@ body {
   list-style-type: none;
   margin-bottom: 0px;
   margin-left: 0px;
-  margin-right: 347.5px;
+  /*margin-right: 65%;*/
   margin-top: 0px;
   padding-bottom: 0px;
   padding-left: 0px;
@@ -155,10 +161,23 @@ body {
   padding-top: 0px;
   text-align: left;
 }
-
+.header-link:hover{
+  color: #777f3b;
+}
 .header-link {
   margin-right: 10px;
-  color: #9ad3de;
+  color: #a6bc78;
+}
+.right-links{
+  float: right;
+  display: inline;
+  text-align: right;
+  margin: 0px; 
+  width: 90%;
+}
+.header-name, .header-family, .headerButton{
+  display: inline;
+  padding-right: 10px;
 }
 
 .header-buttons-wrapper {
@@ -207,7 +226,7 @@ body {
   text-transform: uppercase;
   margin: 0;
   position: absolute;
-  top: 75%;
+  top: 45%;
   left: 50%;
   font-size: 2rem;
   transform: translate(-50%, -50%);
@@ -223,13 +242,13 @@ body {
   color: white;
   margin: 0;
   position: absolute;
-  top: 80%;
+  top: 50%;
   left: 50%;
   font-size: 1rem;
   transform: translate(-50%, -50%);
   background-color: #877f65;
-  padding-left: 91px;
-  padding-right: 91px;
+  padding-left: 51px;
+  padding-right: 51px;
   padding-bottom: 20px;
   padding-top: 20px;
   margin-top: 20px;
@@ -251,11 +270,11 @@ body {
 }
 .marketing .col-lg-4 {
 	margin-top: 100px;
-  margin-bottom: 300px;
   text-align: center;
 }
 .marketing h2 {
   font-weight: 400;
+  height: 45px;
 }
 .marketing .col-lg-4 p {
   margin-right: .75rem;
@@ -482,7 +501,14 @@ input[type=password] {
     top: 35%;
   }
 }
-@media (max-width: 620px) {
-/*for calender buttons to be smaller*/
-
+@media (max-width: 666px) {
+.header-name{
+  display: none;
 }
+.header-family{
+  display: none;
+}
+}
+
+
+

@@ -8,17 +8,6 @@ const pool = new Pool({
   port: 5432,
 });
 
-/*
-const client = await pool.connect();
-const result = await client.query({
-  rowMode: 'array',
-  text: 'SELECT 1 as one, 2 as two;'
-});
-console.log(result.fields[0].name) // one
-console.log(result.fields[1].name) // two
-console.log(result.rows) // [1, 2]
-await client.end()
-*/
 //query for all users
 function getUsers(req, res) {
   pool.query('SELECT * FROM users ORDER BY id ASC', (error, results) => {
@@ -374,10 +363,14 @@ function addCalendar(req, res){
     const family = req.body.family;
     const newEvent = req.body.event;
     pool.query(
+<<<<<<< HEAD
         'UPDATE familes SET calendar = calendar || $1 WHERE id = $2;',
+=======
+        'UPDATE families SET calendar = calendar || $1 WHERE id = $2;',
+>>>>>>> 5f6ed35044b8f2c58c5f89bf261ea829461dec3e
         [newEvent, family],
         (error, results, fields) => {
-            if (err){
+            if (error) {
                 throw error
             }
             console.log(results.row[0]);
