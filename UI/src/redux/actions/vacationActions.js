@@ -7,25 +7,24 @@ function getHandler(family) {
   const requestOptions = {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ family })
   };
-  return fetch('/getCalendar', requestOptions)
+  return fetch(`/getCalendar/${family}`, requestOptions)
     .then(responseHandler)
     .then(data => {
-        console.log(data);
+        console.log('gethandler data ', data);
         return data;
     });
 }
 
 
 export function getCalendar(family) {
-  console.log('get calendar for ', family);
   //fetch calendar from server, then store in reducer
   return dispatch => {
     dispatch({ type: actionType.REQUEST_LOAD_CALENDAR });
-    fetch(`/getCalendar/${family}`).then(response => {
-      console.log(response);
-      if (response.ok) {
+    console.log(`/getCalendar/${family}`);
+    getHandler(family).then(response => {
+      console.log(response.data);
+      if (response.code === 200) {
         dispatch({ type: actionType.LOAD_CALENDAR_SUCCESS, response})
       } else {
         dispatch({ type: actionType.LOAD_CALENDAR_FAILED, response})

@@ -355,16 +355,17 @@ function login(req, res) {
 
 function getCalendar(req, res){
   const id = parseInt(req.params.id);
-
   pool.query('SELECT calendar FROM families WHERE id = $1', [id], (error, results) => {
     if (error) {
       throw error
     }
+    const cal = results.rows[0].calendar;
     res.send({
       "code": 200,
-      "success": "got calendar",
-      "data": results.rows[0]
-    })
+      "success": "login successful",
+      "data": cal
+    });
+
   })
 }
 

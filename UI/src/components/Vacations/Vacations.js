@@ -55,19 +55,23 @@ class Vacations extends Component {
     this.setState({ date });
   }
   render() {
+
     return (
       <div>
         <h1 className= "calenderHeader">Vacations</h1>
-        <Calendar
-          selectable
-          localizer={localizer}
-          defaultDate={new Date()}
-          defaultView="month"
-          events={this.props.events}
-          style={{ height: "100vh" }}
-          onSelectEvent={event => alert(event.title)}
-          onSelectSlot={this.handleSelect}
-        />
+        {this.props.events ?
+          <Calendar
+            selectable
+            localizer={localizer}
+            defaultDate={new Date()}
+            defaultView="month"
+            events={this.props.events}
+            style={{ height: "100vh" }}
+            onSelectEvent={event => alert(event.title)}
+            onSelectSlot={this.handleSelect}
+          />
+          : null}
+
       </div>
     );
   }
@@ -80,7 +84,7 @@ const mapStateToProps = state => {
     loginReducer: state.loginReducer,
     loggedIn: state.loginReducer.loggedIn,
     user: state.loginReducer.user,
-    events: state.vacationReducer.events
+    events: state.vacationReducer.calendar
   };
 };
 

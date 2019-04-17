@@ -68,8 +68,8 @@ class App extends Component {
     const routes = this.props.loggedIn ? (
       <div>
         <Route exact path="/" component={Home} />
-        <Route exact path="/vacations" component={Vacations} />
         <Route exact path="/album" component={PhotoAlbum} />
+        <Route exact path="/vacations" component={Vacations} />
       </div>
     ) : (null);
     //render JSX elements here
