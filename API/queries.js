@@ -397,5 +397,6 @@ module.exports = {
   addMemberToFamily,
   addImageToDB,
   getAllFamilyImages,
-  getCalendar
+  getCalendar,
+  addCalendar
 }
