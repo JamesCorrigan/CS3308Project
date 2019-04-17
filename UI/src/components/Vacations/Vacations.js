@@ -84,8 +84,7 @@ const mapStateToProps = state => {
   };
 };
 
-//Link redux actions (functions) to props
-//DO NOT EDIT
+
 const mapDispatchToProps = dispatch => {
   return {
     albumActions: bindActionCreators(albumActions, dispatch),
