@@ -207,7 +207,7 @@ body {
   text-transform: uppercase;
   margin: 0;
   position: absolute;
-  top: 75%;
+  top: 45%;
   left: 50%;
   font-size: 2rem;
   transform: translate(-50%, -50%);
@@ -223,13 +223,13 @@ body {
   color: white;
   margin: 0;
   position: absolute;
-  top: 80%;
+  top: 50%;
   left: 50%;
   font-size: 1rem;
   transform: translate(-50%, -50%);
   background-color: #877f65;
-  padding-left: 91px;
-  padding-right: 91px;
+  padding-left: 51px;
+  padding-right: 51px;
   padding-bottom: 20px;
   padding-top: 20px;
   margin-top: 20px;
@@ -251,11 +251,11 @@ body {
 }
 .marketing .col-lg-4 {
 	margin-top: 100px;
-  margin-bottom: 300px;
   text-align: center;
 }
 .marketing h2 {
   font-weight: 400;
+  height: 45px;
 }
 .marketing .col-lg-4 p {
   margin-right: .75rem;
