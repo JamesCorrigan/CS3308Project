@@ -41,6 +41,7 @@ class Vacations extends Component {
   handleSelect = ({ start, end }) => {
     const title = window.prompt('New Event name');
     const newEvent = {start, end, title};
+
     if (title)
       this.setState({
         events: [
@@ -62,12 +63,11 @@ class Vacations extends Component {
           localizer={localizer}
           defaultDate={new Date()}
           defaultView="month"
-          events={this.state.events}
+          events={this.props.events}
           style={{ height: "100vh" }}
           onSelectEvent={event => alert(event.title)}
           onSelectSlot={this.handleSelect}
         />
-        Monthly Calendar Goes Here
       </div>
     );
   }
@@ -76,14 +76,15 @@ class Vacations extends Component {
 const mapStateToProps = state => {
   return {
     homeReducer: state.homeReducer,
+    vacationReducer: state.vacationReducer,
     loginReducer: state.loginReducer,
     loggedIn: state.loginReducer.loggedIn,
-    user: state.loginReducer.user
+    user: state.loginReducer.user,
+    events: state.vacationReducer.events
   };
 };
 
-//Link redux actions (functions) to props
-//DO NOT EDIT
+
 const mapDispatchToProps = dispatch => {
   return {
     albumActions: bindActionCreators(albumActions, dispatch),
