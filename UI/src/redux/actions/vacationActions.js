@@ -23,7 +23,6 @@ export function getCalendar(family) {
     dispatch({ type: actionType.REQUEST_LOAD_CALENDAR });
     console.log(`/getCalendar/${family}`);
     getHandler(family).then(response => {
-      console.log(response.data);
       if (response.code === 200) {
         dispatch({ type: actionType.LOAD_CALENDAR_SUCCESS, response})
       } else {
@@ -49,6 +48,18 @@ function addHandler(family, event) {
     });
 }
 
+function addEvent(family, newEvent) {
+  return dispatch => {
+    dispatch({ type: actionType.REQUEST_ADD_EVENT })
+    addHandler(family, newEvent).then(response => {
+      if (response.code === 200) {
+        dispatch({ type: actionType.ADD_EVENT_SUCCESS, response})
+      } else {
+        dispatch({ type: actionType.ADD_EVENT_FAILURE, response})
+      }
+    })
+  }
+}
 
 
 function responseHandler(res) {
