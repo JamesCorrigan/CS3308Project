@@ -1,10 +1,10 @@
 const Pool = require('pg').Pool;
 //connect to db
 const pool = new Pool({
-  user: 'josefmay',
+  user: 'james',
   host: 'localhost',
   database: 'api',
-  password: 'pwd',
+  password: 'password',
   port: 5432,
 });
 
@@ -363,11 +363,7 @@ function addCalendar(req, res){
     const family = req.body.family;
     const newEvent = req.body.event;
     pool.query(
-<<<<<<< HEAD
         'UPDATE familes SET calendar = calendar || $1 WHERE id = $2;',
-=======
-        'UPDATE families SET calendar = calendar || $1 WHERE id = $2;',
->>>>>>> 5f6ed35044b8f2c58c5f89bf261ea829461dec3e
         [newEvent, family],
         (error, results, fields) => {
             if (error) {
