@@ -1,10 +1,10 @@
 const Pool = require('pg').Pool;
 //connect to db
 const pool = new Pool({
-  user: 'james',
+  user: 'josefmay',
   host: 'localhost',
   database: 'api',
-  password: 'password',
+  password: 'pwd',
   port: 5432,
 });
 
@@ -374,18 +374,40 @@ function addCalendar(req, res){
     const family = req.body.family;
     const newEvent = req.body.event;
     pool.query(
-        'UPDATE familes SET calendar = array_append(calendar, $1 ) WHERE id = $2;',
+        'UPDATE familes SET calendar = calendar || $1 WHERE id = $2;',
         [newEvent, family],
         (error, results, fields) => {
             if (err){
                 throw error
             }
+            console.log(results.row[0]);
             res.send({
                 "code": 200,
                 "success": "added event"
             })
         })
 }
+
+function deleteCalendar(req, res){
+    const family = req.body.family;
+    const badEvent = req.body.event;
+    pool.query(
+        'UPDATE familes SET calendar = calendar - $1;',
+        [badEvent],
+        (error, results, fields) => {
+            if (err){
+                throw error
+            }
+            res.send({
+                "code": 200,
+                "success": "deleted event"
+            })
+        })
+    )
+}
+
+
+
 
 module.exports = {
   getUsers,
@@ -399,5 +421,6 @@ module.exports = {
   addImageToDB,
   getAllFamilyImages,
   getCalendar,
-  addCalendar
+  addCalendar,
+  deleteCalendar
 }
