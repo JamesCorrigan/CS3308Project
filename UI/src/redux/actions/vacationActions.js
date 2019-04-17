@@ -11,7 +11,6 @@ function getHandler(family) {
   return fetch(`/getCalendar/${family}`, requestOptions)
     .then(responseHandler)
     .then(data => {
-        console.log('gethandler data ', data);
         return data;
     });
 }
@@ -48,7 +47,7 @@ function addHandler(family, event) {
     });
 }
 
-function addEvent(family, newEvent) {
+export function addEvent(family, newEvent) {
   return dispatch => {
     dispatch({ type: actionType.REQUEST_ADD_EVENT })
     addHandler(family, newEvent).then(response => {

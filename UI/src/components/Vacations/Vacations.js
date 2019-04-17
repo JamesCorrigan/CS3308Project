@@ -41,14 +41,16 @@ class Vacations extends Component {
   handleSelect = ({ start, end }) => {
     const title = window.prompt('New Event name');
     const newEvent = {start, end, title};
-
-    if (title)
+    const family = this.props.user ? this.props.user.family : null;
+    if (title && family) {
+      this.props.vacationActions.addEvent(family, newEvent);
       this.setState({
         events: [
           ...this.state.events,
           newEvent,
         ],
-      })
+      });
+    }
     }
 
   handleChange(date) {
@@ -98,4 +100,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Vacations)
+)(Vacations);
