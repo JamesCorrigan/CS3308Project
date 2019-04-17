@@ -59,30 +59,16 @@ class Vacations extends Component {
     return (
       <div>
         <h1 className= "calenderHeader">Vacations</h1>
-        {this.props.events.length > 0 ?
-          <Calendar
-            selectable
-            localizer={localizer}
-            defaultDate={new Date()}
-            defaultView="month"
-            events={this.props.events}
-            style={{ height: "100vh" }}
-            onSelectEvent={event => alert(event.title)}
-            onSelectSlot={this.handleSelect}
-          />
-          :
-          <Calendar
-              selectable
-              localizer={localizer}
-              defaultDate={new Date()}
-              defaultView="month"
-              events={this.state.events}
-              style={{ height: "100vh" }}
-              onSelectEvent={event => alert(event.title)}
-              onSelectSlot={this.handleSelect}
-            />
-                  }
-
+        <Calendar
+          selectable
+          localizer={localizer}
+          defaultDate={new Date()}
+          defaultView="month"
+          events={this.props.events.length > 0 ? this.props.events : this.state.events}
+          style={{ height: "100vh" }}
+          onSelectEvent={event => alert(event.title)}
+          onSelectSlot={this.handleSelect}
+        />
       </div>
     );
   }
