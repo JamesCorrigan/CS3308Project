@@ -12,17 +12,11 @@ export default class Selector extends Component {
   render() {
     const title = this.props.title ? this.props.title : null;
     const photo = this.props.photo ? this.props.photo : null;
+    const photos = this.props.photos ? this.props.photos : null;
 
     return (
       <div className="col-lg-4">
-        <svg className="bd-placeholder-img rounded-circle" width="140"
-          height="140" xmlns="http://www.w3.org/2000/svg"
-          preserveAspectRatio="xMidYMid slice" focusable="false"
-          role="img" aria-label="Placeholder: 140x140">
-          <title>Placeholder</title>
-          <rect width="100%" height="100%" fill="#777" />
-          <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
-        </svg>
+        <img src={photos} alt="plane" height="140px" width="140px"/>
         <h2>{title}</h2>
         <p>
           <Link className="btn btn-secondary" to={this.props.to} role="button">

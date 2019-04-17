@@ -6,6 +6,9 @@ import { connect } from 'react-redux';
 import * as albumActions from '../redux/actions/albumActions.js';
 import * as homeActions from '../redux/actions/homeActions.js';
 import * as loginActions from '../redux/actions/loginActions.js';
+import meal from '../styles/meal.png';
+import plane from '../styles/plane.png';
+import camera from '../styles/camera.png';
 
 //Selector has deteailed links to pages
 import Selector from '../components/Home/Selector';
@@ -31,9 +34,9 @@ class Home extends Component {
         <div className="botpage">
           <div className="container marketing">
             <div className="row">
-              <Selector title='Meal Calendar' to='/mealplan'/>
-              <Selector title='Vacation Planning' to='/vacations'/>
-              <Selector title='Photo Gallery' to='/photoalbum' />
+              <Selector title='Meal Calendar' to='/mealplan' photos={meal}/>
+              <Selector title='Vacation Planning' to='/vacations' photos={plane}/>
+              <Selector title='Photo Gallery' to='/photoalbum' photos={camera}/>
             </div>
             <hr className="featurette-divider" />
           </div>
