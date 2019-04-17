@@ -20,13 +20,16 @@ class Header extends Component {
     const headerOptions = this.props.loggedIn ? (
       <div className="nav-link-wrapper" id="navbarCollapse">
         <ul className="nav-links">
-          <Link to="/" className='header-link' style={{textDecoration: 'none'}}>Home</Link>
-          <Link to="/album" className='header-link' style={{textDecoration: 'none'}}>Album</Link>
+          <Link to="/MealPlan" className='header-link' style={{textDecoration: 'none'}}>Meals</Link>
           <Link to="/vacations" className='header-link' style={{textDecoration: 'none'}}>Vacations</Link>
+          <Link to="/album" className='header-link' style={{textDecoration: 'none'}}>Albums</Link>
+  
         </ul>
+        <ul className="right-links">
         <h6 className='header-name'>{first_name} {last_name}</h6>
         <h6 className='header-family'>Family #{family}</h6>
         <button className="headerButton" onClick={this.props.loginActions.logout}>Log Out</button>
+        </ul>
 
       </div>
     ) : (
@@ -38,12 +41,10 @@ class Header extends Component {
       </div>
     );
     return (
-      <header className='header-wrapper'>
         <div className="header-nav">
           <Link className="nav-homeLink" to='/' style={{textDecoration: 'none'}}>FamilyTime</Link>
           {headerOptions}
         </div>
-      </header>
     );
   }
 }

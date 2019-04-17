@@ -29,14 +29,14 @@ class Home extends Component {
       </div>
         <div className="module mid">
           <h2><span>Family Time</span></h2>
-          <h3><span>Home Page</span></h3>
+          <h3><span className="log">Home Page</span></h3>
         </div>
         <div className="botpage">
           <div className="container marketing">
             <div className="row">
-              <Selector title='Meal Calendar' to='/mealplan' photos={meal}/>
+              <Selector title='Meal Calendar' to='/MealPlan' photos={meal}/>
               <Selector title='Vacation Planning' to='/vacations' photos={plane}/>
-              <Selector title='Photo Gallery' to='/photoalbum' photos={camera}/>
+              <Selector title='Photo Gallery' to='/album' photos={camera}/>
             </div>
             <hr className="featurette-divider" />
           </div>

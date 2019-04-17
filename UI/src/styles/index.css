@@ -33,6 +33,10 @@ body {
   padding: 20px;
   padding-bottom: 20px;
 }
+.log{
+  padding-left: 40px;
+  padding-right: 40px;
+}
 .header-wrapper {
   box-sizing: border-box;
   color: rgb(227, 227, 227);
@@ -110,7 +114,9 @@ body {
   text-decoration-style: solid;
   white-space: nowrap;
 }
-
+.nav-homeLink:hover{
+  color: #777f3b;
+}
 .nav-link-wrapper {
   align-items: center;
   box-sizing: border-box;
@@ -147,7 +153,7 @@ body {
   list-style-type: none;
   margin-bottom: 0px;
   margin-left: 0px;
-  margin-right: 347.5px;
+  /*margin-right: 65%;*/
   margin-top: 0px;
   padding-bottom: 0px;
   padding-left: 0px;
@@ -155,10 +161,23 @@ body {
   padding-top: 0px;
   text-align: left;
 }
-
+.header-link:hover{
+  color: #777f3b;
+}
 .header-link {
   margin-right: 10px;
-  color: #9ad3de;
+  color: #a6bc78;
+}
+.right-links{
+  float: right;
+  display: inline;
+  text-align: right;
+  margin: 0px; 
+  width: 90%;
+}
+.header-name, .header-family, .headerButton{
+  display: inline;
+  padding-right: 10px;
 }
 
 .header-buttons-wrapper {
@@ -482,7 +501,14 @@ input[type=password] {
     top: 35%;
   }
 }
-@media (max-width: 620px) {
-/*for calender buttons to be smaller*/
-
+@media (max-width: 666px) {
+.header-name{
+  display: none;
 }
+.header-family{
+  display: none;
+}
+}
+
+
+

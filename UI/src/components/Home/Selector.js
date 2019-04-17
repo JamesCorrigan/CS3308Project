@@ -20,7 +20,7 @@ export default class Selector extends Component {
         <h2>{title}</h2>
         <p>
           <Link className="btn btn-secondary" to={this.props.to} role="button">
-            View details »
+            View »
           </Link>
         </p>
       </div>
