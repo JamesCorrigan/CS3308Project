@@ -363,16 +363,18 @@ function addCalendar(req, res){
     const family = req.body.family;
     const newEvent = req.body.event;
     pool.query(
-        'UPDATE familes SET calendar = calendar || $1 WHERE id = $2;',
+        'UPDATE families SET calendar = calendar || $1 WHERE id = $2 RETURNING calendar;',
         [newEvent, family],
         (error, results, fields) => {
             if (error) {
                 throw error
             }
-            console.log(results.row[0]);
+            const cal = results.rows[0].calendar;
+            console.log('add results: ', JSON.stringify(results.rows));
             res.send({
                 "code": 200,
-                "success": "added event"
+                "success": "added event",
+                "data": cal
             })
         })
 }
@@ -381,18 +383,17 @@ function deleteCalendar(req, res){
     const family = req.body.family;
     const badEvent = req.body.event;
     pool.query(
-        'UPDATE familes SET calendar = calendar - $1;',
+        'UPDATE families SET calendar = calendar - $1;',
         [badEvent],
         (error, results, fields) => {
-            if (err){
-                throw error
+            if (error){
+                throw error;
             }
             res.send({
                 "code": 200,
                 "success": "deleted event"
             })
-        })
-    )
+      })
 }
 
 

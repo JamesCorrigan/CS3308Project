@@ -31,7 +31,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        calendar: [...state.calendar, action.response.data]
+        calendar: action.response.data
       }
     case actionType.ADD_EVENT_FAILURE:
       return {

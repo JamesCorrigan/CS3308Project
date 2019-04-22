@@ -42,7 +42,7 @@ function addHandler(family, event) {
   return fetch('/addCalendar', requestOptions)
     .then(responseHandler)
     .then(data => {
-        console.log(data);
+        console.log('add data',data);
         return data;
     });
 }

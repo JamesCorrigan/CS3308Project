@@ -44,14 +44,8 @@ class Vacations extends Component {
     const family = this.props.user ? this.props.user.family : null;
     if (title && family) {
       this.props.vacationActions.addEvent(family, newEvent);
-      this.setState({
-        events: [
-          ...this.state.events,
-          newEvent,
-        ],
-      });
     }
-    }
+  }
 
   handleChange(date) {
     this.setState({ date });
