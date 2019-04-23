@@ -4,11 +4,7 @@ const initialState = {
   success: false,
   errors: []
 }
-export default (state = {
-  loading: false,
-  success: false,
-  errors: []
-}, action) => {
+export default (state = initialState, action) => {
   switch (action.type) {
     case actionType.ACTION_CALL:
       return {

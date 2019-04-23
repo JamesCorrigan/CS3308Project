@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default class Selector extends Component {
   constructor(props) {
@@ -11,7 +11,6 @@ export default class Selector extends Component {
 
   render() {
     const title = this.props.title ? this.props.title : null;
-    const photo = this.props.photo ? this.props.photo : null;
     const photos = this.props.photos ? this.props.photos : null;
 
     return (

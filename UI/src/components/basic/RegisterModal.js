@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
-import { Route, Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as albumActions from '../../redux/actions/albumActions.js';
 import * as homeActions from '../../redux/actions/homeActions.js';
 import * as loginActions from '../../redux/actions/loginActions.js';
 
@@ -88,7 +86,7 @@ class Modal extends Component {
   }
 
   createFamily() {
-    const { first_name, last_name, email, password, parent, submitted } = this.state.cData;
+    const { first_name, last_name, email, password, parent } = this.state.cData;
     return (
       <div className='register-form'>
         <form onSubmit={this.handleCreateSubmit}>
@@ -167,9 +165,9 @@ class Modal extends Component {
   }
 
   registerUser() {
-    const { first_name, last_name, email, password, submitted, family, parent } = this.state.rData;
+    const { first_name, last_name, email, password, family, parent } = this.state.rData;
     return (
-      <div className='login-form'>
+      <div className='register-form'>
         <form onSubmit={this.handleRegSubmit}>
           <label>
             <input
@@ -232,7 +230,7 @@ class Modal extends Component {
           <div>
           <div className="makeUser">
             <h1 className="headerWords1">{headText}</h1>
-            <h4 className="headerWords2" onClick={this.handleSwitchForm}><a>{linkText}</a></h4>
+            <h4 className="headerWords2" onClick={this.handleSwitchForm}>{linkText}</h4>
             </div>
             {this.state.showCreateForm ? this.registerUser() : this.createFamily()}
           </div>

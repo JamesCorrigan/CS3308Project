@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import * as albumActions from '../../redux/actions/albumActions.js';
 import * as loginActions from '../../redux/actions/loginActions.js';
 class Album extends Component {

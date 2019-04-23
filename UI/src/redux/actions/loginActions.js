@@ -29,9 +29,9 @@ export function login(email, password) {
     dispatch({ type: actionType.LOGIN_REQUEST });
     loginHandler(email, password).then(response => {
       console.log('login response ', response);
-      if (response.code == 200) {
+      if (response.code === 200) {
         dispatch({ type: actionType.LOGIN_SUCCESS, response })
-      } else if (response.code == 204) {
+      } else if (response.code === 204) {
         dispatch({ type: actionType.LOGIN_FAILED, response })
       }
     }, error => {
@@ -66,9 +66,9 @@ export function createFamily(obj) {
     dispatch({type: actionType.REQUEST_CREATE_FAMILY});
     familyHandler(obj)
     .then(response => {
-      if (response.code == 200) {
+      if (response.code === 200) {
         dispatch({ type: actionType.CREATE_FAMILY_SUCCESS, response })
-      } else if (response.code == 204) {
+      } else if (response.code === 204) {
         dispatch({ type: actionType.CREATE_FAMILY_FAILED, response })
       }
     }, error => {
@@ -96,9 +96,9 @@ export function addMemberToFamily(obj) {
     dispatch({type: actionType.REQUEST_ADD_MEMBER});
     addHandler(obj)
     .then(response => {
-      if (response.code == 200) {
+      if (response.code === 200) {
         dispatch({ type: actionType.ADD_MEMBER_SUCCESS, response })
-      } else if (response.code == 204) {
+      } else if (response.code === 204) {
         dispatch({ type: actionType.ADD_MEMBER_FAILED, response })
       }
     }, error => {

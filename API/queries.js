@@ -124,7 +124,6 @@ function registerUser(req, res) {
     [first_name, last_name, email, password, Date.now(), family, parent],
     (err, results, fields) => {
     if (err) {
-      console.log("error", err);
       res.send({
         "code": 400,
         "failed": "error"

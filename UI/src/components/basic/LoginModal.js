@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as albumActions from '../../redux/actions/albumActions.js';
 import * as homeActions from '../../redux/actions/homeActions.js';
 import * as loginActions from '../../redux/actions/loginActions.js';
 
@@ -67,7 +66,7 @@ class Modal extends Component {
         <h1 className='login'>Login</h1>
           <div className='login-container'>
             <div className='login-form'>
-            
+
               <form onSubmit={this.handleSubmit}>
                 <label>
                   <input type='text' name='email' placeholder='Email' value={email} onChange={this.handleChange}/>
@@ -80,7 +79,7 @@ class Modal extends Component {
               </form>
              </div>
           </div>
-        
+
         </section>
       </div>
     );
