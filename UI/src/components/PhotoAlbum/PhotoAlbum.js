@@ -25,7 +25,7 @@ class Album extends Component {
     const data = new FormData();
     data.append('file', this.uploadInput.files[0]);
     data.append('filename', this.fileName.value);
-    data.append('family', familyID)
+    data.append('family', familyID);
     fetch('http://localhost:4000/upload', {
       method: 'POST',
       body: data,
@@ -38,7 +38,9 @@ class Album extends Component {
           this.setState({ imageURL });
         });
       }).catch(error => console.log(error));
-    this.props.albumActions.getAllFamilyImages(this.props.user.family);
+      setTimeout(() => {
+        this.props.albumActions.getAllFamilyImages(this.props.user.family);
+      }, 300)
   }
 
   handleClick = (e) => {
