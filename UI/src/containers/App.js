@@ -1,10 +1,9 @@
-import React, {Component, Button} from 'react';
+import React, { Component } from 'react';
 //libraries to support url links
-import { Route, Link } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 //imports for redux library
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import axios from 'axios';
 //redux action imports
 import * as albumActions from '../redux/actions/albumActions.js';
 import * as homeActions from '../redux/actions/homeActions.js';
@@ -12,7 +11,6 @@ import * as loginActions from '../redux/actions/loginActions.js';
 
 //component imports
 import Vacations from '../components/Vacations/Vacations.js';
-import Footer from '../components/Footer/Footer';
 import Header from '../components/Header/Header.js';
 import PhotoAlbum from '../components/PhotoAlbum/PhotoAlbum.js';
 import MealPlan from '../components/MealPlan/MealPlan.js';
@@ -25,7 +23,6 @@ class App extends Component {
   constructor(props) {
     //initialize props to this.props
     super(props);
-    let show = !this.props.loggedIn ? true : false;
     //initialize this.state
     this.state = {
       data: null,
@@ -70,6 +67,8 @@ class App extends Component {
         <Route exact path="/" component={Home} />
         <Route exact path="/album" component={PhotoAlbum} />
         <Route exact path="/vacations" component={Vacations} />
+        <Route exact path="/meals" component={MealPlan} />
+
       </div>
     ) : (null);
     //render JSX elements here

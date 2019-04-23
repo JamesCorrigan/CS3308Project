@@ -1,6 +1,5 @@
-import React, {Component, Button} from 'react';
+import React, { Component } from 'react';
 //import { push } from 'connected-react-router';
-import { Route, Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as albumActions from '../redux/actions/albumActions.js';

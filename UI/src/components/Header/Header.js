@@ -20,10 +20,10 @@ class Header extends Component {
     const headerOptions = this.props.loggedIn ? (
       <div className="nav-link-wrapper" id="navbarCollapse">
         <ul className="nav-links">
-          <Link to="/MealPlan" className='header-link' style={{textDecoration: 'none'}}>Meals</Link>
+          <Link to="/meals" className='header-link' style={{textDecoration: 'none'}}>Meals</Link>
           <Link to="/vacations" className='header-link' style={{textDecoration: 'none'}}>Vacations</Link>
           <Link to="/album" className='header-link' style={{textDecoration: 'none'}}>Albums</Link>
-  
+
         </ul>
         <ul className="right-links">
         <h6 className='header-name'>{first_name} {last_name}</h6>

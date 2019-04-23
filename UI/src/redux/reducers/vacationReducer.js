@@ -1,7 +1,8 @@
 import * as actionType from '../actions/actionTypes';
 const initialState = {
   loading: false,
-  calendar: []
+  calendar: [],
+  errors: []
 }
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -37,11 +38,29 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        errors: action.response
+        errors: [...state.errors, action.response]
+      }
+    case actionType.REQUEST_DELETE_EVENT:
+      return {
+        ...state,
+        loading: true
+      }
+    case actionType.DELETE_EVENT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        calendar: action.response.data
+      }
+    case actionType.DELETE_EVENT_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        errors: [...state.errors, action.response]
       }
     default:
       return {
-        ...state
+        ...state,
+        loading: false
       }
   }
 }

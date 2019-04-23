@@ -36,7 +36,6 @@ function getUserByEmail(email){
       throw error;
     } else {
       const user = results.rows[0];
-      console.log(user);
       res.status(200).json(results.rows)
       return user;
     }
@@ -46,7 +45,6 @@ function getUserByEmail(email){
 
 function getAllFamilyImages(req, res){
   const familyID = parseInt(req.body.family);
-  console.log('family: ', familyID, );
   pool.query('SELECT images FROM families WHERE id = $1', [familyID], (error, results) => {
     const images = results.rows[0].images;
     if (error) {
@@ -74,7 +72,6 @@ function getAllFamilyImages(req, res){
 function addImageToDB(req, res) {
   const url = req.body.url;
   const family = req.body.family;
-  console.log('url:', url, 'family: ', family);
   pool.query('UPDATE families SET images = array_append(images, $1) WHERE id = $2',
   [url, family], (error, results) => {
     if (error) {
@@ -230,7 +227,6 @@ function createFamilyHelper(obj) {
       console.log("error", err);
       created = false;
     } else {
-      console.log('user created!');
       created = true;
       //AFTER USER IS REGISTERED, NEED TO PREFORM ACTIONS ON FAMILY TABLE
     }
@@ -249,13 +245,11 @@ async function createFamily(req, res) {
   let images = {};
   const members = req.body.parent ? {parents: [first_name], children: []} : {parents: [], children: [first_name]};
   let calendar = {};
-  console.log(req.body);
   const result = await pool.query(
     'INSERT INTO families (last_name, images, members, calendar) VALUES ($1,$2,$3,$4) RETURNING *',
     [last_name, images, members, calendar],
     (err, results) => {
       if (!!err) {
-        console.log('error', err);
         res.send({
           "code": 400,
           "failed": "error"
@@ -275,7 +269,6 @@ async function createFamily(req, res) {
           [first_name, last_name, email, password, now, family, parent],
           (err, iResults, fields) => {
           if (!!err) {
-            console.log("error", err);
             created = false;
             res.send({
               "code": 204,
@@ -284,7 +277,6 @@ async function createFamily(req, res) {
             });
             //delete family if user isnt made
           } else {
-            console.log('user and family created!');
             created = true;
             res.send({
               "code": 200,
@@ -310,7 +302,6 @@ function login(req, res) {
   const password = req.body.password;
   pool.query('SELECT * FROM users WHERE email = ($1)', [email], (error, results, fields) => {
     if (error !== undefined) {
-      console.log("error is::", error);
       res.send({
         "code": 400,
         "failed": "error"
@@ -318,7 +309,6 @@ function login(req, res) {
     } else {
       if (results.rows.length > 0) {
         if (results.rows[0].password == password) {
-          console.log('logged in');
           res.send({
             "code": 200,
             "success": "login successful",
@@ -370,7 +360,6 @@ function addCalendar(req, res){
                 throw error
             }
             const cal = results.rows[0].calendar;
-            console.log('add results: ', JSON.stringify(results.rows));
             res.send({
                 "code": 200,
                 "success": "added event",
@@ -378,24 +367,69 @@ function addCalendar(req, res){
             })
         })
 }
-
+//UPDATE families SET calendar = calendar #- '{"end": "2019-04-05T06:00:00.000Z", "start": "2019-04-03T06:00:00.000Z", "title": "test 3"}' WHERE id = 20;
+//UPDATE families SET calendar = array_remove(calendar, '{"end": "2019-04-05T06:00:00.000Z", "start": "2019-04-03T06:00:00.000Z", "title": "test 3"}') WHERE id = 20;
+//SELECT * FROM families s WHERE s.calendar @> '[{"end": "2019-04-05T06:00:00.000Z", "start": "2019-04-03T06:00:00.000Z", "title": "test 3"}]';
+/*
 function deleteCalendar(req, res){
     const family = req.body.family;
     const badEvent = req.body.event;
+    console.log('deleting event ', badEvent, ' For family ', family);
     pool.query(
-        'UPDATE families SET calendar = calendar - $1;',
-        [badEvent],
+        'UPDATE families SET calendar = calendar - $1 WHERE id = $2 RETURNING calendar;',
+        [badEvent, family],
         (error, results, fields) => {
             if (error){
-                throw error;
+                res.send({
+                  "code": 400,
+                  "failure": "delete event failed"
+                })
             }
+            const cal = results.rows[0].calendar;
             res.send({
                 "code": 200,
-                "success": "deleted event"
+                "success": "deleted event",
+                "data": cal
             })
       })
 }
-
+*/
+function deleteCalendar(req, res){
+    const family = req.body.family;
+    const badEvent = req.body.event;
+    pool.query('SELECT calendar FROM families WHERE id = $1;',
+    [family],
+    (error, results) => {
+      let cal = results.rows[0].calendar;
+      let index;
+      for (let i = 0; i < cal.length; i++) {
+        if (cal[i].title === badEvent.title && cal[i].start === badEvent.start && cal[i].end === badEvent.end) {
+          index = i;
+          cal.splice(index, 1);
+          break;
+        }
+      }
+      const newCalendar = JSON.stringify(cal);
+      pool.query(
+        'UPDATE families SET calendar = $1 WHERE id = $2 RETURNING calendar;',
+        [newCalendar, family],
+        (error, results) => {
+          const cal = results.rows[0].calendar;
+          if (error) {
+            console.log('deletion error', error);
+            res.send({
+              "code": 400,
+              "failure": "delete event failed"
+            })
+          }
+          res.send({
+            "code": 200,
+            "success": "deleted event",
+            "data": results.rows[0].calendar
+          })
+        })
+    });
+}
 
 
 

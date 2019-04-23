@@ -20,7 +20,6 @@ export function getCalendar(family) {
   //fetch calendar from server, then store in reducer
   return dispatch => {
     dispatch({ type: actionType.REQUEST_LOAD_CALENDAR });
-    console.log(`/getCalendar/${family}`);
     getHandler(family).then(response => {
       if (response.code === 200) {
         dispatch({ type: actionType.LOAD_CALENDAR_SUCCESS, response})
@@ -42,7 +41,6 @@ function addHandler(family, event) {
   return fetch('/addCalendar', requestOptions)
     .then(responseHandler)
     .then(data => {
-        console.log('add data',data);
         return data;
     });
 }
@@ -60,6 +58,37 @@ export function addEvent(family, newEvent) {
   }
 }
 
+function deleteHandler(family, event) {
+  const requestOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ family, event })
+  };
+  return fetch('/deleteCalendar', requestOptions)
+    .then(responseHandler)
+    .then(data => {
+        return data;
+    });
+}
+
+export function deleteEvent(family, dEvent) {
+  return dispatch => {
+    dispatch({ type: actionType.REQUEST_DELETE_EVENT });
+    deleteHandler(family, dEvent).then(response => {
+      if (response.code === 200) {
+        //event deleted
+        dispatch({ type: actionType.DELETE_EVENT_SUCCESS, response })
+      } else {
+        dispatch({ type: actionType.DELETE_EVENT_FAILURE, response })
+
+      }
+    })
+  }
+}
+
+function calResponseHandler(res) {
+  return res;
+}
 
 function responseHandler(res) {
     return res.text().then(text => {

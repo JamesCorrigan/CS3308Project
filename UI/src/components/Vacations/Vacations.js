@@ -31,6 +31,7 @@ class Vacations extends Component {
     };
     this.handleSelect = this.handleSelect.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   componentDidMount() {
@@ -50,8 +51,19 @@ class Vacations extends Component {
   handleChange(date) {
     this.setState({ date });
   }
-  render() {
 
+  handleDelete(event) {
+    const family = this.props.user ? this.props.user.family : null;
+    const r = window.confirm("Remove this event?");
+    if (r === true && family !== null) {
+      //delete event
+      this.props.vacationActions.deleteEvent(family, event);
+
+    }
+  }
+
+  render() {
+    const events = this.props.events && this.props.events.length > 0 ? this.props.events : [];
     return (
       <div>
         <h1 className= "calenderHeader">Vacations</h1>
@@ -60,9 +72,9 @@ class Vacations extends Component {
           localizer={localizer}
           defaultDate={new Date()}
           defaultView="month"
-          events={this.props.events.length > 0 ? this.props.events : this.state.events}
+          events={events}
           style={{ height: "100vh" }}
-          onSelectEvent={event => alert(event.title)}
+          onSelectEvent={this.handleDelete}
           onSelectSlot={this.handleSelect}
         />
       </div>
