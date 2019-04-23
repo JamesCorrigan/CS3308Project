@@ -246,7 +246,7 @@ async function createFamily(req, res) {
   let calendar = {};
   const result = await pool.query(
     'INSERT INTO families (last_name, images, members, calendar) VALUES ($1,$2,$3,$4) RETURNING *',
-    [last_name, images, members, calendar],
+    [last_name, images, members, '[{}]'],
     (err, results) => {
       if (!!err) {
         res.send({
