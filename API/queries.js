@@ -158,7 +158,7 @@ function addMemberToFamily(req, res) {
     }
     let added = false;
     const user = createFamilyHelper(obj);
-    if (user){
+    if (user) {
         pool.query(
             'SELECT * FROM families WHERE id = ($1)',
             [family],
@@ -366,33 +366,8 @@ function addCalendar(req, res){
             })
         })
 }
-//UPDATE families SET calendar = calendar #- '{"end": "2019-04-05T06:00:00.000Z", "start": "2019-04-03T06:00:00.000Z", "title": "test 3"}' WHERE id = 20;
-//UPDATE families SET calendar = array_remove(calendar, '{"end": "2019-04-05T06:00:00.000Z", "start": "2019-04-03T06:00:00.000Z", "title": "test 3"}') WHERE id = 20;
-//SELECT * FROM families s WHERE s.calendar @> '[{"end": "2019-04-05T06:00:00.000Z", "start": "2019-04-03T06:00:00.000Z", "title": "test 3"}]';
-/*
-function deleteCalendar(req, res){
-    const family = req.body.family;
-    const badEvent = req.body.event;
-    console.log('deleting event ', badEvent, ' For family ', family);
-    pool.query(
-        'UPDATE families SET calendar = calendar - $1 WHERE id = $2 RETURNING calendar;',
-        [badEvent, family],
-        (error, results, fields) => {
-            if (error){
-                res.send({
-                  "code": 400,
-                  "failure": "delete event failed"
-                })
-            }
-            const cal = results.rows[0].calendar;
-            res.send({
-                "code": 200,
-                "success": "deleted event",
-                "data": cal
-            })
-      })
-}
-*/
+
+
 function deleteCalendar(req, res){
     const family = req.body.family;
     const badEvent = req.body.event;
