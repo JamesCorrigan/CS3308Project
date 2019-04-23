@@ -47,7 +47,7 @@ var router = express.Router();
 
 //For root, return simple info
 app.get('/', (req, res) => {
-  res.json({ info: 'api info'});
+  res.json({ info: 'API for the FamilyTime Service'});
 });
 
 //GET to get all users (old)

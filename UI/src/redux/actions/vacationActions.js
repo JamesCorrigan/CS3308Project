@@ -86,9 +86,6 @@ export function deleteEvent(family, dEvent) {
   }
 }
 
-function calResponseHandler(res) {
-  return res;
-}
 
 function responseHandler(res) {
     return res.text().then(text => {
