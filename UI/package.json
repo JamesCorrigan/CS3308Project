@@ -1,6 +1,6 @@
 {
   "private": true,
-  "homepage": "https://create-react-app-redux.now.sh",
+  "homepage": "https://localhost:5000/",
   "scripts": {
     "deploy": "now && now alias",
     "start": "react-scripts start",
@@ -20,7 +20,6 @@
     "jquery": "^3.3.1",
     "moment": "^2.24.0",
     "popper": "^1.0.1",
-    "proptypes": "^1.1.0",
     "react": "^16.8.6",
     "react-big-calendar": "^0.20.4",
     "react-dom": "16.8.3",

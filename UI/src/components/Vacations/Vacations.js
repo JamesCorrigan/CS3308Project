@@ -15,19 +15,7 @@ class Vacations extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      date: new Date(),
-      events: [
-        {
-          start: new Date(),
-          end: new Date(moment().add(1, "weeks")),
-          title: "Jamaica Vacation"
-        },
-        {
-          start: '2019-05-15',
-          end: '2019-05-29',
-          title: "Jamaica Vacation"
-        }
-      ]
+      date: new Date()
     };
     this.handleSelect = this.handleSelect.bind(this);
     this.handleChange = this.handleChange.bind(this);
