@@ -80,7 +80,7 @@ export default (state = initialState, action) => {
         ...state,
         loggedIn: true,
         loggingIn: false,
-        user: action.response.user
+        user: action.response.data
       }
     case actionType.ADD_MEMBER_FAILED:
       return {
