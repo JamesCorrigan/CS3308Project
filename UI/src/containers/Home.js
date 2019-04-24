@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as albumActions from '../redux/actions/albumActions.js';
-import * as homeActions from '../redux/actions/homeActions.js';
 import * as loginActions from '../redux/actions/loginActions.js';
 import meal from '../styles/meal.png';
 import plane from '../styles/plane.png';
@@ -62,7 +61,6 @@ class Home extends Component {
 //REDUX LINKS, DO NOT EDIT
 const mapStateToProps = state => {
   return {
-    homeReducer: state.homeReducer,
     loginReducer: state.loginReducer,
     loggedIn: state.loginReducer.loggedIn,
     user: state.loginReducer.user,
@@ -72,7 +70,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    homeActions: bindActionCreators(homeActions, dispatch),
     loginActions: bindActionCreators(loginActions, dispatch),
     albumActions: bindActionCreators(albumActions, dispatch)
   };

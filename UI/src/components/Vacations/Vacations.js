@@ -28,6 +28,7 @@ class Vacations extends Component {
   }
 
   handleSelect = ({ start, end }) => {
+    console.log(start, end);
     const family = this.props.user ? this.props.user.family : null;
     const parent = this.props.user ? this.props.user.parent : null;
     if (parent) {
@@ -71,6 +72,7 @@ class Vacations extends Component {
           localizer={localizer}
           defaultDate={new Date()}
           defaultView="month"
+          views={['month']}
           events={events}
           style={{ height: "100vh" }}
           onSelectEvent={this.handleDelete}
