@@ -1,5 +1,5 @@
 import * as actionType from './actionTypes';
-
+const API = 'http://localhost:4000';
 
 export function fetchMembers() {
   fetch('/users').then(res => res.json()).then(members => {
@@ -14,7 +14,7 @@ function loginHandler(email, password) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password })
   };
-  return fetch('/login', requestOptions)
+  return fetch(API + '/login', requestOptions)
     .then(responseHandler)
     .then(user => {
         return user;
@@ -52,7 +52,7 @@ function familyHandler(obj) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(obj)
   };
-  return fetch('/createFamily', requestOptions)
+  return fetch(API + '/createFamily', requestOptions)
     .then(responseHandler)
     .then(data => {
       //what to do with data?
@@ -83,7 +83,7 @@ function addHandler(obj) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(obj)
   };
-  return fetch('/addMember', requestOptions)
+  return fetch(API + '/addMember', requestOptions)
   .then(responseHandler)
   .then(data => {
     return data;

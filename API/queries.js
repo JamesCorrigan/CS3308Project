@@ -158,7 +158,9 @@ function addMemberToFamily(req, res) {
     }
     let added = false;
     const user = createFamilyHelper(obj);
-    if (user) {
+    //TODO: FIX THIS, MAKE ERROR HANDLING WORK
+    console.log('family id for register:', family);
+    if (true) {
         pool.query(
             'SELECT * FROM families WHERE id = ($1)',
             [family],
@@ -170,8 +172,8 @@ function addMemberToFamily(req, res) {
                     if (parent){
                         const newMembers = {parents: [...members.parents, first_name], children: members.children};
                         pool.query(
-                            'UPDATE families SET members = ($1)',
-                            [newMembers],
+                            'UPDATE families SET members = $1 WHERE id = $2',
+                            [newMembers, family],
                             (err, results, fields) => {
                                 if (err){
                                     console.log('err', error);
@@ -184,13 +186,13 @@ function addMemberToFamily(req, res) {
                                 }
                             });
                     }else{
-                        const newMembers = {parents: members.parents, children: [...members.children], first_name}
+                        const newMembers = {parents: members.parents, children: [...members.children, first_name]}
                         pool.query(
-                            'UPDATE familes SET members = ($1)',
+                            'UPDATE families SET members = ($1)',
                             [newMembers],
                             (err, results, fields) => {
                                 if (err){
-                                    console.log('err', error);
+                                    console.log('err', err);
                                 }else{
                                     res.send({
                                       "code": 200,

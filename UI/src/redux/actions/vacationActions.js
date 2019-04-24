@@ -1,5 +1,5 @@
 import * as actionType from './actionTypes';
-
+const API = 'http://localhost:4000';
 
 /*Login wrapper function*/
 
@@ -8,7 +8,7 @@ function getHandler(family) {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
   };
-  return fetch(`/getCalendar/${family}`, requestOptions)
+  return fetch(API + `/getCalendar/${family}`, requestOptions)
     .then(responseHandler)
     .then(data => {
         return data;
@@ -38,7 +38,7 @@ function addHandler(family, event) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ family, event })
   };
-  return fetch('/addCalendar', requestOptions)
+  return fetch(API + '/addCalendar', requestOptions)
     .then(responseHandler)
     .then(data => {
         return data;
@@ -64,7 +64,7 @@ function deleteHandler(family, event) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ family, event })
   };
-  return fetch('/deleteCalendar', requestOptions)
+  return fetch(API + '/deleteCalendar', requestOptions)
     .then(responseHandler)
     .then(data => {
         return data;
