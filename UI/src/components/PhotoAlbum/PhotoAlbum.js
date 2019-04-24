@@ -51,7 +51,7 @@ class Album extends Component {
   render() {
     let imageGrid = this.props.images ? this.props.images.map((image, i) =>
     <div key={i} className='image-grid-item'>
-      <img src={image} alt={`${i}`} key={i} />
+      <img src={image} alt={`${i}`} key={i} height="300px" width="330px"/>
     </div>
   ) : (null);
 
@@ -60,22 +60,25 @@ class Album extends Component {
       <div className='album-wrapper'>
         <h1 className= "calenderHeader">Album</h1>
         <h2 className= "description"> Add photos and view past photos of your family adventures.</h2>
-        <div className="container">
+        <div className="container photos">
           <form onSubmit={this.handleUploadImage}>
+
+          <div class="upload-btn-wrapper">
+            <button className="btn">Choose file</button>
+            <input ref={(ref) => { this.uploadInput = ref; }} type="file" name="myfile" />
+          </div>
+            
             <div>
-              <input ref={(ref) => { this.uploadInput = ref; }} type="file" />
-            </div>
-            <div>
-              <input ref={(ref) => { this.fileName = ref; }} type="text" placeholder="Enter the desired name of file" />
+              <input className= "nameFile" ref={(ref) => { this.fileName = ref; }} type="text" placeholder="Enter the desired name of file" />
             </div>
             <br />
-            <div>
-              <button>Upload</button>
+            <div className="upload-btn-wrapper">
+            <button className="btn">Upload</button>
             </div>
           </form>
         </div>
         <br/>
-        <div className="image-grid-container">
+        <div className="container image-grid-container">
           {imageGrid}
         </div>
       </div>
