@@ -161,52 +161,48 @@ function addMemberToFamily(req, res) {
     //TODO: FIX THIS, MAKE ERROR HANDLING WORK
     console.log('family id for register:', family);
     pool.query(
-      'SELECT * FROM families WHERE id = ($1)',
-      [family],
-      (err, results, fields) => {
-        const members = results.rows[0].members;
-        if (err){
-          console.log("error", err);
-        }else{
-          if (parent){
-            const newMembers = {parents: [...members.parents, first_name], children: members.children};
-            pool.query(
-              'UPDATE families SET members = $1 WHERE id = $2',
-              [newMembers, family],
-              (err, results, fields) => {
-                if (err){
-                  console.log('err', error);
-                }else{
-                  res.send({
-                    "code": 200,
-                    "success": "add member to family successful",
-                    "data": obj
-                  });
-                }
-              });
+        'SELECT * FROM families WHERE id = ($1)',
+        [family],
+        (err, results, fields) => {
+            const members = results.rows[0].members;
+            if (err){
+                console.log("error", err);
             }else{
-              const newMembers = {parents: members.parents, children: [...members.children, first_name]}
-              pool.query(
-                'UPDATE families SET members = $1 WHERE id = $2',
-                [newMembers, family],
-                (err, results, fields) => {
-                  if (err){
-                    console.log('err', err);
-                  }else{
-                    res.send({
-                      "code": 200,
-                      "success": "add member to family successful",
-                      "data": obj
-                    });
-                  }
-                });
-              }
+                if (parent){
+                    const newMembers = {parents: [...members.parents, first_name], children: members.children};
+                    pool.query(
+                        'UPDATE families SET members = $1 WHERE id = $2',
+                        [newMembers, family],
+                        (err, results, fields) => {
+                            if (err){
+                                console.log('err', error);
+                            }else{
+                                res.send({
+                                  "code": 200,
+                                  "success": "add member to family successful",
+                                  "data": obj
+                                });
+                            }
+                        });
+                }else{
+                    const newMembers = {parents: members.parents, children: [...members.children, first_name]}
+                    pool.query(
+                        'UPDATE families SET members = $1 WHERE id = $2',
+                        [newMembers, family],
+                        (err, results, fields) => {
+                            if (err){
+                                console.log('err', err);
+                            }else{
+                                res.send({
+                                  "code": 200,
+                                  "success": "add member to family successful",
+                                  "data": obj
+                                });
+                            }
+                        });
+                }
             }
-          });
-      //if add user fails:
-      console.log('failure');
-
-    }
+        });
 }
 
 function createFamilyHelper(obj) {
