@@ -17,16 +17,6 @@ class MealPlan extends Component {
     this.state = {
       date: new Date(),
       events: [
-        {
-          start: new Date(),
-          end: new Date(moment().add(1, "weeks")),
-          title: "Jamaica Vacation"
-        },
-        {
-          start: '2019-05-15',
-          end: '2019-05-29',
-          title: "Jamaica Vacation"
-        }
       ]
     };
     this.handleSelect = this.handleSelect.bind(this);
@@ -44,7 +34,7 @@ class MealPlan extends Component {
     const newEvent = {start, end, title};
     const family = this.props.user ? this.props.user.family : null;
     if (title && family) {
-      this.props.vacationActions.addEvent(family, newEvent);
+      this.setState({events: [...this.state.events, newEvent]})
     }
   }
 
@@ -56,9 +46,16 @@ class MealPlan extends Component {
     const family = this.props.user ? this.props.user.family : null;
     const r = window.confirm("Remove this event?");
     if (r === true && family !== null) {
-      //delete event
-      this.props.vacationActions.deleteEvent(family, event);
-
+      let events = this.state.events;
+      let index;
+      for (let i = 0; i < events.length; i++) {
+        if (events[i].title === event.title && events[i].start === event.start && events[i].end === event.end) {
+          index = i;
+          events.splice(index, 1);
+          break;
+        }
+      }
+      this.setState({events})
     }
   }
 
@@ -73,7 +70,8 @@ class MealPlan extends Component {
           localizer={localizer}
           defaultDate={new Date()}
           defaultView="week"
-          events={events}
+          views={['week']}
+          events={this.state.events}
           style={{ height: "100vh" }}
           onSelectEvent={this.handleDelete}
           onSelectSlot={this.handleSelect}
