@@ -188,8 +188,8 @@ function addMemberToFamily(req, res) {
                     }else{
                         const newMembers = {parents: members.parents, children: [...members.children, first_name]}
                         pool.query(
-                            'UPDATE families SET members = ($1)',
-                            [newMembers],
+                            'UPDATE families SET members = $1 WHERE id = $2',
+                            [newMembers, family],
                             (err, results, fields) => {
                                 if (err){
                                     console.log('err', err);
