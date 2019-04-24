@@ -40,11 +40,16 @@ class Vacations extends Component {
   }
 
   handleSelect = ({ start, end }) => {
-    const title = window.prompt('New Event name');
-    const newEvent = {start, end, title};
     const family = this.props.user ? this.props.user.family : null;
-    if (title && family) {
-      this.props.vacationActions.addEvent(family, newEvent);
+    const parent = this.props.user ? this.props.user.parent : null;
+    if (parent) {
+      let title = window.prompt('New Event name');
+      const newEvent = {start, end, title};
+      if (title && family) {
+        this.props.vacationActions.addEvent(family, newEvent);
+      }
+    } else {
+      window.alert('Only Parents can create events!')
     }
   }
 
@@ -54,11 +59,16 @@ class Vacations extends Component {
 
   handleDelete(event) {
     const family = this.props.user ? this.props.user.family : null;
-    const r = window.confirm("Remove this event?");
-    if (r === true && family !== null) {
-      //delete event
-      this.props.vacationActions.deleteEvent(family, event);
-
+    const parent = this.props.user ? this.props.user.parent : null;
+    if (parent) {
+      const r = window.confirm("Remove this event?");
+      console.log(parent);
+      if (r === true && family !== null) {
+        //delete event
+        this.props.vacationActions.deleteEvent(family, event);
+      }
+    } else {
+      window.alert('Only parents can remove events!');
     }
   }
 
