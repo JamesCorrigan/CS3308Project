@@ -66,7 +66,8 @@ class MealPlan extends Component {
     const events = this.props.events && this.props.events.length > 0 ? this.props.events : [];
     return (
       <div>
-        <h1 className= "calenderHeader">Vacations</h1>
+        <h1 className= "calenderHeader">Meals</h1>
+        <h2 className= "description"> Highlight any number of hours/minutes to select time for your family meal.</h2>
         <Calendar
           selectable
           localizer={localizer}

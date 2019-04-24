@@ -179,6 +179,10 @@ body {
   display: inline;
   padding-right: 10px;
 }
+.headerButton:hover{
+	color: #777f3b;
+	border-color: #777f3b;
+}
 
 .header-buttons-wrapper {
   align-items: center;
@@ -347,9 +351,21 @@ input[type=password] {
 .module{
   text-align: center;
 }
+.titleImg{
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%, -150%);
+}
 .modal-main{
   /*padding: 50px;*/
   width: 400px;
+  margin: 16px auto;
+  font-size: 16px;
+  z-index: 2;
+}
+.modal-main.two{
+  /*padding: 50px;*/
+  width: 450px;
   margin: 16px auto;
   font-size: 16px;
   z-index: 2;
@@ -490,6 +506,13 @@ input[type=password] {
 	padding-bottom: 15px;
 	color: #ffffff;
 	font-weight: 400;
+}
+.description{
+	text-align: center;
+	font-style: italic;
+	font-size: 20px;
+	padding-bottom: 30px;
+	color: #777f3b;
 }
 @media (max-width: 555px) {
   h3 {

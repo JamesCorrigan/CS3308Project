@@ -8,6 +8,8 @@ import * as loginActions from '../redux/actions/loginActions.js';
 import meal from '../styles/meal.png';
 import plane from '../styles/plane.png';
 import camera from '../styles/camera.png';
+import home from '../styles/home.jpg';
+import login from '../styles/login.jpg';
 
 //Selector has deteailed links to pages
 import Selector from '../components/Home/Selector';
@@ -26,14 +28,11 @@ class Home extends Component {
       {/*if logged in, render main page*/}
       <div className="backgroundGif">
       </div>
-        <div className="module mid">
-          <h2><span>Family Time</span></h2>
-          <h3><span className="log">Home Page</span></h3>
-        </div>
+        <img className="titleImg" src={home} alt="home image" height="150px" width="300px" />
         <div className="botpage">
           <div className="container marketing">
             <div className="row">
-              <Selector title='Meal Calendar' to='/MealPlan' photos={meal}/>
+              <Selector title='Meal Calendar' to='/meals' photos={meal}/>
               <Selector title='Vacation Planning' to='/vacations' photos={plane}/>
               <Selector title='Photo Gallery' to='/album' photos={camera}/>
             </div>
@@ -46,10 +45,7 @@ class Home extends Component {
       {/*Else, render page asking for login*/}
       <div className="backgroundGif">
       </div>
-        <div className="module mid">
-          <h2><span>Family Time</span></h2>
-          <h3><span>Log in to use features</span></h3>
-        </div>
+        <img className="titleImg" src={login} alt="home image" height="150px" width="300px" />
         <div className="botpage">
           <div className="container marketing">
             <hr className="featurette-divider" />

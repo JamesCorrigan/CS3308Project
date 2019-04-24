@@ -58,7 +58,8 @@ class Album extends Component {
 
     return (
       <div className='album-wrapper'>
-        <h1>Album</h1>
+        <h1 className= "calenderHeader">Album</h1>
+        <h2 className= "description"> Add photos and view past photos of your family adventures.</h2>
         <div className="container">
           <form onSubmit={this.handleUploadImage}>
             <div>

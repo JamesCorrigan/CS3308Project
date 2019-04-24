@@ -67,6 +67,7 @@ class Vacations extends Component {
     return (
       <div>
         <h1 className= "calenderHeader">Vacations</h1>
+        <h2 className= "description"> Highlight any number of days to select time for your vacation.</h2>
         <Calendar
           selectable
           localizer={localizer}

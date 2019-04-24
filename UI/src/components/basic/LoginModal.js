@@ -62,7 +62,7 @@ class Modal extends Component {
     const { email, password } = this.state;
     return (
       <div className='.modal' ref={this.setWrapperRef}>
-        <section className="modal-main">
+        <section className="modal-main two">
         <h1 className='login'>Login</h1>
           <div className='login-container'>
             <div className='login-form'>
