@@ -1,23 +1,33 @@
 # CS3308Project
-Group Project for CSCI 3308
+Family Time: A family Planning Website.
 
-DATABASE SETUP (TERMINAL):
 
-1. DOWNLOAD THIS:
--https://www.postgresql.org/download/windows/
-2. TYPE IN TERMINAL:
--psql postgres;
-3. IN POSTGRES:
--postgres=# CREATE ROLE james WITH LOGIN PASSWORD 'password';
-postgres=# \q
-4. IN TERMINAL:
--psql -d postgres -U james
-5. IN POSTGRES:
--postgres=> CREATE DATABASE api;
--postgres=> \c api
-6. CREATE TABLES IN API DATABASE:
+Organize and gather a busy family for much-needed ‘Family Time’. Share Photos,
+Schedule Meals, and Plan Vacations as a family!
 
--api=> CREATE TABLE users (
+
+Project By James Corrigan, Josef May, Kara Metcalfe, Niko Senkov, Ahoto Obika and Jiheng Zhao.
+
+
+REPO STRUCTURE:
+-The React Site is in the UI folder, with most of the components in the src/components folder. The backend code is all held in API/index.js and API/queries.js 
+
+
+DOCS:
+
+1. React-Redux:
+-https://react-redux.js.org/introduction/quick-start
+2. React:
+-https://reactjs.org/docs/getting-started.html
+3. PostgreSQL
+-https://www.postgresql.org/docs/
+
+
+HOW TO START:
+ To start the UI, type npm install, npm run build, and serve -s build inside the UI directory. to start the API, type npm install and npm start inside the API directory. For database setup, create a postgres user 'james' with the password 'password', and give the user CREATEDB permissions. Then, type "psql -d postgres -U james;" in a terminal. In the postgres terminal, type "CREATE DATABASE api;", "\c api", and then create the tables with the commands: 
+
+
+CREATE TABLE users (
   id serial PRIMARY KEY,
   first_name VARCHAR(100) NOT NULL,
   last_name VARCHAR(100) NOT NULL,
@@ -28,7 +38,9 @@ postgres=# \q
   parent boolean NOT NULL
 );
 
--api=> CREATE TABLE families (
+and
+
+CREATE TABLE families (
   id serial PRIMARY KEY,
   last_name VARCHAR(100) NOT NULL,
   images text[],
@@ -36,48 +48,3 @@ postgres=# \q
   calendar jsonb
 );
 
-
-WINDOWS INSTALL
-https://www.postgresql.org/download/windows/
-
-1. START PGADMIN
-2. CLICK 'SERVERS' DROPDOWN ON THE LEFT, THEN CLICK POSTGRESQL 11
-3. RIGHT CLICK 'LOGIN/GROUP ROLES' AND CLICK 'CREATE'
-4. IN 'GENERAL', SET 'NAME' TO 'james';
-
-
-
-
-POSTGRESQL DATABASE STRUCTURE:
-
-  users:
-
-    id | first_name | last_name |     email      | password |  created   | family | parent
-   ----+------------+-----------+----------------+----------+------------+--------+--------
-     1 | bill       | smith     | bill@smith.com | password | 2019-03-19 |      1 | t
-     3 | mary       | smith     | mary@smith.com | password | 2019-03-19 |      1 | t
-     2 | joe        | smith     | joe@smith.com  | password | 2019-03-19 |      1 | f
-
-  families:
-
-  id | last_name |                 images                 |                      members                       | calendar
-----+-----------+----------------------------------------+----------------------------------------------------+----------
-   1 | smith     | {/images/1/img.jpg,/images/1/img2.jpg} | {"parents": ["bill", "mary"], "children": ["joe"]} | {}
-
-
-Docs:
-  1. Backend:
-    -https://blog.logrocket.com/setting-up-a-restful-api-with-node-js-and-postgresql-d96d6fc892d8
-  2. React:
-    -https://reactjs.org/docs/
-    -//More
-  3. Redux:
-    -https://redux.js.org/introduction/getting-started
-    -//More
-    -Redux and Websocket:
-      -https://medium.com/@ianovenden/redux-websocket-integration-c1a0d22d3189
-  5. React-Router:
-    -https://reacttraining.com/react-router/web/guides/quick-start
-    -//More
-  6. NPM:
-    -https://docs.npmjs.com/

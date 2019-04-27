@@ -158,55 +158,51 @@ function addMemberToFamily(req, res) {
     }
     let added = false;
     const user = createFamilyHelper(obj);
-    if (user) {
-        pool.query(
-            'SELECT * FROM families WHERE id = ($1)',
-            [family],
-            (err, results, fields) => {
-                const members = results.rows[0].members;
-                if (err){
-                    console.log("error", err);
+    //TODO: FIX THIS, MAKE ERROR HANDLING WORK
+    console.log('family id for register:', family);
+    pool.query(
+        'SELECT * FROM families WHERE id = ($1)',
+        [family],
+        (err, results, fields) => {
+            const members = results.rows[0].members;
+            if (err){
+                console.log("error", err);
+            }else{
+                if (parent){
+                    const newMembers = {parents: [...members.parents, first_name], children: members.children};
+                    pool.query(
+                        'UPDATE families SET members = $1 WHERE id = $2',
+                        [newMembers, family],
+                        (err, results, fields) => {
+                            if (err){
+                                console.log('err', error);
+                            }else{
+                                res.send({
+                                  "code": 200,
+                                  "success": "add member to family successful",
+                                  "data": obj
+                                });
+                            }
+                        });
                 }else{
-                    if (parent){
-                        const newMembers = {parents: [...members.parents, first_name], children: members.children};
-                        pool.query(
-                            'UPDATE families SET members = ($1)',
-                            [newMembers],
-                            (err, results, fields) => {
-                                if (err){
-                                    console.log('err', error);
-                                }else{
-                                    res.send({
-                                      "code": 200,
-                                      "success": "add member to family successful",
-                                      "data": obj
-                                    });
-                                }
-                            });
-                    }else{
-                        const newMembers = {parents: members.parents, children: [...members.children], first_name}
-                        pool.query(
-                            'UPDATE familes SET members = ($1)',
-                            [newMembers],
-                            (err, results, fields) => {
-                                if (err){
-                                    console.log('err', error);
-                                }else{
-                                    res.send({
-                                      "code": 200,
-                                      "success": "add member to family successful",
-                                      "data": obj
-                                    });
-                                }
-                            });
-                    }
+                    const newMembers = {parents: members.parents, children: [...members.children, first_name]}
+                    pool.query(
+                        'UPDATE families SET members = $1 WHERE id = $2',
+                        [newMembers, family],
+                        (err, results, fields) => {
+                            if (err){
+                                console.log('err', err);
+                            }else{
+                                res.send({
+                                  "code": 200,
+                                  "success": "add member to family successful",
+                                  "data": obj
+                                });
+                            }
+                        });
                 }
-            });
-    } else {
-      //if add user fails:
-      console.log('failure');
-
-    }
+            }
+        });
 }
 
 function createFamilyHelper(obj) {
@@ -246,7 +242,7 @@ async function createFamily(req, res) {
   let calendar = {};
   const result = await pool.query(
     'INSERT INTO families (last_name, images, members, calendar) VALUES ($1,$2,$3,$4) RETURNING *',
-    [last_name, images, members, calendar],
+    [last_name, images, members, '[{}]'],
     (err, results) => {
       if (!!err) {
         res.send({

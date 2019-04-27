@@ -15,19 +15,7 @@ class Vacations extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      date: new Date(),
-      events: [
-        {
-          start: new Date(),
-          end: new Date(moment().add(1, "weeks")),
-          title: "Jamaica Vacation"
-        },
-        {
-          start: '2019-05-15',
-          end: '2019-05-29',
-          title: "Jamaica Vacation"
-        }
-      ]
+      date: new Date()
     };
     this.handleSelect = this.handleSelect.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -40,11 +28,17 @@ class Vacations extends Component {
   }
 
   handleSelect = ({ start, end }) => {
-    const title = window.prompt('New Event name');
-    const newEvent = {start, end, title};
+    console.log(start, end);
     const family = this.props.user ? this.props.user.family : null;
-    if (title && family) {
-      this.props.vacationActions.addEvent(family, newEvent);
+    const parent = this.props.user ? this.props.user.parent : null;
+    if (parent) {
+      let title = window.prompt('New Event name');
+      const newEvent = {start, end, title};
+      if (title && family) {
+        this.props.vacationActions.addEvent(family, newEvent);
+      }
+    } else {
+      window.alert('Only Parents can create events!')
     }
   }
 
@@ -54,11 +48,16 @@ class Vacations extends Component {
 
   handleDelete(event) {
     const family = this.props.user ? this.props.user.family : null;
-    const r = window.confirm("Remove this event?");
-    if (r === true && family !== null) {
-      //delete event
-      this.props.vacationActions.deleteEvent(family, event);
-
+    const parent = this.props.user ? this.props.user.parent : null;
+    if (parent) {
+      const r = window.confirm("Remove this event?");
+      console.log(parent);
+      if (r === true && family !== null) {
+        //delete event
+        this.props.vacationActions.deleteEvent(family, event);
+      }
+    } else {
+      window.alert('Only parents can remove events!');
     }
   }
 
@@ -67,11 +66,13 @@ class Vacations extends Component {
     return (
       <div>
         <h1 className= "calenderHeader">Vacations</h1>
+        <h2 className= "description"> Highlight any number of days to select time for your vacation.</h2>
         <Calendar
           selectable
           localizer={localizer}
           defaultDate={new Date()}
           defaultView="month"
+          views={['month']}
           events={events}
           style={{ height: "100vh" }}
           onSelectEvent={this.handleDelete}

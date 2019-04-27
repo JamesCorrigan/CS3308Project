@@ -1,6 +1,6 @@
 {
   "private": true,
-  "homepage": "https://create-react-app-redux.now.sh",
+  "homepage": "https://localhost:5000/",
   "scripts": {
     "deploy": "now && now alias",
     "start": "react-scripts start",
@@ -10,22 +10,22 @@
     "eject": "react-scripts eject",
     "precommit": "pretty-quick --staged"
   },
+  "engines": {
+    "npm": "6.7.0",
+    "node": "11.10.1"
+  },
   "devDependencies": {
     "react-scripts": "^2.1.8"
   },
   "dependencies": {
     "ajv": "^6.10.0",
-    "axios": "^0.18.0",
     "bootstrap": "^4.3.1",
     "connected-react-router": "4.5.0",
     "jquery": "^3.3.1",
     "moment": "^2.24.0",
     "popper": "^1.0.1",
-    "prop-types": "^15.7.2",
-    "proptypes": "^1.1.0",
     "react": "^16.8.6",
     "react-big-calendar": "^0.20.4",
-    "react-calendar": "^2.18.1",
     "react-dom": "16.8.3",
     "react-images-upload": "^1.2.6",
     "react-modal": "^3.8.1",

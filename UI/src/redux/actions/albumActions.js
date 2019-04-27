@@ -1,5 +1,5 @@
 import * as actionType from './actionTypes';
-
+const API = 'http://localhost:4000';
 
 function addImageHandler(url, family) {
   const requestOptions = {
@@ -7,7 +7,7 @@ function addImageHandler(url, family) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ url, family })
   };
-  return fetch('/addImageToDB', requestOptions)
+  return fetch(API + '/addImageToDB', requestOptions)
     .then(responseHandler)
     .then(data => {
         console.log('add image data', data);
@@ -39,7 +39,7 @@ function getImageHandler(family) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ family })
   };
-  return fetch('/getAllFamilyImages', requestOptions)
+  return fetch(API + '/getAllFamilyImages', requestOptions)
     .then(responseHandler)
     .then(data => {
         return data;

@@ -202,7 +202,7 @@ class Modal extends Component {
               type='checkbox'
               name='parent'
               checked={parent}
-              onChange={this.handleCreateCheck}
+              onChange={this.handleRegCheck}
             />
             <span className="checkmark"></span>
           </label>

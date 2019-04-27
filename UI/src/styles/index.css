@@ -20,6 +20,7 @@ body {
   padding-top: 3rem;
   padding-bottom: 3rem;
   color: #7a7a7a;
+  background-color: #fffefc;
 }
 
 .backgroundGif {
@@ -179,6 +180,10 @@ body {
   display: inline;
   padding-right: 10px;
 }
+.headerButton:hover{
+	color: #777f3b;
+	border-color: #777f3b;
+}
 
 .header-buttons-wrapper {
   align-items: center;
@@ -254,13 +259,6 @@ body {
   margin-top: 20px;
   position: absolute;
   z-index: 1;
-}
-
-
-.botpage{
-	
-	background-color: white;
-
 }
 
 
@@ -347,9 +345,21 @@ input[type=password] {
 .module{
   text-align: center;
 }
+.titleImg{
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%, -150%);
+}
 .modal-main{
   /*padding: 50px;*/
   width: 400px;
+  margin: 16px auto;
+  font-size: 16px;
+  z-index: 2;
+}
+.modal-main.two{
+  /*padding: 50px;*/
+  width: 450px;
   margin: 16px auto;
   font-size: 16px;
   z-index: 2;
@@ -491,6 +501,89 @@ input[type=password] {
 	color: #ffffff;
 	font-weight: 400;
 }
+.description{
+	text-align: center;
+	font-style: italic;
+	font-size: 20px;
+	padding-bottom: 30px;
+	color: #777f3b;
+}
+.addButton{
+	color: #777f3b;
+}
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.btn{
+  border: 2px solid #777f3b;
+  color: gray;
+  background-color: white;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.upload-btn-wrapper input[type=file] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+.nameFile{
+	height: 40px;
+
+}
+.nameFile:focus{
+	outline: none !important;
+	border: 1px solid #777f3b;
+	box-shadow: 0 0 3px #edf4e6;
+}
+.container.photos{
+	border: 3px solid #777f3b;
+	border-radius: 15px;
+	padding: 10px;
+	padding-top: 20px;
+	padding-bottom: 15px;
+}
+
+.image-grid-container {
+      display: grid;
+      grid-template-columns: repeat(3, 330px);
+      grid-template-rows: 320px 320px 320px;
+      grid-gap: 20px;
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding-top: 40px;
+      justify-content: center;
+    }
+
+    .image-grid-item {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      background-color: #d5d5d5;
+      box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+    }
+
+@media (max-width: 1110px) {
+.image-grid-container{
+	grid-template-columns: repeat(2, 330px);
+      grid-template-rows: 320px 320px;
+}
+}
+@media (max-width: 714px) {
+.image-grid-container{
+	grid-template-columns: repeat(1, 330px);
+    grid-template-rows: 320px;
+}
+}
+
 @media (max-width: 555px) {
   h3 {
     font-style: 50px;
@@ -508,7 +601,14 @@ input[type=password] {
 .header-family{
   display: none;
 }
+.headerButton{
+	font-size: 12px;
 }
+.description{
+	height: 70px;
+}
+}
+
 
 
 
